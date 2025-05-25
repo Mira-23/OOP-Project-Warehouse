@@ -9,6 +9,7 @@ enum class MeasurementUnit
 	Litres
 };
 
+//
 class Product
 {
 public:
@@ -20,6 +21,7 @@ public:
 		double quantity,
 		int shelfId,
 		std::string comment);
+	bool operator==(Product& other);
 private:
 	std::string name;
 	std::time_t expirationDate;

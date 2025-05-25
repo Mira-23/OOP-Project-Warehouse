@@ -1,17 +1,21 @@
 #pragma once
-#include "Shelf.h"
+#include "Section.h"
+#include "Product.h"
 #include <vector>
+
+//Main logic - holds the operations of the storage system
 class Warehouse
 {
 public:
-	Warehouse();
 	void print() const;
-	void add();
+	//change to raw values rather than object
+	void add(Product p);
 	void remove();
 	void log() const;
 	void clean();
 private:
-	std::vector<Shelf> shelves;
-	const int shelfCapacity = 100;
+	std::vector<Section> sections;
+	const int sectionAmount = 10;
+	Product findProduct(Product p);
 };
 

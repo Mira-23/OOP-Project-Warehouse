@@ -1,15 +1,14 @@
 #pragma once
-#include "Product.h"
+#include "Number.h"
 #include <vector>
+
+//Medium storage unit - stores numbers
 class Shelf
 {
 public:
-	Shelf(int id);
-	int getId();
+	bool isFull();
 private:
-	int id;
-	const double storageSpace = 100.0;
-	double currentSpace;
-	std::vector<Product> products;
+	const int numberAmount = 10;
+	std::vector<Number> numbers;
 };
 

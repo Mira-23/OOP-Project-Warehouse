@@ -23,6 +23,12 @@
     <ClCompile Include="Shelf.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Section.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Number.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Product.h">
@@ -32,6 +38,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Shelf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Section.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Number.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

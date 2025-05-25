@@ -1,5 +1,7 @@
 #include <iostream>
 #include <cstring>
+#include "Warehouse.h"
+#include "Product.h"
 
 int main()
 {
@@ -8,27 +10,29 @@ int main()
 	std::cout << "> ";
 	std::cin >> command;
 	bool isOpen=false;
-	while (command != "Exit")
+
+	Warehouse a;
+	while (command != "exit")
 	{
 		std::cout << "> ";
 		std::cin >> command;
-		if (command == "Open" && !isOpen)
+		if (command == "open" && !isOpen)
 		{
 			isOpen = true;
 		}
-		else if (command == "Close" && isOpen)
+		else if (command == "close" && isOpen)
 		{
 			isOpen = false;
 		}
-		else if (command == "Save" && isOpen)
+		else if (command == "save" && isOpen)
 		{
 			//save code
 		}
-		else if (command == "Save As" && isOpen)
+		else if (command == "save as" && isOpen)
 		{
 			//save as code
 		}
-		else if (command == "Help" && isOpen)
+		else if (command == "help" && isOpen)
 		{
 			std::cout << "The following commands are supported : " << std::endl
 				<< "open <file>	opens <file>"
@@ -42,6 +46,10 @@ int main()
 				<< "remove <name/quantity>		removes product from warehouse" << std::endl
 				<< "log <from/to>	prints logs from date to date" << std::endl
 				<< "clean			removes all expired products from warehouse" << std::endl;
+		}
+		else if (command == "add" && isOpen)
+		{
+			//add code
 		}
 	}
 	std::cout << "Exiting the program..." << std::endl;
