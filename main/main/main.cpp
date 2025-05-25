@@ -49,7 +49,14 @@ int main()
 		}
 		else if (command == "add" && isOpen)
 		{
-			//add code
+			Product p;
+			if (a.add(p))
+			{
+				std::cout << "Product successfuly added" << std::endl;
+			}
+			else {
+				std::cout << "Warehouse is full" << std::endl;
+			}
 		}
 	}
 	std::cout << "Exiting the program..." << std::endl;

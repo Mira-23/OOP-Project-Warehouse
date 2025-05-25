@@ -1,16 +1,17 @@
 #pragma once
-#include "Product.h"
+#include "IStorageUnit.h"
 #include <vector>
 #include <cstring>
 
 //Smallest storage unit - direct storage of products
-class Number
+class Number : public IStorageUnit
 {
 public:
-	bool isFull();
+	//bool isFull() const override;
+	bool add(Product p) override;
 private:
 	std::vector<Product> products;
-	std::string heldProduct;
+	double occupiedSpace;
 	const double capacity = 100;
 };
 

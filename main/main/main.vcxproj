@@ -132,6 +132,7 @@
     <ClCompile Include="Product.cpp" />
     <ClCompile Include="Section.cpp" />
     <ClCompile Include="Shelf.cpp" />
+    <ClCompile Include="IStorageUnit.cpp" />
     <ClCompile Include="Warehouse.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +140,7 @@
     <ClInclude Include="Product.h" />
     <ClInclude Include="Section.h" />
     <ClInclude Include="Shelf.h" />
+    <ClInclude Include="IStorageUnit.h" />
     <ClInclude Include="Warehouse.h" />
   </ItemGroup>
   <ItemGroup>

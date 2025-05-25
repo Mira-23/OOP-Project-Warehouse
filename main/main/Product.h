@@ -13,6 +13,7 @@ enum class MeasurementUnit
 class Product
 {
 public:
+	Product();
 	Product(std::string name,
 		std::time_t expirationDate,
 		std::time_t enterDate,
@@ -22,6 +23,8 @@ public:
 		int shelfId,
 		std::string comment);
 	bool operator==(Product& other);
+	bool operator!=(Product& other);
+	double getQuantity() const;
 private:
 	std::string name;
 	std::time_t expirationDate;
