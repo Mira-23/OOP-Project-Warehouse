@@ -15,6 +15,7 @@ public:
 private:
 	std::vector<Section> sections;
 	const int sectionAmount = 10;
+	std::vector<Product> productTypes;
 	Product& findProduct(Product p);
 };
 

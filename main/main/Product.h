@@ -30,6 +30,7 @@ private:
 	std::time_t expirationDate;
 	std::time_t enterDate;
 	std::string manifacturer;
+	int placement[3];
 	MeasurementUnit measurementUnit;
 	double quantity;
 	int shelfId;
