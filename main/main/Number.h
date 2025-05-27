@@ -7,8 +7,8 @@
 class Number : public IStorageUnit
 {
 public:
-	//bool isFull() const override;
 	bool add(Product p) override;
+	void removeProduct(Product p);
 private:
 	std::vector<Product> products;
 	double occupiedSpace;

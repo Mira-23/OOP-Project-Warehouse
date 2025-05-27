@@ -12,7 +12,7 @@ bool Number::add(Product product)
 	{
 		return false; // number occupied by different product
 	}
-	else if (product.getQuantity() + occupiedSpace < capacity)
+	else if (product.getQuantity() + occupiedSpace <= capacity)
 	{
 		products.push_back(product);
 		occupiedSpace += product.getQuantity();
@@ -21,4 +21,9 @@ bool Number::add(Product product)
 	else {
 		return false; // number full
 	}
+}
+
+void Number::removeProduct(Product p)
+{
+	products.erase(std::find(products.begin(), products.end(), p));
 }
