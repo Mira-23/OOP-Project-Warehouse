@@ -89,6 +89,17 @@ void Product::reduceQuantityBy(double amount)
 	quantity -= amount;
 }
 
+bool Product::closeToExpiration()
+{
+	struct tm* newTime = new struct tm(expirationDate);
+	time_t t1 = std::time(0);
+	time_t t2 = mktime(newTime);
+	double twoDays = 2 * 24 * 60 * 60;
+	bool check = difftime(t1, t2) <= twoDays;
+	delete newTime;
+	return check;
+}
+
 std::string Product::getName() const
 {
 	return name;

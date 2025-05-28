@@ -19,7 +19,7 @@ public:
 	friend std::ostream& operator<<(std::ostream& os, const Warehouse& warehouse);
 	friend std::istream& operator>>(std::istream& is, Warehouse& warehouse);
 
-	~Warehouse();
+	~Warehouse() override;
 private:
 	const int sectionAmount = 10;
 	std::vector<Section> sections;

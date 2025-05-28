@@ -37,6 +37,7 @@ void Warehouse::print() const
 
 bool Warehouse::add(Product* product)
 {
+	//if product is already in database, add it to the number unless it is full
 	int productIndex = findProduct(product);
 	if (productIndex >= 0 && (*productList[productIndex]) == *product)
 	{
@@ -55,10 +56,11 @@ bool Warehouse::add(Product* product)
 	}*/
 	for (int i = 0; i < sections.size(); i++) {
 
-		(*product)[0] = i;
-		if (sections[i].add(product))
+		Product* newProduct = new Product(*product);
+		(*newProduct)[0] = i;
+		if (sections[i].add(newProduct))
 		{
-			productList.push_back(product);
+			productList.push_back(newProduct);
 			return true;
 		}
 	}
@@ -67,9 +69,12 @@ bool Warehouse::add(Product* product)
 
 void Warehouse::remove(std::string name, double quantity)
 {
+	//sorts the list so that the latest come up to the top, which is for the next code to iterate over it properly
 	std::sort(productList.begin(), productList.end(), [](Product* first, Product* other) {
 		return *first < *other;
 		});
+
+	//finds the index of the first product of the type that it's going to remove from
 	int i = 0;
 	//change this to a compare function in product
 	while ((*productList[i]).getName() != name && i != productList.size()) { i++; }
@@ -79,6 +84,7 @@ void Warehouse::remove(std::string name, double quantity)
 		return;
 	}
 
+	//checks whether the total quantity of all the products that are removed is less than the amount requested
 	double totalQuantity = 0;
 	i = 0;
 	while (i != productList.size() && (productList[i]->getName() == name))
@@ -98,10 +104,13 @@ void Warehouse::remove(std::string name, double quantity)
 		}
 	}
 
+	//makes a vector for the indexes of the removed product types (from warehouse) so that they can be removed from the vector later
 	std::vector<int> removedProducts;
 	double sum = 0;
 	i = 0;
 	//same as above
+	//if the quantity is more than one product holds - remove the soonest expiring one and continue removing until the quantity is full
+	//if it isnt, directly removes the needed quantity from the first product
 	while (i != productList.size() && ((*productList[i]).getName() == name && sum != quantity))
 	{
 		if (sum + productList[i]->getQuantity() <= quantity)
@@ -123,10 +132,26 @@ void Warehouse::remove(std::string name, double quantity)
 		i++;
 	}
 
+	//removes the removed products from the warehouse vector
 	for (int j : removedProducts)
 	{
 		std::cout << "Product removed" << std::endl;
 		productList.erase(productList.begin() + j);
+	}
+}
+
+void Warehouse::clean()
+{
+	for (Product* p : productList)
+	{
+		if (p->closeToExpiration())
+		{
+			int sectionId = (*p)[0];
+			int shelfId = (*p)[1];
+			int numberId = (*p)[2];
+			sections[sectionId].getShelves()[shelfId].getNumbers()[numberId].removeProduct(p);
+			//also remove from this vector
+		}
 	}
 }
 
@@ -137,11 +162,13 @@ void Warehouse::swap(Warehouse& other)
 	swap(productList, other.productList);
 }
 
+//returns the index of the product if found, if not returns -1
+//this is achieved by using find and a lambda which turns the pointers to products who have a defined == operator
 int Warehouse::findProduct(Product* p)
 {
 	int i = -1;
-	//std::vector<Product*>::iterator it = std::find_if(productList.begin(), productList.end(), [p](Product* prod) -> bool {return *prod == p; });
-	std::vector<Product*>::iterator it = std::find_if(productList.begin(), productList.end(), [p](Product* prod) -> bool {return *prod == *p; });
+	std::vector<Product*>::iterator it =
+		std::find_if(productList.begin(), productList.end(), [p](Product* prod) -> bool {return *prod == *p; });
 	if (it != productList.end())
 	{
 		i = std::distance(productList.begin(), it);;

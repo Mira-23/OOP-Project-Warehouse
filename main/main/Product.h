@@ -15,13 +15,13 @@ class Product
 public:
 	Product();
 	//Product(Product& other);
-	Product(std::string name,
+	/*Product(std::string name,
 		struct tm expirationDate,
 		struct tm enterDate,
 		std::string manufacturer,
 		MeasurementUnit measurementUnit,
 		double quantity,
-		std::string comment);
+		std::string comment);*/
 	Product(std::string name,
 		std::string expirationDate,
 		std::string enterDate,
@@ -31,6 +31,7 @@ public:
 		std::string comment);
 	double getQuantity() const;
 	void reduceQuantityBy(double amount);
+	bool closeToExpiration();
 	std::string getName() const;
 	int& operator[](int i);
 	bool operator==(const Product& other);

@@ -2,6 +2,22 @@
 
 Number::Number() : occupiedSpace(0) {}
 
+Number::Number(Number& other) : occupiedSpace(other.occupiedSpace)
+{
+	for (Product* p : other.products)
+	{
+		products.push_back(new Product(*p));
+	}
+}
+
+Number& Number::operator=(Number& other)
+{
+	Number copy(other);
+	swap(copy);
+
+	return *this;
+}
+
 bool Number::add(Product* product)
 {
 	if (products.size() == 0)
@@ -28,7 +44,6 @@ bool Number::add(Product* product)
 int Number::findProduct(Product* p)
 {
 	int i = -1;
-	//std::vector<Product*>::iterator it = std::find_if(productList.begin(), productList.end(), [p](Product* prod) -> bool {return *prod == *p; });
 	std::vector<Product*>::iterator it = std::find_if(products.begin(), products.end(), [p](Product* prod) -> bool {return *prod == *p; });
 	if (it != products.end())
 	{
@@ -47,4 +62,17 @@ std::vector<Product*> Number::getProducts()
 	return products;
 }
 
-Number::~Number() {}
+void Number::swap(Number& other)
+{
+	using std::swap;
+	swap(products, other.products);
+	swap(occupiedSpace, other.occupiedSpace);
+}
+
+Number::~Number()
+{
+	for (Product* p : products)
+	{
+		delete p;
+	}
+}

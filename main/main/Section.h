@@ -10,7 +10,7 @@ public:
 	Section();
 	bool add(Product* p) override;
 	std::vector<Shelf> getShelves();
-	~Section();
+	~Section() override;
 private:
 	std::vector<Shelf> shelves;
 	const int shelfAmount = 50;
