@@ -56,9 +56,9 @@ bool Warehouse::add(Product& product)
 	for (int i = 0; i < sections.size();i++) {
 		
 		product[0] = i;
-		if (sections[i].add(product))
+		if (sections[i].add(*newProduct))
 		{	
-			productList.push_back(new Product(product));
+			productList.push_back(newProduct);
 			return true;
 		}
 	}
@@ -70,7 +70,7 @@ void Warehouse::remove(std::string name, double quantity)
 	std::sort(productList.begin(), productList.end());
 	int i = 0;
 	//change this to a compare function in product
-	while ((*productList[i]).getName() != name && i!=productList.size()) { i++; }
+	while (productList[i]->getName() != name && i!=productList.size()) { i++; }
 	if (i == productList.size())
 	{
 		std::cout << "Product does not exist in warehouse." << std::endl;
@@ -79,9 +79,9 @@ void Warehouse::remove(std::string name, double quantity)
 	
 	double totalQuantity = 0;
 	i = 0;
-	while (i != productList.size() && ((*productList[i]).getName() == name))
+	while (i != productList.size() && (productList[i]->getName() == name))
 	{
-		totalQuantity += (*productList[i]).getQuantity();
+		totalQuantity += productList[i]->getQuantity();
 		i++;
 	}
 
@@ -100,15 +100,16 @@ void Warehouse::remove(std::string name, double quantity)
 	double sum = 0;
 	i = 0;
 	//same as above
-	while (i != productList.size() && ((*productList[i]).getName() == name && sum!=quantity))
+	while (i != productList.size() && (productList[i]->getName() == name && sum!=quantity))
 	{
-		if (sum + (*productList[i]).getQuantity() <= quantity)
+		if (sum + productList[i]->getQuantity() <= quantity)
 		{
-			sum += (*productList[i]).getQuantity();
+			sum += productList[i]->getQuantity();
 
 			int sectionId = (*productList[i])[0];
 			int shelfId = (*productList[i])[1];
 			int numberId = (*productList[i])[2];
+			Number num = sections[sectionId].getShelves()[shelfId].getNumbers()[numberId];
 			sections[sectionId].getShelves()[shelfId].getNumbers()[numberId].removeProduct(*productList[i]);
 			removedProducts.push_back(i);
 
@@ -116,7 +117,7 @@ void Warehouse::remove(std::string name, double quantity)
 			std::cout << "Product removed due to qunatity" << std::endl;
 		}
 		else {
-			(*productList[i]).reduceQuantityBy(quantity);
+			productList[i]->reduceQuantityBy(quantity);
 		}
 		i++;
 	}

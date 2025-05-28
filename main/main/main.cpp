@@ -66,7 +66,7 @@ int main()
 		}
 		else if (command.substr(0,3) == "add" && isOpen)
 		{
-			//add Milk|28/06/2025|22/06/2025|Pilos|Litres|1|Just milk
+			//add Milk|28/06/2025|22/06/2025|Pilos|Litres|2|Just milk
 			//add Apple|28/06/2025|22/06/2025|Pilos|Kilograms|1|Just an apple
 			std::vector<std::string> params = getParams(command,"add",7);
 

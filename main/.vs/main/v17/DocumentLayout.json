@@ -7,24 +7,31 @@
       "RelativeMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|solutionrelative:main\\Warehouse.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Number.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|solutionrelative:main\\Number.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|solutionrelative:main\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Shelf.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|solutionrelative:main\\Shelf.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Section.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|solutionrelative:main\\Section.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\xstring||{3B902123-F8A7-4915-9F01-361F908088D0}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Product.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|solutionrelative:main\\Product.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|solutionrelative:main\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Shelf.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|solutionrelative:main\\Shelf.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Number.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|solutionrelative:main\\Number.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Section.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|solutionrelative:main\\Section.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Number.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|solutionrelative:main\\Number.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Product.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -33,10 +40,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Shelf.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|solutionrelative:main\\Shelf.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Number.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|solutionrelative:main\\Number.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Warehouse.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -65,11 +68,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 2,
+              "Title": "xstring",
+              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\xstring",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\xstring",
+              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\xstring",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\xstring",
+              "ViewState": "AgIAAPcBAAAAAAAAAAAjwAQCAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-05-28T19:30:48.912Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "Product.h",
               "DocumentMoniker": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Product.h",
               "RelativeDocumentMoniker": "main\\Product.h",
@@ -82,13 +98,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "main.cpp",
               "DocumentMoniker": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\main.cpp",
               "RelativeDocumentMoniker": "main\\main.cpp",
               "ToolTip": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\main.cpp",
               "RelativeToolTip": "main\\main.cpp",
-              "ViewState": "AgIAAEcAAAAAAAAAAAAjwFUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADwAAAAAAAAAAAAjwEQAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-05-27T15:35:10.419Z",
               "EditorCaption": ""
@@ -101,66 +117,66 @@
               "RelativeDocumentMoniker": "main\\Warehouse.cpp",
               "ToolTip": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Warehouse.cpp",
               "RelativeToolTip": "main\\Warehouse.cpp",
-              "ViewState": "AgIAAGYAAAAAAAAAAAAowHUAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAACcAAAAAAAAAAAAAADsAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-05-27T15:35:10.357Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "Product.cpp",
               "DocumentMoniker": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Product.cpp",
               "RelativeDocumentMoniker": "main\\Product.cpp",
               "ToolTip": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Product.cpp",
               "RelativeToolTip": "main\\Product.cpp",
-              "ViewState": "AgIAAFoAAAAAAAAAAAAjwGgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAEwAAAAAAAAAAAAAAFkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-05-27T15:35:10.42Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "Section.cpp",
               "DocumentMoniker": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Section.cpp",
               "RelativeDocumentMoniker": "main\\Section.cpp",
               "ToolTip": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Section.cpp",
               "RelativeToolTip": "main\\Section.cpp",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAwB4AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABAAAAAAAAAAAAAjwB4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-05-27T15:35:10.415Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "Shelf.cpp",
               "DocumentMoniker": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Shelf.cpp",
               "RelativeDocumentMoniker": "main\\Shelf.cpp",
               "ToolTip": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Shelf.cpp",
               "RelativeToolTip": "main\\Shelf.cpp",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAjwB4AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAjwCAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-05-27T15:35:10.321Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "Number.cpp",
               "DocumentMoniker": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Number.cpp",
               "RelativeDocumentMoniker": "main\\Number.cpp",
               "ToolTip": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Number.cpp",
               "RelativeToolTip": "main\\Number.cpp",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAwCUAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAABgAAAAAAAAAAAAjwCUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-05-27T15:35:10.423Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "Shelf.h",
               "DocumentMoniker": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Shelf.h",
               "RelativeDocumentMoniker": "main\\Shelf.h",
@@ -168,12 +184,11 @@
               "RelativeToolTip": "main\\Shelf.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-27T15:35:10.418Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-27T15:35:10.418Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "Section.h",
               "DocumentMoniker": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Section.h",
               "RelativeDocumentMoniker": "main\\Section.h",
@@ -181,12 +196,11 @@
               "RelativeToolTip": "main\\Section.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-27T15:35:10.417Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-27T15:35:10.417Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 7,
               "Title": "Number.h",
               "DocumentMoniker": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Number.h",
               "RelativeDocumentMoniker": "main\\Number.h",
@@ -199,7 +213,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "Warehouse.h",
               "DocumentMoniker": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Warehouse.h",
               "RelativeDocumentMoniker": "main\\Warehouse.h",
@@ -207,12 +221,11 @@
               "RelativeToolTip": "main\\Warehouse.h",
               "ViewState": "AgIAAAQAAAAAAAAAAAAowA0AAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-27T15:35:10.416Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-27T15:35:10.416Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "IStorageUnit.h",
               "DocumentMoniker": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\IStorageUnit.h",
               "RelativeDocumentMoniker": "main\\IStorageUnit.h",
@@ -220,12 +233,11 @@
               "RelativeToolTip": "main\\IStorageUnit.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-27T15:35:10.419Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-27T15:35:10.419Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "IStorageUnit.cpp",
               "DocumentMoniker": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\IStorageUnit.cpp",
               "RelativeDocumentMoniker": "main\\IStorageUnit.cpp",
@@ -237,7 +249,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "xutility",
               "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\xutility",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\xutility",
