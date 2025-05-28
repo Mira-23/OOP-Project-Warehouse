@@ -8,7 +8,7 @@ class Section : public IStorageUnit
 {
 public:
 	Section();
-	bool add(Product& p) override;
+	bool add(Product p) override;
 	std::vector<Shelf> getShelves();
 	~Section();
 private:

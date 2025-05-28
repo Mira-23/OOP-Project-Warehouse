@@ -8,7 +8,7 @@ Shelf::Shelf()
 	}
 }
 
-bool Shelf::add(Product& product)
+bool Shelf::add(Product product)
 {
 	/*if (numbers.size() == numberAmount) change to numbers filled
 	{

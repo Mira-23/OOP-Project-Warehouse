@@ -1,2 +1,316 @@
 ﻿  main.cpp
-  main.vcxproj -> C:\Users\mira\Desktop\C++ Exercises\OOP-Project-Warehouse\main\x64\Debug\main.exe
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(902,19): error C2338: static_assert failed: 'The C++ Standard forbids allocators for reference elements because of [allocator.requirements].'
+  (compiling source file 'main.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(902,19):
+      the template instantiation context (the oldest one first) is
+          C:\Users\mira\Desktop\C++ Exercises\OOP-Project-Warehouse\main\main\Warehouse.h(26,24):
+          see reference to class template instantiation 'std::vector<Product &,std::allocator<Product &>>' being compiled
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(435,26):
+          see reference to alias template instantiation 'std::_Rebind_alloc_t<_Alloc,_Ty>' being compiled
+          with
+          [
+              _Alloc=std::allocator<Product &>,
+              _Ty=Product &
+          ]
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(746,69):
+          see reference to class template instantiation 'std::allocator_traits<_Alloc>' being compiled
+          with
+          [
+              _Alloc=std::allocator<Product &>
+          ]
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(723,27):
+          see reference to class template instantiation 'std::_Default_allocator_traits<_Alloc>' being compiled
+          with
+          [
+              _Alloc=std::allocator<Product &>
+          ]
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(626,45):
+          see reference to class template instantiation 'std::allocator<Product &>' being compiled
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(910,69): error C2528: 'abstract declarator': you cannot create a pointer to a reference
+  (compiling source file 'main.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(911,75): error C2528: 'abstract declarator': you cannot create a pointer to a reference
+  (compiling source file 'main.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(929,60): error C2528: 'address': you cannot create a pointer to a reference
+  (compiling source file 'main.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(933,66): error C2528: 'address': you cannot create a pointer to a reference
+  (compiling source file 'main.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(946,45): error C2528: '_Ptr': you cannot create a pointer to a reference
+  (compiling source file 'main.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(952,70): error C2528: 'allocate': you cannot create a pointer to a reference
+  (compiling source file 'main.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(965,96): error C2528: 'allocate': you cannot create a pointer to a reference
+  (compiling source file 'main.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(628,42): error C2528: 'abstract declarator': you cannot create a pointer to a reference
+  (compiling source file 'main.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(629,48): error C2528: 'abstract declarator': you cannot create a pointer to a reference
+  (compiling source file 'main.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(648,1): error C2528: '<template-parameter>': you cannot create a pointer to a reference
+  (compiling source file 'main.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(662,1): error C2528: '<template-parameter>': you cannot create a pointer to a reference
+  (compiling source file 'main.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(441,19): error C2338: static_assert failed: 'The C++ Standard forbids containers of non-object types because of [container.requirements].'
+  (compiling source file 'main.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(759,89): error C2528: 'abstract declarator': you cannot create a pointer to a reference
+  (compiling source file 'main.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(759,89):
+      the template instantiation context (the oldest one first) is
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(592,50):
+          see reference to variable template 'const bool _Is_simple_alloc_v<std::allocator<Product &> >' being compiled
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(756,1): error C2528: '<template-parameter>': you cannot create a pointer to a reference
+  (compiling source file 'main.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(760,101): error C2528: 'abstract declarator': you cannot create a pointer to a reference
+  (compiling source file 'main.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(593,67): error C2528: '<template-parameter>': you cannot create a pointer to a reference
+  (compiling source file 'main.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(870,23): error C2535: 'void std::vector<Product &,std::allocator<Product &>>::push_back(_Ty)': member function already defined or declared
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(870,23): error C2535:         with
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(870,23): error C2535:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(870,23): error C2535:             _Ty=Product &
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(870,23): error C2535:         ]
+  (compiling source file 'main.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(866,23):
+      see declaration of 'std::vector<Product &,std::allocator<Product &>>::push_back'
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1000,27): error C2535: 'std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>> std::vector<_Ty,std::allocator<_Ty>>::insert(std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,_Ty)': member function already defined or declared
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1000,27): error C2535:         with
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1000,27): error C2535:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1000,27): error C2535:             _Ty=Product &
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1000,27): error C2535:         ]
+  (compiling source file 'main.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(996,27):
+      see declaration of 'std::vector<Product &,std::allocator<Product &>>::insert'
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1790,34): error C2528: 'data': you cannot create a pointer to a reference
+  (compiling source file 'main.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1794,40): error C2528: 'data': you cannot create a pointer to a reference
+  (compiling source file 'main.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1850,34): error C2528: '_Unchecked_begin': you cannot create a pointer to a reference
+  (compiling source file 'main.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1854,40): error C2528: '_Unchecked_begin': you cannot create a pointer to a reference
+  (compiling source file 'main.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1858,34): error C2528: '_Unchecked_end': you cannot create a pointer to a reference
+  (compiling source file 'main.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1862,40): error C2528: '_Unchecked_end': you cannot create a pointer to a reference
+  (compiling source file 'main.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(768,39): error C2528: 'abstract declarator': you cannot create a pointer to a reference
+  (compiling source file 'main.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(768,39):
+      the template instantiation context (the oldest one first) is
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(2201,41):
+          see reference to class template instantiation 'std::_Compressed_pair<std::allocator<Product &>,std::_Vector_val<std::_Simple_types<_Ty>>,true>' being compiled
+          with
+          [
+              _Ty=Product &
+          ]
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(1488,10):
+          see reference to class template instantiation 'std::_Vector_val<std::_Simple_types<_Ty>>' being compiled
+          with
+          [
+              _Ty=Product &
+          ]
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(392,50):
+          see reference to class template instantiation 'std::_Simple_types<_Ty>' being compiled
+          with
+          [
+              _Ty=Product &
+          ]
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(769,45): error C2528: 'abstract declarator': you cannot create a pointer to a reference
+  (compiling source file 'main.cpp')
+  
+  Number.cpp
+  Section.cpp
+  Shelf.cpp
+  IStorageUnit.cpp
+  Warehouse.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(902,19): error C2338: static_assert failed: 'The C++ Standard forbids allocators for reference elements because of [allocator.requirements].'
+  (compiling source file 'Warehouse.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(902,19):
+      the template instantiation context (the oldest one first) is
+          C:\Users\mira\Desktop\C++ Exercises\OOP-Project-Warehouse\main\main\Warehouse.h(26,24):
+          see reference to class template instantiation 'std::vector<Product &,std::allocator<Product &>>' being compiled
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(435,26):
+          see reference to alias template instantiation 'std::_Rebind_alloc_t<_Alloc,_Ty>' being compiled
+          with
+          [
+              _Alloc=std::allocator<Product &>,
+              _Ty=Product &
+          ]
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(746,69):
+          see reference to class template instantiation 'std::allocator_traits<_Alloc>' being compiled
+          with
+          [
+              _Alloc=std::allocator<Product &>
+          ]
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(723,27):
+          see reference to class template instantiation 'std::_Default_allocator_traits<_Alloc>' being compiled
+          with
+          [
+              _Alloc=std::allocator<Product &>
+          ]
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(626,45):
+          see reference to class template instantiation 'std::allocator<Product &>' being compiled
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(910,69): error C2528: 'abstract declarator': you cannot create a pointer to a reference
+  (compiling source file 'Warehouse.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(911,75): error C2528: 'abstract declarator': you cannot create a pointer to a reference
+  (compiling source file 'Warehouse.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(929,60): error C2528: 'address': you cannot create a pointer to a reference
+  (compiling source file 'Warehouse.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(933,66): error C2528: 'address': you cannot create a pointer to a reference
+  (compiling source file 'Warehouse.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(946,45): error C2528: '_Ptr': you cannot create a pointer to a reference
+  (compiling source file 'Warehouse.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(952,70): error C2528: 'allocate': you cannot create a pointer to a reference
+  (compiling source file 'Warehouse.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(965,96): error C2528: 'allocate': you cannot create a pointer to a reference
+  (compiling source file 'Warehouse.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(628,42): error C2528: 'abstract declarator': you cannot create a pointer to a reference
+  (compiling source file 'Warehouse.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(629,48): error C2528: 'abstract declarator': you cannot create a pointer to a reference
+  (compiling source file 'Warehouse.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(648,1): error C2528: '<template-parameter>': you cannot create a pointer to a reference
+  (compiling source file 'Warehouse.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(662,1): error C2528: '<template-parameter>': you cannot create a pointer to a reference
+  (compiling source file 'Warehouse.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(441,19): error C2338: static_assert failed: 'The C++ Standard forbids containers of non-object types because of [container.requirements].'
+  (compiling source file 'Warehouse.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(759,89): error C2528: 'abstract declarator': you cannot create a pointer to a reference
+  (compiling source file 'Warehouse.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(759,89):
+      the template instantiation context (the oldest one first) is
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(592,50):
+          see reference to variable template 'const bool _Is_simple_alloc_v<std::allocator<Product &> >' being compiled
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(756,1): error C2528: '<template-parameter>': you cannot create a pointer to a reference
+  (compiling source file 'Warehouse.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(760,101): error C2528: 'abstract declarator': you cannot create a pointer to a reference
+  (compiling source file 'Warehouse.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(593,67): error C2528: '<template-parameter>': you cannot create a pointer to a reference
+  (compiling source file 'Warehouse.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(870,23): error C2535: 'void std::vector<Product &,std::allocator<Product &>>::push_back(_Ty)': member function already defined or declared
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(870,23): error C2535:         with
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(870,23): error C2535:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(870,23): error C2535:             _Ty=Product &
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(870,23): error C2535:         ]
+  (compiling source file 'Warehouse.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(866,23):
+      see declaration of 'std::vector<Product &,std::allocator<Product &>>::push_back'
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1000,27): error C2535: 'std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>> std::vector<_Ty,std::allocator<_Ty>>::insert(std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,_Ty)': member function already defined or declared
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1000,27): error C2535:         with
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1000,27): error C2535:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1000,27): error C2535:             _Ty=Product &
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1000,27): error C2535:         ]
+  (compiling source file 'Warehouse.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(996,27):
+      see declaration of 'std::vector<Product &,std::allocator<Product &>>::insert'
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1790,34): error C2528: 'data': you cannot create a pointer to a reference
+  (compiling source file 'Warehouse.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1794,40): error C2528: 'data': you cannot create a pointer to a reference
+  (compiling source file 'Warehouse.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1850,34): error C2528: '_Unchecked_begin': you cannot create a pointer to a reference
+  (compiling source file 'Warehouse.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1854,40): error C2528: '_Unchecked_begin': you cannot create a pointer to a reference
+  (compiling source file 'Warehouse.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1858,34): error C2528: '_Unchecked_end': you cannot create a pointer to a reference
+  (compiling source file 'Warehouse.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(1862,40): error C2528: '_Unchecked_end': you cannot create a pointer to a reference
+  (compiling source file 'Warehouse.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(768,39): error C2528: 'abstract declarator': you cannot create a pointer to a reference
+  (compiling source file 'Warehouse.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(768,39):
+      the template instantiation context (the oldest one first) is
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(2201,41):
+          see reference to class template instantiation 'std::_Compressed_pair<std::allocator<Product &>,std::_Vector_val<std::_Simple_types<_Ty>>,true>' being compiled
+          with
+          [
+              _Ty=Product &
+          ]
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(1488,10):
+          see reference to class template instantiation 'std::_Vector_val<std::_Simple_types<_Ty>>' being compiled
+          with
+          [
+              _Ty=Product &
+          ]
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(392,50):
+          see reference to class template instantiation 'std::_Simple_types<_Ty>' being compiled
+          with
+          [
+              _Ty=Product &
+          ]
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(769,45): error C2528: 'abstract declarator': you cannot create a pointer to a reference
+  (compiling source file 'Warehouse.cpp')
+  
+C:\Users\mira\Desktop\C++ Exercises\OOP-Project-Warehouse\main\main\Warehouse.cpp(33,2): error C2528: '<template-parameter>': you cannot create a pointer to a reference
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(216,47): error C2528: '_Unwrapped': you cannot create a pointer to a reference
+  (compiling source file 'Warehouse.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(216,47):
+      the template instantiation context (the oldest one first) is
+          C:\Users\mira\Desktop\C++ Exercises\OOP-Project-Warehouse\main\main\Warehouse.cpp(70,24):
+          see reference to class template instantiation 'std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>' being compiled
+          with
+          [
+              _Ty=Product &
+          ]
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(255,33):
+          see reference to class template instantiation 'std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>' being compiled
+          with
+          [
+              _Ty=Product &
+          ]
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(220,50): error C2528: '_It': you cannot create a pointer to a reference
+  (compiling source file 'Warehouse.cpp')
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\vector(344,41): error C2528: '_Unwrapped': you cannot create a pointer to a reference
+  (compiling source file 'Warehouse.cpp')
+  
+C:\Users\mira\Desktop\C++ Exercises\OOP-Project-Warehouse\main\main\Warehouse.cpp(144,20): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+  Generating Code...

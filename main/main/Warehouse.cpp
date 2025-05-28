@@ -10,39 +10,39 @@ Warehouse::Warehouse()
 	}
 }
 
-Warehouse::Warehouse(Warehouse& other) : sections(other.sections)
-{
-	for (Product* p : other.productList)
-	{
-		productList.push_back(new Product(*p));
-	}
-}
+//Warehouse::Warehouse(Warehouse& other) : sections(other.sections)
+//{
+//	for (Product* p : other.productList)
+//	{
+//		productList.push_back(new Product(*p));
+//	}
+//}
 
-Warehouse& Warehouse::operator=(Warehouse& other)
-{
-	Warehouse copy(other);
-	swap(copy);
-
-	return *this;
-}
+//Warehouse& Warehouse::operator=(Warehouse& other)
+//{
+//	Warehouse copy(other);
+//	swap(copy);
+//
+//	return *this;
+//}
 
 void Warehouse::print() const
 {
 	//temporary
-	for (Product* p : productList)
+	for (Product p : productList)
 	{
-		std::cout << p->getName() << std::endl;
+		std::cout << p.getName() << std::endl;
 	}
 }
 
-bool Warehouse::add(Product& product)
+bool Warehouse::add(Product product)
 {
 	int productIndex = findProduct(product);
-	if (productIndex>=0 && (*productList[productIndex]) == product)
+	if (productIndex>=0 && productList[productIndex] == product)
 	{
-		int sectionId = (*productList[productIndex])[0];
-		int shelfId = (*productList[productIndex])[1];
-		int numberId = (*productList[productIndex])[2];
+		int sectionId = productList[productIndex][0];
+		int shelfId = productList[productIndex][1];
+		int numberId = productList[productIndex][2];
 		Number num = sections[sectionId].getShelves()[shelfId].getNumbers()[numberId];
 		product[0] = sectionId;
 		product[1] = shelfId;
@@ -58,7 +58,7 @@ bool Warehouse::add(Product& product)
 		product[0] = i;
 		if (sections[i].add(product))
 		{	
-			productList.push_back(new Product(product));
+			productList.push_back(product);
 			return true;
 		}
 	}
@@ -70,7 +70,7 @@ void Warehouse::remove(std::string name, double quantity)
 	std::sort(productList.begin(), productList.end());
 	int i = 0;
 	//change this to a compare function in product
-	while ((*productList[i]).getName() != name && i!=productList.size()) { i++; }
+	while (productList[i].getName() != name && i!=productList.size()) { i++; }
 	if (i == productList.size())
 	{
 		std::cout << "Product does not exist in warehouse." << std::endl;
@@ -79,9 +79,9 @@ void Warehouse::remove(std::string name, double quantity)
 	
 	double totalQuantity = 0;
 	i = 0;
-	while (i != productList.size() && ((*productList[i]).getName() == name))
+	while (i != productList.size() && (productList[i].getName() == name))
 	{
-		totalQuantity += (*productList[i]).getQuantity();
+		totalQuantity += productList[i].getQuantity();
 		i++;
 	}
 
@@ -100,23 +100,23 @@ void Warehouse::remove(std::string name, double quantity)
 	double sum = 0;
 	i = 0;
 	//same as above
-	while (i != productList.size() && ((*productList[i]).getName() == name && sum!=quantity))
+	while (i != productList.size() && (productList[i].getName() == name && sum!=quantity))
 	{
-		if (sum + (*productList[i]).getQuantity() <= quantity)
+		if (sum + productList[i].getQuantity() <= quantity)
 		{
-			sum += (*productList[i]).getQuantity();
+			sum += productList[i].getQuantity();
 
-			int sectionId = (*productList[i])[0];
-			int shelfId = (*productList[i])[1];
-			int numberId = (*productList[i])[2];
-			sections[sectionId].getShelves()[shelfId].getNumbers()[numberId].removeProduct(*productList[i]);
+			int sectionId = productList[i][0];
+			int shelfId = productList[i][1];
+			int numberId = productList[i][2];
+			sections[sectionId].getShelves()[shelfId].getNumbers()[numberId].removeProduct(productList[i]);
 			removedProducts.push_back(i);
 
 			quantity -= sum;
 			std::cout << "Product removed due to qunatity" << std::endl;
 		}
 		else {
-			(*productList[i]).reduceQuantityBy(quantity);
+			productList[i].reduceQuantityBy(quantity);
 		}
 		i++;
 	}
@@ -138,7 +138,7 @@ void Warehouse::swap(Warehouse& other)
 int Warehouse::findProduct(Product p)
 {
 	int i = -1;
-	std::vector<Product*>::iterator it = std::find_if(productList.begin(), productList.end(), [p](Product* prod) -> bool {return *prod == p; });
+	std::vector<Product&>::iterator it = std::find_if(productList.begin(), productList.end(), [p](Product& prod) -> bool {return prod == p; });
 	if (it != productList.end())
 	{
 		i = std::distance(productList.begin(), it);;
@@ -146,10 +146,10 @@ int Warehouse::findProduct(Product p)
 	return i;
 }
 
-Warehouse::~Warehouse()
-{
-	for (Product* p : productList)
-	{
-		delete p;
-	}
-}
+//Warehouse::~Warehouse()
+//{
+//	for (Product* p : productList)
+//	{
+//		delete p;
+//	}
+//}

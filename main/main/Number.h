@@ -8,7 +8,7 @@ class Number : public IStorageUnit
 {
 public:
 	Number();
-	bool add(Product& p) override;
+	bool add(Product p) override;
 	void removeProduct(Product& p);
 	std::vector<Product> getProducts();
 	~Number();

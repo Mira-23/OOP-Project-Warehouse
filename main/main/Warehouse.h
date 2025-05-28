@@ -8,10 +8,10 @@ class Warehouse : public IStorageUnit
 {
 public:
 	Warehouse();
-	Warehouse(Warehouse& other);
-	Warehouse& operator=(Warehouse& other);
+	//Warehouse(Warehouse& other);
+	//Warehouse& operator=(Warehouse& other);
 	void print() const;
-	bool add(Product& p);
+	bool add(Product p);
 	void remove(std::string name, double quantity);
 	void log() const;
 	void clean();
@@ -19,11 +19,11 @@ public:
 	friend std::ostream& operator<<(std::ostream& os, const Warehouse& warehouse);
 	friend std::istream& operator>>(std::istream& is, Warehouse& warehouse);
 
-	~Warehouse();
+	//~Warehouse();
 private:
 	const int sectionAmount = 10;
 	std::vector<Section> sections;
-	std::vector<Product*> productList;
+	std::vector<Product&> productList;
 
 	void swap(Warehouse& other);
 	int findProduct(Product p);
