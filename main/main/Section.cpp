@@ -1,15 +1,24 @@
 #include "Section.h"
 
-bool Section::add(Product product)
+Section::Section()
 {
-	if (shelves.size() == shelfAmount)
+	for (int i = 0; i < shelfAmount; i++)
+	{
+		shelves.push_back(Shelf());
+	}
+}
+
+bool Section::add(Product& product)
+{
+	/*if (shelves.size() == shelfAmount) change to if full
 	{
 		return false;
-	}
+	}*/
 	for (int i = 0; i < shelves.size();i++) {
+		product[1] = i;
 		if (shelves[i].add(product))
 		{
-			product[1] = i;
+			
 			return true;
 		}
 	}
@@ -20,3 +29,5 @@ std::vector<Shelf> Section::getShelves()
 {
 	return shelves;
 }
+
+Section::~Section() {}

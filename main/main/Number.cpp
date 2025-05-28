@@ -1,6 +1,8 @@
 #include "Number.h"
 
-bool Number::add(Product product)
+Number::Number() : occupiedSpace(0) {}
+
+bool Number::add(Product& product)
 {
 	if (products.size() == 0)
 	{
@@ -23,7 +25,14 @@ bool Number::add(Product product)
 	}
 }
 
-void Number::removeProduct(Product p)
+void Number::removeProduct(Product& p)
 {
 	products.erase(std::find(products.begin(), products.end(), p));
 }
+
+std::vector<Product> Number::getProducts()
+{
+	return products;
+}
+
+Number::~Number() {}
