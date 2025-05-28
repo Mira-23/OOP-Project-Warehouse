@@ -2,7 +2,7 @@
 
 Number::Number() : occupiedSpace(0) {}
 
-bool Number::add(Product product)
+bool Number::add(Product& product)
 {
 	if (products.size() == 0)
 	{

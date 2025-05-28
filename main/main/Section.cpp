@@ -8,7 +8,7 @@ Section::Section()
 	}
 }
 
-bool Section::add(Product product)
+bool Section::add(Product& product)
 {
 	/*if (shelves.size() == shelfAmount) change to if full
 	{
