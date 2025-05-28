@@ -35,30 +35,30 @@ void Warehouse::print() const
 	}
 }
 
-bool Warehouse::add(Product& product)
+bool Warehouse::add(Product* product)
 {
 	int productIndex = findProduct(product);
-	if (productIndex>=0 && (*productList[productIndex]) == product)
+	if (productIndex >= 0 && (*productList[productIndex]) == *product)
 	{
 		int sectionId = (*productList[productIndex])[0];
 		int shelfId = (*productList[productIndex])[1];
 		int numberId = (*productList[productIndex])[2];
 		Number num = sections[sectionId].getShelves()[shelfId].getNumbers()[numberId];
-		product[0] = sectionId;
-		product[1] = shelfId;
-		product[2] = numberId;
+		(*product)[0] = sectionId;
+		(*product)[1] = shelfId;
+		(*product)[2] = numberId;
 		return num.add(product);
 	}
 	/*if (sections.size() == sectionAmount) change to sections filled
 	{
 		return false;
 	}*/
-	for (int i = 0; i < sections.size();i++) {
-		
-		product[0] = i;
-		if (sections[i].add(*newProduct))
-		{	
-			productList.push_back(newProduct);
+	for (int i = 0; i < sections.size(); i++) {
+
+		(*product)[0] = i;
+		if (sections[i].add(product))
+		{
+			productList.push_back(product);
 			return true;
 		}
 	}
@@ -67,16 +67,18 @@ bool Warehouse::add(Product& product)
 
 void Warehouse::remove(std::string name, double quantity)
 {
-	std::sort(productList.begin(), productList.end());
+	std::sort(productList.begin(), productList.end(), [](Product* first, Product* other) {
+		return *first < *other;
+		});
 	int i = 0;
 	//change this to a compare function in product
-	while (productList[i]->getName() != name && i!=productList.size()) { i++; }
+	while ((*productList[i]).getName() != name && i != productList.size()) { i++; }
 	if (i == productList.size())
 	{
 		std::cout << "Product does not exist in warehouse." << std::endl;
 		return;
 	}
-	
+
 	double totalQuantity = 0;
 	i = 0;
 	while (i != productList.size() && (productList[i]->getName() == name))
@@ -100,7 +102,7 @@ void Warehouse::remove(std::string name, double quantity)
 	double sum = 0;
 	i = 0;
 	//same as above
-	while (i != productList.size() && (productList[i]->getName() == name && sum!=quantity))
+	while (i != productList.size() && ((*productList[i]).getName() == name && sum != quantity))
 	{
 		if (sum + productList[i]->getQuantity() <= quantity)
 		{
@@ -109,8 +111,7 @@ void Warehouse::remove(std::string name, double quantity)
 			int sectionId = (*productList[i])[0];
 			int shelfId = (*productList[i])[1];
 			int numberId = (*productList[i])[2];
-			Number num = sections[sectionId].getShelves()[shelfId].getNumbers()[numberId];
-			sections[sectionId].getShelves()[shelfId].getNumbers()[numberId].removeProduct(*productList[i]);
+			sections[sectionId].getShelves()[shelfId].getNumbers()[numberId].removeProduct(productList[i]);
 			removedProducts.push_back(i);
 
 			quantity -= sum;
@@ -136,10 +137,11 @@ void Warehouse::swap(Warehouse& other)
 	swap(productList, other.productList);
 }
 
-int Warehouse::findProduct(Product p)
+int Warehouse::findProduct(Product* p)
 {
 	int i = -1;
-	std::vector<Product*>::iterator it = std::find_if(productList.begin(), productList.end(), [p](Product* prod) -> bool {return *prod == p; });
+	//std::vector<Product*>::iterator it = std::find_if(productList.begin(), productList.end(), [p](Product* prod) -> bool {return *prod == p; });
+	std::vector<Product*>::iterator it = std::find_if(productList.begin(), productList.end(), [p](Product* prod) -> bool {return *prod == *p; });
 	if (it != productList.end())
 	{
 		i = std::distance(productList.begin(), it);;

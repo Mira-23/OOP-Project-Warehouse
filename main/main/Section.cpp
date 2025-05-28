@@ -8,14 +8,14 @@ Section::Section()
 	}
 }
 
-bool Section::add(Product& product)
+bool Section::add(Product* product)
 {
 	/*if (shelves.size() == shelfAmount) change to if full
 	{
 		return false;
 	}*/
 	for (int i = 0; i < shelves.size();i++) {
-		product[1] = i;
+		(*product)[1] = i;
 		if (shelves[i].add(product))
 		{
 			

@@ -8,14 +8,14 @@ Shelf::Shelf()
 	}
 }
 
-bool Shelf::add(Product& product)
+bool Shelf::add(Product* product)
 {
 	/*if (numbers.size() == numberAmount) change to numbers filled
 	{
 		return false;
 	}*/
 	for (int i = 0; i < numbers.size();i++) {
-		product[2] = i;
+		(*product)[2] = i;
 		if (numbers[i].add(product))
 		{
 			

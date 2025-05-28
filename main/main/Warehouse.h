@@ -11,7 +11,7 @@ public:
 	Warehouse(Warehouse& other);
 	Warehouse& operator=(Warehouse& other);
 	void print() const;
-	bool add(Product& p);
+	bool add(Product* p);
 	void remove(std::string name, double quantity);
 	void log() const;
 	void clean();
@@ -26,6 +26,5 @@ private:
 	std::vector<Product*> productList;
 
 	void swap(Warehouse& other);
-	int findProduct(Product p);
+	int findProduct(Product* p);
 };
-
