@@ -32,13 +32,16 @@ public:
 	int getSectionId() const;
 
 	std::string getName() const;
+	std::string getManufacturer() const;
+
+	std::string stringMeasurementUnit() const;
 
 	double getQuantity() const;
 	void reduceQuantityBy(double amount);
 
-	bool operator==(const Product& other);
-	bool operator!=(const Product& other);
-	bool operator<(Product& other);
+	bool operator==(const Product& other) const;
+	bool operator!=(const Product& other) const;
+	bool operator<(const Product& other) const;
 
 	friend std::ostream& operator<<(std::ostream& os, const Product& product);
 	friend std::istream& operator>>(std::istream& is, Product& product);
@@ -52,6 +55,6 @@ private:
 	double quantity;
 	std::string comment;
 
-	bool compareDate(const tm& first, const struct tm& other);
-	bool isDateValid(const struct tm& other);
+	bool compareDate(const tm& first, const struct tm& other) const;
+	bool isDateValid(const struct tm& other) const;
 };

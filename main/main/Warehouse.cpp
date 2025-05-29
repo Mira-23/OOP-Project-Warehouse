@@ -26,13 +26,34 @@ Warehouse& Warehouse::operator=(Warehouse& other)
 	return *this;
 }
 
-void Warehouse::print() const
+void Warehouse::print()
 {
-	//temporary
-	for (Product* p : productList)
+	if (productList.size() == 0) { return; }
+
+	std::string tempName = productList[0]->getName();
+	double tempQuantity = productList[0]->getQuantity();
+
+	//turn into a print function
+	if(productList.size()==1) { std::cout << " " << tempName << productList[0]->getManufacturer() << " " << productList[0]->stringMeasurementUnit() << " " << tempQuantity << " " << std::endl; }
+	//turn into sort function
+	std::sort(productList.begin(), productList.end(), [](Product* first, Product* other) {
+		return *first < *other;
+		});
+	// name|manufacturer|measurementUnit|quantity
+	
+	for (int i =1;i<productList.size();i++)
 	{
-		std::cout << p->getName() << std::endl;
+		if (tempName == productList[i]->getName())
+		{
+			tempQuantity += productList[0]->getQuantity();
+		}
+		else {
+			std::cout << tempName << productList[i-1]->getManufacturer() << productList[i-1]->stringMeasurementUnit() << tempQuantity << std::endl;
+			tempName = productList[i]->getName();
+			tempQuantity = productList[i]->getQuantity();
+		}
 	}
+	std::cout << tempName << productList[productList.size() - 1]->getManufacturer() << productList[productList.size() - 1]->stringMeasurementUnit() << tempQuantity << std::endl;
 }
 
 bool Warehouse::add(Product* product)
@@ -77,6 +98,7 @@ bool Warehouse::isEmpty()
 	return true;
 }
 
+//is there an opposite of noexcept for a function? this needs it
 void Warehouse::remove(std::string name, double quantity)
 {
 	//sorts the list so that the latest come up to the top, which is for the next code to iterate over it properly
@@ -86,7 +108,6 @@ void Warehouse::remove(std::string name, double quantity)
 
 	//finds the index of the first product of the type that it's going to remove from
 	int i = 0;
-	//change this to a compare function in product
 	while ((*productList[i]).getName() != name && i != productList.size()) { i++; }
 	if (i == productList.size())
 	{
@@ -96,7 +117,6 @@ void Warehouse::remove(std::string name, double quantity)
 
 	//checks whether the total quantity of all the products that are removed is less than the amount requested
 	double totalQuantity = 0;
-	i = 0;
 	while (i != productList.size() && (productList[i]->getName() == name))
 	{
 		totalQuantity += productList[i]->getQuantity();
@@ -117,10 +137,10 @@ void Warehouse::remove(std::string name, double quantity)
 	//makes a vector for the indexes of the removed product types (from warehouse) so that they can be removed from the vector later
 	std::vector<int> removedProducts;
 	double sum = 0;
-	i = 0;
-	//same as above
+	i--;
 	//if the quantity is more than one product holds - remove the soonest expiring one and continue removing until the quantity is full
 	//if it isnt, directly removes the needed quantity from the first product
+	//this continues until either the end or the product type changes
 	while (i != productList.size() && ((*productList[i]).getName() == name && sum != quantity))
 	{
 		if (sum + productList[i]->getQuantity() <= quantity)
@@ -152,6 +172,7 @@ void Warehouse::remove(std::string name, double quantity)
 
 void Warehouse::clean()
 {
+	//goes through the list and removes expiring products
 	std::vector<std::vector<Product*>::iterator> its;
 	for (std::vector<Product*>::iterator it = productList.begin(); it != productList.end();)
 	{

@@ -83,6 +83,15 @@ void Product::reduceQuantityBy(double amount) { quantity -= amount; }
 
 std::string Product::getName() const { return name; }
 
+std::string Product::getManufacturer() const { return manufacturer; }
+
+std::string Product::stringMeasurementUnit() const
+{
+	std::string result;
+	measurementUnit == MeasurementUnit::Kilograms ? result = "Kilograms" : result = "Litres";
+	return result;
+}
+
 bool Product::closeToExpiration()
 {
 	struct tm* newTime = new struct tm(expirationDate);
@@ -94,7 +103,7 @@ bool Product::closeToExpiration()
 	return check;
 }
 
-bool Product::operator==(const Product& other)
+bool Product::operator==(const Product& other) const
 {
     return (name == other.name) &&
 		(manufacturer == other.manufacturer) &&
@@ -106,19 +115,19 @@ bool Product::operator==(const Product& other)
 		(quantity == other.quantity);
 }
 
-bool Product::operator!=(const Product& other)
+bool Product::operator!=(const Product& other) const
 {
 	return !(*this == other);
 }
 
-bool Product::compareDate(const tm& first, const tm& other)
+bool Product::compareDate(const tm& first, const tm& other) const
 {
 	return (first.tm_year == other.tm_year) &&
 		(first.tm_mon == other.tm_mon) &&
 		(first.tm_mday == other.tm_mday);
 }
 
-bool Product::isDateValid(const tm& date)
+bool Product::isDateValid(const tm& date) const
 {
 	struct tm copy = date;
 	copy.tm_isdst = -1;
@@ -130,17 +139,21 @@ bool Product::isDateValid(const tm& date)
 }
 
 //this lets functions sort by name -> exp date -> quantity
-bool Product::operator<(Product& other)
+bool Product::operator<(const Product& other) const
 {
 	if (name != other.name)
 	{
 		return name < other.name;
-	}	
-	if (!compareDate(expirationDate,other.expirationDate))
-	{
-		return expirationDate.tm_mday < other.expirationDate.tm_mday &&
-			expirationDate.tm_mon < other.expirationDate.tm_mon &&
-			expirationDate.tm_year < other.expirationDate.tm_year;
 	}
+
+	std::tm thisDate = expirationDate;
+	std::tm otherDate = other.expirationDate;
+	time_t t1 = mktime(&thisDate);
+	time_t t2 = mktime(&otherDate);
+
+	if (t1 != t2) {
+		return t1 < t2;
+	}
+
 	return quantity < other.quantity;
 }

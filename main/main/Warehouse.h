@@ -10,7 +10,7 @@ public:
 	Warehouse();
 	Warehouse(const Warehouse& other);
 	Warehouse& operator=(Warehouse& other);
-	void print() const;
+	void print();
 	bool add(Product* p) override;
 	bool isEmpty() override;
 	void remove(std::string name, double quantity);
