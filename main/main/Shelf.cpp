@@ -10,15 +10,11 @@ Shelf::Shelf()
 
 bool Shelf::add(Product* product)
 {
-	/*if (numbers.size() == numberAmount) change to numbers filled
-	{
-		return false;
-	}*/
 	for (int i = 0; i < numbers.size();i++) {
-		(*product)[2] = i;
+		(*product).setNumberId(i);
+		bool wasNumberEmpty = numbers[i].isEmpty();
 		if (numbers[i].add(product))
 		{
-			
 			return true;
 		}
 	}
@@ -28,6 +24,18 @@ bool Shelf::add(Product* product)
 std::vector<Number> Shelf::getNumbers()
 {
 	return numbers;
+}
+
+bool Shelf::isEmpty()
+{
+	for (Number n : numbers)
+	{
+		if (!n.isEmpty())
+		{
+			return false;
+		}
+	}
+	return true;
 }
 
 Shelf::~Shelf() {}

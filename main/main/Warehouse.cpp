@@ -10,7 +10,7 @@ Warehouse::Warehouse()
 	}
 }
 
-Warehouse::Warehouse(Warehouse& other) : sections(other.sections)
+Warehouse::Warehouse(const Warehouse& other) : sections(other.sections)
 {
 	for (Product* p : other.productList)
 	{
@@ -41,23 +41,20 @@ bool Warehouse::add(Product* product)
 	int productIndex = findProduct(product);
 	if (productIndex >= 0 && (*productList[productIndex]) == *product)
 	{
-		int sectionId = (*productList[productIndex])[0];
-		int shelfId = (*productList[productIndex])[1];
-		int numberId = (*productList[productIndex])[2];
+		int sectionId = productList[productIndex]->getSectionId();
+		int shelfId = productList[productIndex]->getShelfId();;
+		int numberId = productList[productIndex]->getNumberId();
 		Number num = sections[sectionId].getShelves()[shelfId].getNumbers()[numberId];
-		(*product)[0] = sectionId;
-		(*product)[1] = shelfId;
-		(*product)[2] = numberId;
+		(*product).setSectionId(sectionId);
+		(*product).setShelfId(shelfId);
+		(*product).setNumberId(numberId);
 		return num.add(product);
 	}
-	/*if (sections.size() == sectionAmount) change to sections filled
-	{
-		return false;
-	}*/
+
 	for (int i = 0; i < sections.size(); i++) {
 
 		Product* newProduct = new Product(*product);
-		(*newProduct)[0] = i;
+		(*newProduct).setSectionId(i);
 		if (sections[i].add(newProduct))
 		{
 			productList.push_back(newProduct);
@@ -65,6 +62,19 @@ bool Warehouse::add(Product* product)
 		}
 	}
 	return false; // warehouse full
+}
+
+//this is probably slow but I believe that it's better for it to be dynamic like this instead of managing it manually
+bool Warehouse::isEmpty()
+{
+	for (Section s : sections)
+	{
+		if (!s.isEmpty())
+		{
+			return false;
+		}
+	}
+	return true;
 }
 
 void Warehouse::remove(std::string name, double quantity)
@@ -117,9 +127,9 @@ void Warehouse::remove(std::string name, double quantity)
 		{
 			sum += productList[i]->getQuantity();
 
-			int sectionId = (*productList[i])[0];
-			int shelfId = (*productList[i])[1];
-			int numberId = (*productList[i])[2];
+			int sectionId = productList[i]->getSectionId();
+			int shelfId = productList[i]->getShelfId();
+			int numberId = productList[i]->getNumberId();
 			sections[sectionId].getShelves()[shelfId].getNumbers()[numberId].removeProduct(productList[i]);
 			removedProducts.push_back(i);
 
@@ -142,16 +152,23 @@ void Warehouse::remove(std::string name, double quantity)
 
 void Warehouse::clean()
 {
-	for (Product* p : productList)
+	std::vector<std::vector<Product*>::iterator> its;
+	for (std::vector<Product*>::iterator it = productList.begin(); it != productList.end();)
 	{
-		if (p->closeToExpiration())
+		if ((*it)->closeToExpiration())
 		{
-			int sectionId = (*p)[0];
-			int shelfId = (*p)[1];
-			int numberId = (*p)[2];
-			sections[sectionId].getShelves()[shelfId].getNumbers()[numberId].removeProduct(p);
-			//also remove from this vector
+			int sectionId = (*it)->getSectionId();
+			int shelfId = (*it)->getShelfId();
+			int numberId = (*it)->getNumberId();
+			sections[sectionId].getShelves()[shelfId].getNumbers()[numberId].removeProduct((*it));
+			its.push_back(it);
 		}
+	}
+
+	//this is done so that i can directly pass the iterator to the erase function, even if it doesn't look as good
+	for (std::vector<Product*>::iterator it : its)
+	{
+		productList.erase(it);
 	}
 }
 

@@ -13,15 +13,6 @@ enum class MeasurementUnit
 class Product
 {
 public:
-	Product();
-	//Product(Product& other);
-	/*Product(std::string name,
-		struct tm expirationDate,
-		struct tm enterDate,
-		std::string manufacturer,
-		MeasurementUnit measurementUnit,
-		double quantity,
-		std::string comment);*/
 	Product(std::string name,
 		std::string expirationDate,
 		std::string enterDate,
@@ -29,14 +20,26 @@ public:
 		std::string measurementUnit,
 		std::string quantity,
 		std::string comment);
+
+	bool closeToExpiration();
+
+	void setNumberId(int id);
+	void setShelfId(int id);
+	void setSectionId(int id);
+
+	int getNumberId() const;
+	int getShelfId() const;
+	int getSectionId() const;
+
+	std::string getName() const;
+
 	double getQuantity() const;
 	void reduceQuantityBy(double amount);
-	bool closeToExpiration();
-	std::string getName() const;
-	int& operator[](int i);
+
 	bool operator==(const Product& other);
 	bool operator!=(const Product& other);
 	bool operator<(Product& other);
+
 	friend std::ostream& operator<<(std::ostream& os, const Product& product);
 	friend std::istream& operator>>(std::istream& is, Product& product);
 private:

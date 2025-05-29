@@ -8,10 +8,11 @@ class Warehouse : public IStorageUnit
 {
 public:
 	Warehouse();
-	Warehouse(Warehouse& other);
+	Warehouse(const Warehouse& other);
 	Warehouse& operator=(Warehouse& other);
 	void print() const;
-	bool add(Product* p);
+	bool add(Product* p) override;
+	bool isEmpty() override;
 	void remove(std::string name, double quantity);
 	void log() const;
 	void clean();

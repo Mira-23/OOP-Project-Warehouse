@@ -10,15 +10,10 @@ Section::Section()
 
 bool Section::add(Product* product)
 {
-	/*if (shelves.size() == shelfAmount) change to if full
-	{
-		return false;
-	}*/
 	for (int i = 0; i < shelves.size();i++) {
-		(*product)[1] = i;
+		(*product).setShelfId(i);
 		if (shelves[i].add(product))
 		{
-			
 			return true;
 		}
 	}
@@ -28,6 +23,18 @@ bool Section::add(Product* product)
 std::vector<Shelf> Section::getShelves()
 {
 	return shelves;
+}
+
+bool Section::isEmpty()
+{
+	for (Shelf s : shelves)
+	{
+		if (!s.isEmpty())
+		{
+			return false;
+		}
+	}
+	return true;
 }
 
 Section::~Section() {}

@@ -1,3 +1,3 @@
-﻿  Warehouse.cpp
-C:\Users\mira\Desktop\C++ Exercises\OOP-Project-Warehouse\main\main\Warehouse.cpp(148,20): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+﻿  Number.cpp
+C:\Users\mira\Desktop\C++ Exercises\OOP-Project-Warehouse\main\main\Number.cpp(50,20): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
   main.vcxproj -> C:\Users\mira\Desktop\C++ Exercises\OOP-Project-Warehouse\main\x64\Debug\main.exe

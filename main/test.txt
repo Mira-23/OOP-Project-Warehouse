@@ -1,0 +1,12 @@
+Warehouse
+ Section
+  Shelf
+   Number
+    Product
+    Product
+   Number
+    Product
+  Shelf
+  Shelf
+ Section
+ Section

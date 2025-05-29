@@ -3,16 +3,6 @@
 #include <sstream>
 #include <iomanip>
 
-Product::Product()
-{
-}
-
-//Product::Product(Product& other)
-//{
-//
-//}
-
-
 Product::Product(std::string name,
 	std::string expirationDate,
 	std::string enterDate,
@@ -79,15 +69,19 @@ Product::Product(std::string name,
 	}
 }
 
-double Product::getQuantity() const
-{
-	return quantity;
-}
+void Product::setNumberId(int id) { location[2] = id; }
+void Product::setShelfId(int id) { location[1] = id; }
+void Product::setSectionId(int id) { location[0] = id; }
 
-void Product::reduceQuantityBy(double amount)
-{
-	quantity -= amount;
-}
+int Product::getNumberId() const { return location[2]; }
+int Product::getShelfId() const { return location[1]; }
+int Product::getSectionId() const { return location[0]; }
+
+double Product::getQuantity() const { return quantity; }
+
+void Product::reduceQuantityBy(double amount) { quantity -= amount; }
+
+std::string Product::getName() const { return name; }
 
 bool Product::closeToExpiration()
 {
@@ -98,21 +92,6 @@ bool Product::closeToExpiration()
 	bool check = difftime(t1, t2) <= twoDays;
 	delete newTime;
 	return check;
-}
-
-std::string Product::getName() const
-{
-	return name;
-}
-
-int& Product::operator[](int i)
-{
-	//deal with this!!!
-	if (i < 0 || i > 2)
-	{
-		throw std::out_of_range("Index out of bounds");
-	}
-    return location[i];
 }
 
 bool Product::operator==(const Product& other)
