@@ -20,6 +20,8 @@ public:
 	friend std::ostream& operator<<(std::ostream& os, const Warehouse& warehouse);
 	friend std::istream& operator>>(std::istream& is, Warehouse& warehouse);
 
+	void printProductList(std::ostream& os) const;
+
 	~Warehouse() override;
 private:
 	const int sectionAmount = 10;

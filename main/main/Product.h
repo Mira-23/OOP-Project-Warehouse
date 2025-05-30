@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cstring>
 #include <ctime>
+#include <vector>
 
 enum class MeasurementUnit
 {
@@ -13,6 +14,7 @@ enum class MeasurementUnit
 class Product
 {
 public:
+	Product();
 	Product(std::string name,
 		std::string expirationDate,
 		std::string enterDate,
@@ -42,6 +44,9 @@ public:
 	bool operator==(const Product& other) const;
 	bool operator!=(const Product& other) const;
 	bool operator<(const Product& other) const;
+
+	void print(std::ostream& os) const;
+	std::vector<std::string> getProductParams(std::string line, int paramCount, char del);
 
 	friend std::ostream& operator<<(std::ostream& os, const Product& product);
 	friend std::istream& operator>>(std::istream& is, Product& product);

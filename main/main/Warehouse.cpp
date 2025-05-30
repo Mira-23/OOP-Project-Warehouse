@@ -1,5 +1,6 @@
 #include "Warehouse.h"
 #include <algorithm>
+#include <sstream>
 #include <functional>
 
 Warehouse::Warehouse()
@@ -214,10 +215,36 @@ int Warehouse::findProduct(Product* p)
 	return i;
 }
 
+void Warehouse::printProductList(std::ostream& os) const
+{
+	for (Product* p : productList)
+	{
+		os << *p;
+	}
+}
+
+
+
 Warehouse::~Warehouse()
 {
 	for (Product* p : productList)
 	{
 		delete p;
 	}
+}
+
+std::ostream& operator<<(std::ostream& os, const Warehouse& warehouse)
+{
+	warehouse.printProductList(os);
+	return os;
+}
+
+std::istream& operator>>(std::istream& is, Warehouse& warehouse)
+{
+	while (is.eof())
+	{
+		Product p;
+		is >> p;
+	}
+	return is;
 }

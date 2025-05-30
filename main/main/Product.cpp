@@ -3,6 +3,8 @@
 #include <sstream>
 #include <iomanip>
 
+Product::Product() {}
+
 Product::Product(std::string name,
 	std::string expirationDate,
 	std::string enterDate,
@@ -156,4 +158,55 @@ bool Product::operator<(const Product& other) const
 	}
 
 	return quantity < other.quantity;
+}
+
+void Product::print(std::ostream& os) const
+{
+	std::string mUnit;
+	measurementUnit == MeasurementUnit::Kilograms ? mUnit = "Kilograms" : mUnit = "Litres";
+	os << name << "|"
+		<< expirationDate.tm_mday << "/" << expirationDate.tm_mon << "/" << expirationDate.tm_year + 1900 << "|"
+		<< enterDate.tm_mday << "/" << enterDate.tm_mon << "/" << enterDate.tm_year + 1900 << "|"
+		<< manufacturer << "|"
+		<< location[0] << "/" << location[1] << "/" << location[2] << "|"
+		<< mUnit << "|"
+		<< quantity << "|"
+		<< comment;
+}
+
+std::vector<std::string> Product::getProductParams(std::string line, int paramCount, char del)
+{
+	std::vector<std::string> params;
+	std::istringstream ss(line); // gets the parameters as pure strings, needs to be changed from a constant
+	std::string t;
+
+	while (std::getline(ss, t, del))
+	{
+		params.push_back(t);
+	}
+	if (params.size() != paramCount)
+	{
+		throw std::invalid_argument("Wrong amount of parameters in product reading");
+	}
+	return params;
+}
+
+std::ostream& operator<<(std::ostream& os, const Product& product)
+{
+	product.print(os);
+	return os;
+}
+
+std::istream& operator>>(std::istream& is, Product& product)
+{
+	//Milk|28/5/125|22/5/125|Pilos|-1/-1/-1|Litres|2|Just milk
+	std::string line;
+	std::getline(is, line);
+	std::vector<std::string> params = product.getProductParams(line, 8, '|');
+	product = Product(params[0],params[1],params[2],params[3],params[5],params[6],params[7]);
+	std::vector<std::string> indexParams = product.getProductParams(params[4], 3, '/');
+	product.setSectionId(std::stoi(indexParams[0]));
+	product.setShelfId(std::stoi(indexParams[1]));
+	product.setNumberId(std::stoi(indexParams[2]));
+	return is;
 }
