@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include <fstream>
-#include <cstring>
 #include <sstream>
 #include "Warehouse.h"
 #include "Product.h"

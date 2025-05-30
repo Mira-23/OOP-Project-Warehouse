@@ -3,7 +3,7 @@
 #include <sstream>
 #include <functional>
 
-Warehouse::Warehouse()
+Warehouse::Warehouse() : changelog(ChangeLog())
 {
 	for (int i = 0; i < sectionAmount; i++)
 	{
@@ -81,23 +81,11 @@ bool Warehouse::add(Product* product)
 		if (sections[i].add(newProduct))
 		{
 			productList.push_back(newProduct);
+			changelog.submitChange("add", newProduct->productToString());
 			return true;
 		}
 	}
 	return false; // warehouse full
-}
-
-//this is probably slow but I believe that it's better for it to be dynamic like this instead of managing it manually
-bool Warehouse::isEmpty()
-{
-	for (Section s : sections)
-	{
-		if (!s.isEmpty())
-		{
-			return false;
-		}
-	}
-	return true;
 }
 
 //is there an opposite of noexcept for a function? this needs it
@@ -160,6 +148,7 @@ void Warehouse::remove(std::string name, double quantity)
 		}
 		else {
 			productList[i]->reduceQuantityBy(quantity);
+			changelog.submitChange("change", productList[i]->productToString(),quantity);
 		}
 		i++;
 	}
@@ -168,9 +157,15 @@ void Warehouse::remove(std::string name, double quantity)
 	for (int j : removedProducts)
 	{
 		std::cout << "Product removed" << std::endl;
+		changelog.submitChange("remove", productList[j]->productToString());
 		delete productList[j];
 		productList.erase(productList.begin() + j);
 	}
+}
+
+void Warehouse::log(std::string from, std::string to) const
+{
+	changelog.printLog(from,to);
 }
 
 void Warehouse::clean()
@@ -193,6 +188,8 @@ void Warehouse::clean()
 	for (std::vector<Product*>::iterator it : its)
 	{
 		productList.erase(it);
+		changelog.submitChange("clean", (*it)->productToString());
+		delete *it;
 	}
 }
 
@@ -201,7 +198,7 @@ bool Warehouse::addDirectly(Product* p)
 	Product* newProduct = new Product(*p);
 	productList.push_back(newProduct);
 	int sectionId = p->getSectionId();
-	int shelfId = p->getShelfId();;
+	int shelfId = p->getShelfId();
 	int numberId = p->getNumberId();
 	Number num = sections[sectionId].getShelves()[shelfId].getNumbers()[numberId];
 	(*p).setSectionId(sectionId);
@@ -245,7 +242,7 @@ Warehouse::~Warehouse()
 	{
 		delete p;
 	}
-	std::cout << "This ran";
+	std::cout << "This ran" << std::endl;
 }
 
 std::ostream& operator<<(std::ostream& os, const Warehouse& warehouse)

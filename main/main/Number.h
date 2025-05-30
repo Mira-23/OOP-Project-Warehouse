@@ -1,7 +1,6 @@
 #pragma once
 #include "IStorageUnit.h"
 #include <vector>
-#include <cstring>
 
 //Smallest storage unit - direct storage of products
 class Number : public IStorageUnit
@@ -14,7 +13,7 @@ public:
 	void removeProduct(Product* p);
 	std::vector<Product*> getProducts();
 	int findProduct(Product* p);
-	bool isEmpty() override;
+	bool isEmpty();
 	//~Number() override;
 private:
 	void swap(Number& other);

@@ -91,7 +91,14 @@ void Menu::start()
 		{
 			if (command.substr(0, 4) == "open")
 			{
-				open(command);
+				try {
+					open(command);
+				}
+				catch (std::exception ex) {
+					std::cout << ex.what() << std::endl;
+					exit();
+				}
+				
 			}
 			else if (command == "exit")
 			{
@@ -102,6 +109,7 @@ void Menu::start()
 			if (command == "close")
 			{
 				close();
+				
 			}
 			else if (command == "save")
 			{
@@ -141,8 +149,8 @@ void Menu::start()
 
 void Menu::add(std::string command)
 {
-	//add Milk|28/06/2025|22/06/2025|Pilos|Litres|2|Just milk
-	//add Apple|28/06/2025|22/06/2025|Pilos|Kilograms|1|Just an apple
+	//add Milk|28/06/2025|22/06/2025|Pilos|2|Litres|Just milk
+	//add Apple|28/06/2025|22/06/2025|Pilos|1|Kilograms|Just an apple
 	std::vector<std::string> params = getParams(command, "add", 7);
 
 	Product p(params[0], params[1], params[2], params[3], params[4], params[5], params[6]);
@@ -174,4 +182,7 @@ void Menu::clean()
 
 void Menu::log(std::string command)
 {
+	std::vector<std::string> params = getParams(command, "log", 2);
+	//log 30/05/2025|30/05/2025
+	warehouse.log(params[0], params[1]);
 }

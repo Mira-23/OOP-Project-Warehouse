@@ -1,8 +1,10 @@
 #pragma once
 #include <iostream>
-#include <cstring>
 #include <ctime>
 #include <vector>
+#include <string>
+#include <sstream> //editing strings
+#include <iomanip> //get_time
 
 enum class MeasurementUnit
 {
@@ -46,6 +48,7 @@ public:
 	bool operator<(const Product& other) const;
 
 	void print(std::ostream& os) const;
+	std::string productToString() const;
 	std::vector<std::string> getProductParams(std::string line, int paramCount, char del);
 
 	friend std::ostream& operator<<(std::ostream& os, const Product& product);

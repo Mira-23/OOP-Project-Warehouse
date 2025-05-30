@@ -1,7 +1,4 @@
 #include "Product.h"
-#include <string>
-#include <sstream>
-#include <iomanip>
 
 Product::Product() {}
 
@@ -9,8 +6,8 @@ Product::Product(std::string name,
 	std::string expirationDate,
 	std::string enterDate,
 	std::string manufacturer,
-	std::string measurementUnit,
 	std::string quantity,
+	std::string measurementUnit,
 	std::string comment)
 {
 	MeasurementUnit un;
@@ -61,8 +58,8 @@ Product::Product(std::string name,
 	this->expirationDate = exDate;
 	this->enterDate = enDate;
 	this->manufacturer = manufacturer; 
+	this->quantity = quantityValue;
 	this->measurementUnit = un; 
-	this->quantity = quantityValue; 
 	this->comment = comment; 
 
 	for (int i = 0; i < 3; i++)
@@ -96,12 +93,14 @@ std::string Product::stringMeasurementUnit() const
 
 bool Product::closeToExpiration()
 {
-	struct tm* newTime = new struct tm(expirationDate);
+	expirationDate.tm_hour = 0;
+	expirationDate.tm_min = 0;
+	expirationDate.tm_sec = 0;
+
 	time_t t1 = std::time(0);
-	time_t t2 = mktime(newTime);
+	time_t t2 = mktime(&expirationDate);
 	double twoDays = 2 * 24 * 60 * 60;
 	bool check = difftime(t1, t2) <= twoDays;
-	delete newTime;
 	return check;
 }
 
@@ -113,8 +112,8 @@ bool Product::operator==(const Product& other) const
 		(location[0] == other.location[0]) &&
 		(location[1] == other.location[1]) &&
 		(location[2] == other.location[2]) &&
-		(measurementUnit == other.measurementUnit) &&
-		(quantity == other.quantity);
+		(quantity == other.quantity) &&
+		(measurementUnit == other.measurementUnit);
 }
 
 bool Product::operator!=(const Product& other) const
@@ -132,6 +131,11 @@ bool Product::compareDate(const tm& first, const tm& other) const
 bool Product::isDateValid(const tm& date) const
 {
 	struct tm copy = date;
+
+	copy.tm_hour = 0;
+	copy.tm_min = 0;
+	copy.tm_sec = 0;
+
 	copy.tm_isdst = -1;
 	time_t t = mktime(&copy);
 
@@ -149,7 +153,15 @@ bool Product::operator<(const Product& other) const
 	}
 
 	std::tm thisDate = expirationDate;
+	thisDate.tm_hour = 0;
+	thisDate.tm_min = 0;
+	thisDate.tm_sec = 0;
+
 	std::tm otherDate = other.expirationDate;
+	otherDate.tm_hour = 0;
+	otherDate.tm_min = 0;
+	otherDate.tm_sec = 0;
+
 	time_t t1 = mktime(&thisDate);
 	time_t t2 = mktime(&otherDate);
 
@@ -162,16 +174,24 @@ bool Product::operator<(const Product& other) const
 
 void Product::print(std::ostream& os) const
 {
+	os << productToString();
+}
+
+std::string Product::productToString() const
+{
 	std::string mUnit;
 	measurementUnit == MeasurementUnit::Kilograms ? mUnit = "Kilograms" : mUnit = "Litres";
-	os << name << "|"
+	std::stringstream  ss;
+	ss << name << "|"
 		<< expirationDate.tm_mday << "/" << expirationDate.tm_mon << "/" << expirationDate.tm_year + 1900 << "|"
 		<< enterDate.tm_mday << "/" << enterDate.tm_mon << "/" << enterDate.tm_year + 1900 << "|"
 		<< manufacturer << "|"
 		<< location[0] << "/" << location[1] << "/" << location[2] << "|"
-		<< mUnit << "|"
 		<< quantity << "|"
+		<< mUnit << "|"
 		<< comment;
+	std::string result = ss.str();
+	return result;
 }
 
 std::vector<std::string> Product::getProductParams(std::string line, int paramCount, char del)
@@ -183,6 +203,10 @@ std::vector<std::string> Product::getProductParams(std::string line, int paramCo
 	while (std::getline(ss, t, del))
 	{
 		params.push_back(t);
+	}
+	if (params.size() == 7 && (params[6] == "Litres" || params[6] == "Kilograms"))
+	{
+		params.push_back(" ");
 	}
 	if (params.size() != paramCount)
 	{
@@ -199,7 +223,7 @@ std::ostream& operator<<(std::ostream& os, const Product& product)
 
 std::istream& operator>>(std::istream& is, Product& product)
 {
-	//Milk|28/5/125|22/5/125|Pilos|-1/-1/-1|Litres|2|Just milk
+	//Milk|28/5/125|22/5/125|Pilos|-1/-1/-1|2|Litres|Just milk
 	std::string line;
 	std::getline(is, line);
 	std::vector<std::string> params = product.getProductParams(line, 8, '|');

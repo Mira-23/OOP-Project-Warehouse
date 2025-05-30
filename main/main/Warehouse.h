@@ -1,7 +1,9 @@
 #pragma once
 #include "Section.h"
 #include "IStorageUnit.h"
+#include "ChangeLog.h"
 #include <vector>
+
 
 //Main logic - holds the operations of the storage system
 class Warehouse : public IStorageUnit
@@ -12,9 +14,8 @@ public:
 	Warehouse& operator=(Warehouse& other);
 	void print();
 	bool add(Product* p) override;
-	bool isEmpty() override;
 	void remove(std::string name, double quantity);
-	void log() const;
+	void log(std::string from, std::string to) const;
 	void clean();
 
 	bool addDirectly(Product* p);
@@ -30,6 +31,7 @@ private:
 	const int sectionAmount = 1;
 	std::vector<Section> sections;
 	std::vector<Product*> productList;
+	 ChangeLog changelog;
 
 	void printLine(std::string name, std::string manufacturer, std::string measurementUnit, double quantity);
 	void swap(Warehouse& other);

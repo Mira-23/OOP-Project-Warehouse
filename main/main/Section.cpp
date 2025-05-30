@@ -25,16 +25,4 @@ std::vector<Shelf> Section::getShelves()
 	return shelves;
 }
 
-bool Section::isEmpty()
-{
-	for (Shelf s : shelves)
-	{
-		if (!s.isEmpty())
-		{
-			return false;
-		}
-	}
-	return true;
-}
-
 Section::~Section() {}

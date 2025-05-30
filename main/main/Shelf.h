@@ -10,7 +10,6 @@ public:
 	Shelf();
 	bool add(Product* p) override;
 	std::vector<Number> getNumbers();
-	bool isEmpty() override;
 	~Shelf() override;
 private:
 	const int numberAmount = 1;
