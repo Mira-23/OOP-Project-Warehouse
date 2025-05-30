@@ -10,7 +10,7 @@ Section::Section()
 
 bool Section::add(Product* product)
 {
-	for (int i = 0; i < shelves.size();i++) {
+	for (int i = 0; i < shelfAmount;i++) {
 		(*product).setShelfId(i);
 		if (shelves[i].add(product))
 		{

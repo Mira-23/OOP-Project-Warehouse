@@ -12,7 +12,7 @@ public:
 	std::vector<Number> getNumbers();
 	~Shelf() override;
 private:
-	const int numberAmount = 1;
+	const int numberAmount = 10;
 	std::vector<Number> numbers;
 };
 

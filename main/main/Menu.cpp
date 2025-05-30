@@ -1,83 +1,6 @@
 #include "Menu.h"
 
-void Menu::open(std::string command)
-{
-	isOpen = true;
-	std::vector<std::string> params = getParams(command, "open", 1);
-	filePath = params[0];
-
-	file.open(filePath);
-
-	file >> warehouse;
-	file.close();
-}
-
-void Menu::close()
-{
-	isOpen = false;
-	file = std::fstream();
-	Warehouse newWarehouse = Warehouse();
-	warehouse = newWarehouse;
-	//clean all loaded info
-}
-
-void Menu::save_as(std::string command)
-{
-	std::vector<std::string> params = getParams(command, "saveas", 1);
-
-	file.open(params[0]);
-
-	file << warehouse;
-
-	file.close();
-}
-
-void Menu::save()
-{
-	save_as("saveas " + filePath);
-}
-
-void Menu::help()
-{
-	std::cout << "The following commands are supported : " << std::endl
-		<< "open <file>	opens <file>" << std::endl
-		<< "close			closes currently opened file" << std::endl
-		<< "save			saves the currently open file" << std::endl
-		<< "saveas <file>	saves the currently open file in <file>" << std::endl
-		<< "help			prints this information" << std::endl
-		<< "exit			exists the program" << std::endl
-		<< "print           prints out information for the products in the warehouse" << std::endl
-		<< "add <name|exparation date|entry date|manifacturer|measurement unit|quantity|comment>	adds a product to the warehouse" << std::endl
-		<< "remove <name|quantity>		removes product from warehouse" << std::endl
-		<< "log <from|to>	prints logs from date to date" << std::endl
-		<< "clean			removes all expired products from warehouse" << std::endl;
-}
-
-void Menu::exit()
-{
-	std::cout << "Exiting the program..." << std::endl;
-	std::exit(0);
-}
-
-std::vector<std::string> Menu::getParams(std::string command, std::string operation, int paramCount)
-{
-	std::vector<std::string> params;
-	std::istringstream ss(command.substr(operation.size() + 1)); // gets the parameters as pure strings, needs to be changed from a constant
-	std::string t;
-	char del = '|';
-
-	while (std::getline(ss, t, del))
-	{
-		params.push_back(t);
-	}
-	if (params.size() != paramCount)
-	{
-		throw std::invalid_argument("Wrong amount of parameters");
-	}
-	return params;
-}
-
-Menu::Menu() : isOpen(false), filePath(""), file(std::fstream()), warehouse(Warehouse()) {}
+Menu::Menu() : isOpen(false), filePath(""), warehouse(Warehouse()) {}
 
 void Menu::start()
 {
@@ -98,26 +21,41 @@ void Menu::start()
 					std::cout << ex.what() << std::endl;
 					exit();
 				}
-				
+
 			}
 			else if (command == "exit")
 			{
 				exit();
+			}
+			else {
+				std::cout << "Please open a file first." << std::endl;
 			}
 		}
 		else {
 			if (command == "close")
 			{
 				close();
-				
 			}
 			else if (command == "save")
 			{
-				save();
+				try {
+					save();
+				}
+				catch (std::exception ex) {
+					std::cout << ex.what() << std::endl;
+					exit();
+				}
 			}
 			else if (command.substr(0, 6) == "saveas")
 			{
-				save_as(command);
+				try {
+					save_as(command);
+				}
+				catch (std::exception ex) {
+					std::cout << ex.what() << std::endl;
+					exit();
+				}
+				
 			}
 			else if (command == "help")
 			{
@@ -125,28 +63,167 @@ void Menu::start()
 			}
 			else if (command.substr(0, 3) == "add")
 			{
-				add(command);
+				try {
+					add(command);
+				}
+				catch (std::exception ex) {
+					std::cout << ex.what() << std::endl;
+					exit();
+				}
 			}
 			else if (command.substr(0, 6) == "remove")
 			{
-				remove(command);
+				try {
+					remove(command);
+				}
+				catch (std::exception ex) {
+					std::cout << ex.what() << std::endl;
+					exit();
+				}
 			}
 			else if (command.substr(0, 3) == "log")
 			{
-				log(command);
+				try {
+					log(command);
+				}
+				catch (std::exception ex) {
+					std::cout << ex.what() << std::endl;
+					exit();
+				}
 			}
 			else if (command == "print")
 			{
-				print();
+				try {
+					print();
+				}
+				catch (std::exception ex) {
+					std::cout << ex.what() << std::endl;
+					exit();
+				}
 			}
-			
+			else if (command == "exit")
+			{
+				exit();
+			}
+			else {
+				std::cout << "Unknown command, type help for available commands." << std::endl;
+			}
 		}
-		
+
 		std::cout << "> ";
 		std::getline(std::cin, command);
 	}
 }
 
+//
+void Menu::open(std::string command)
+{
+	isOpen = true;
+	std::vector<std::string> params = getParams(command, "open", 1);
+	filePath = params[0];
+
+	std::fstream file;
+
+	file.open(filePath, std::ios::in | std::ios::app);
+	
+	if (!file.is_open())
+	{
+		throw std::exception("Error in making file");
+	}
+
+	if (!(file.peek() == std::ifstream::traits_type::eof()))
+	{
+		file >> warehouse;
+	}
+	
+	file.close();
+}
+
+//
+void Menu::close() noexcept
+{
+	isOpen = false;
+	filePath = "";
+	Warehouse newWarehouse = Warehouse();
+	warehouse = newWarehouse;
+	//clean all loaded info
+}
+
+//
+void Menu::save_as(std::string command)
+{
+	std::vector<std::string> params = getParams(command, "saveas", 1);
+
+	std::ofstream file(params[0]);
+
+	file.open(params[0]);
+
+	if (!file.is_open())
+	{
+		throw std::exception("Error in making file");
+	}
+
+	file << warehouse;
+
+	file.close();
+}
+
+//
+void Menu::save()
+{
+	save_as("saveas " + filePath);
+}
+
+//
+void Menu::help() noexcept
+{
+	std::cout << "The following commands are supported : " << std::endl
+		<< "open <file>	opens <file>" << std::endl
+		<< "close			closes currently opened file" << std::endl
+		<< "save			saves the currently open file" << std::endl
+		<< "saveas <file>	saves the currently open file in <file>" << std::endl
+		<< "help			prints this information" << std::endl
+		<< "exit			exists the program" << std::endl
+		<< "print           prints out information for the products in the warehouse" << std::endl
+		<< "add <name|exparation date|entry date|manifacturer|measurement unit|quantity|comment>	adds a product to the warehouse" << std::endl
+		<< "remove <name|quantity>		removes product from warehouse" << std::endl
+		<< "log <from|to>	prints logs from date to date" << std::endl
+		<< "clean			removes all expired products from warehouse" << std::endl;
+}
+
+//
+void Menu::exit() noexcept
+{
+	std::cout << "Exiting the program..." << std::endl;
+	std::exit(0);
+}
+
+//
+std::vector<std::string> Menu::getParams(std::string command, std::string operation, int paramCount)
+{
+	std::vector<std::string> params;
+	std::istringstream ss;
+	try {
+		ss = std::istringstream(command.substr(operation.size() + 1)); // gets the parameters as pure strings, needs to be changed from a constant
+	}
+	catch (std::exception){
+		throw std::invalid_argument("Invalid command format. Check help for proper format");
+	}
+	std::string t;
+	char del = '|';
+
+	while (std::getline(ss, t, del))
+	{
+		params.push_back(t);
+	}
+	if (params.size() != paramCount)
+	{
+		throw std::invalid_argument("Wrong amount of parameters");
+	}
+	return params;
+}
+
+//
 void Menu::add(std::string command)
 {
 	//add Milk|28/06/2025|22/06/2025|Pilos|2|Litres|Just milk
@@ -163,6 +240,7 @@ void Menu::add(std::string command)
 	}
 }
 
+//
 void Menu::remove(std::string command)
 {
 	//remove Milk|1

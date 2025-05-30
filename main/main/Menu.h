@@ -16,20 +16,18 @@ private:
 	void print();
 	void clean();
 	void log(std::string command);
-	
 
 	void open(std::string command);
-	void close();
+	void close() noexcept;
 	void save_as(std::string command);
 	void save();
-	void help();
-	void exit();
+	void help() noexcept;
+	void exit() noexcept;
 
 	std::vector<std::string> getParams(std::string command, std::string operation, int paramCount);
 
 	bool isOpen;
 	std::string filePath;
-	std::fstream file;
 	Warehouse warehouse;
 };
 

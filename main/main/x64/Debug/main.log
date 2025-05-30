@@ -1,12 +1,3 @@
-﻿  IStorageUnit.cpp
-  Menu.cpp
-  Number.cpp
-C:\Users\mira\Desktop\C++ Exercises\OOP-Project-Warehouse\main\main\Number.cpp(50,20): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
-  Product.cpp
-  Section.cpp
-  Shelf.cpp
-  Warehouse.cpp
-C:\Users\mira\Desktop\C++ Exercises\OOP-Project-Warehouse\main\main\Warehouse.cpp(226,20): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
-  main.cpp
-  Generating Code...
+﻿  Warehouse.cpp
+C:\Users\mira\Desktop\C++ Exercises\OOP-Project-Warehouse\main\main\Warehouse.cpp(242,20): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
   main.vcxproj -> C:\Users\mira\Desktop\C++ Exercises\OOP-Project-Warehouse\main\x64\Debug\main.exe

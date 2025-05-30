@@ -10,7 +10,7 @@ Shelf::Shelf()
 
 bool Shelf::add(Product* product)
 {
-	for (int i = 0; i < numbers.size();i++) {
+	for (int i = 0; i < numberAmount;i++) {
 		(*product).setNumberId(i);
 		if (numbers[i].add(product))
 		{

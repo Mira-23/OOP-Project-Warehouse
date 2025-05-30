@@ -53,6 +53,11 @@ void ChangeLog::printLog(std::string from, std::string to) const
 	std::istringstream ss2(to);
 	ss2 >> std::get_time(&toDate, "%d/%m/%Y");
 
+	if (ss1.fail() || ss2.fail())
+	{
+		throw std::invalid_argument("Invalid time format, dd/mm/YYYY only.");
+	}
+
 	std::time_t fromTime = mktime(&fromDate);
 	std::time_t toTime = mktime(&toDate);
 

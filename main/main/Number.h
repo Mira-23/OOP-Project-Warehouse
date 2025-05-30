@@ -12,7 +12,7 @@ public:
 	bool add(Product* p) override;
 	void removeProduct(Product* p);
 	std::vector<Product*> getProducts();
-	int findProduct(Product* p);
+	//int findProduct(Product* p);
 	bool isEmpty();
 	//~Number() override;
 private:

@@ -41,16 +41,16 @@ bool Number::add(Product* product)
 	}
 }
 
-int Number::findProduct(Product* p)
-{
-	int i = -1;
-	std::vector<Product*>::iterator it = std::find_if(products.begin(), products.end(), [p](Product* prod) -> bool {return *prod == *p; });
-	if (it != products.end())
-	{
-		i = std::distance(products.begin(), it);;
-	}
-	return i;
-}
+//int Number::findProduct(Product* p)
+//{
+//	int i = -1;
+//	std::vector<Product*>::iterator it = std::find_if(products.begin(), products.end(), [p](Product* prod) -> bool {return *prod == *p; });
+//	if (it != products.end())
+//	{
+//		i = std::distance(products.begin(), it);;
+//	}
+//	return i;
+//}
 
 void Number::removeProduct(Product* p)
 {

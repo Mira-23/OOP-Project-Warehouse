@@ -71,10 +71,11 @@ bool Warehouse::add(Product* product)
 	int productIndex = findProduct(product);
 	if (productIndex >= 0 && (*productList[productIndex]) == *product)
 	{
+		changelog.submitChange("add", productList[productIndex]->productToString());
 		return addDirectly(productList[productIndex]);
 	}
 
-	for (int i = 0; i < sections.size(); i++) {
+	for (int i = 0; i < sectionAmount; i++) {
 
 		Product* newProduct = new Product(*product);
 		(*newProduct).setSectionId(i);
@@ -98,7 +99,7 @@ void Warehouse::remove(std::string name, double quantity)
 
 	//finds the index of the first product of the type that it's going to remove from
 	int i = 0;
-	while ((*productList[i]).getName() != name && i != productList.size()) { i++; }
+	while (i != productList.size() && (*productList[i]).getName() != name) { i++; }
 	if (i == productList.size())
 	{
 		std::cout << "Product does not exist in warehouse." << std::endl;
@@ -107,10 +108,11 @@ void Warehouse::remove(std::string name, double quantity)
 
 	//checks whether the total quantity of all the products that are removed is less than the amount requested
 	double totalQuantity = 0;
-	while (i != productList.size() && (productList[i]->getName() == name))
+	int j = i;
+	while (j != productList.size() && (productList[i]->getName() == name))
 	{
 		totalQuantity += productList[i]->getQuantity();
-		i++;
+		j++;
 	}
 
 	if (totalQuantity < quantity)
@@ -118,16 +120,20 @@ void Warehouse::remove(std::string name, double quantity)
 		std::cout << "Amount needed is more than total - withdraw all anyway? (Y/N)" << std::endl;
 		std::string answer;
 		std::cin >> answer;
+
 		if (answer == "N")
 		{
 			return;
+		}
+		else {
+			quantity = totalQuantity;
 		}
 	}
 
 	//makes a vector for the indexes of the removed product types (from warehouse) so that they can be removed from the vector later
 	std::vector<int> removedProducts;
 	double sum = 0;
-	i--;
+
 	//if the quantity is more than one product holds - remove the soonest expiring one and continue removing until the quantity is full
 	//if it isnt, directly removes the needed quantity from the first product
 	//this continues until either the end or the product type changes
@@ -140,7 +146,15 @@ void Warehouse::remove(std::string name, double quantity)
 			int sectionId = productList[i]->getSectionId();
 			int shelfId = productList[i]->getShelfId();
 			int numberId = productList[i]->getNumberId();
-			sections[sectionId].getShelves()[shelfId].getNumbers()[numberId].removeProduct(productList[i]);
+			Number num = sections[sectionId].getShelves()[shelfId].getNumbers()[numberId];
+			try {
+				sections[sectionId].getShelves()[shelfId].getNumbers()[numberId].removeProduct(productList[i]);
+			}
+			catch (...)
+			{
+				std::cout << "Product could not be erased";
+				return;
+			}
 			removedProducts.push_back(i);
 
 			quantity -= sum;
@@ -188,6 +202,7 @@ void Warehouse::clean()
 	for (std::vector<Product*>::iterator it : its)
 	{
 		productList.erase(it);
+		(*it)->print(std::cout);
 		changelog.submitChange("clean", (*it)->productToString());
 		delete *it;
 	}
@@ -200,11 +215,10 @@ bool Warehouse::addDirectly(Product* p)
 	int sectionId = p->getSectionId();
 	int shelfId = p->getShelfId();
 	int numberId = p->getNumberId();
-	Number num = sections[sectionId].getShelves()[shelfId].getNumbers()[numberId];
-	(*p).setSectionId(sectionId);
-	(*p).setShelfId(shelfId);
-	(*p).setNumberId(numberId);
-	return num.add(newProduct);
+	newProduct->setSectionId(sectionId);
+	newProduct->setShelfId(shelfId);
+	newProduct->setNumberId(numberId);
+	return sections[sectionId].getShelves()[shelfId].getNumbers()[numberId].add(newProduct);
 }
 
 void Warehouse::swap(Warehouse& other)

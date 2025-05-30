@@ -25,10 +25,9 @@ public:
 
 	void printProductList(std::ostream& os) const;
 
-
 	~Warehouse() override;
 private:
-	const int sectionAmount = 1;
+	const int sectionAmount = 10;
 	std::vector<Section> sections;
 	std::vector<Product*> productList;
 	 ChangeLog changelog;
