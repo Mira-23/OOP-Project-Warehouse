@@ -30,6 +30,7 @@ private:
 
 	bool isOpen;
 	std::string filePath;
+	std::fstream file;
 	Warehouse warehouse;
 };
 

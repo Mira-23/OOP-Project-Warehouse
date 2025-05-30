@@ -2,21 +2,21 @@
 
 Number::Number() : occupiedSpace(0) {}
 
-Number::Number(const Number& other) : occupiedSpace(other.occupiedSpace)
-{
-	for (Product* p : other.products)
-	{
-		products.push_back(new Product(*p));
-	}
-}
-
-Number& Number::operator=(Number& other)
-{
-	Number copy(other);
-	swap(copy);
-
-	return *this;
-}
+//Number::Number(const Number& other) : occupiedSpace(other.occupiedSpace)
+//{
+//	for (Product* p : other.products)
+//	{
+//		products.push_back(new Product(*p));
+//	}
+//}
+//
+//Number& Number::operator=(Number& other)
+//{
+//	Number copy(other);
+//	swap(copy);
+//
+//	return *this;
+//}
 
 bool Number::add(Product* product)
 {
@@ -76,10 +76,10 @@ bool Number::isEmpty()
 	return products.size()==0;
 }
 
-Number::~Number()
-{
-	for (Product* p : products)
-	{
-		delete p;
-	}
-}
+//Number::~Number()
+//{
+//	for (Product* p : products)
+//	{
+//		delete p;
+//	}
+//}

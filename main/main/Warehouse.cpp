@@ -27,6 +27,11 @@ Warehouse& Warehouse::operator=(Warehouse& other)
 	return *this;
 }
 
+void Warehouse::printLine(std::string name, std::string manufacturer, std::string measurementUnit, double quantity)
+{
+	std::cout << name << " " << manufacturer << " " << measurementUnit << " " << quantity << " " << std::endl;
+}
+
 void Warehouse::print()
 {
 	if (productList.size() == 0) { return; }
@@ -35,7 +40,10 @@ void Warehouse::print()
 	double tempQuantity = productList[0]->getQuantity();
 
 	//turn into a print function
-	if(productList.size()==1) { std::cout << " " << tempName << productList[0]->getManufacturer() << " " << productList[0]->stringMeasurementUnit() << " " << tempQuantity << " " << std::endl; }
+	if (productList.size() == 1) {
+		printLine(tempName, productList[0]->getManufacturer(), productList[0]->stringMeasurementUnit(), tempQuantity);
+		return;
+	}
 	//turn into sort function
 	std::sort(productList.begin(), productList.end(), [](Product* first, Product* other) {
 		return *first < *other;
@@ -49,12 +57,12 @@ void Warehouse::print()
 			tempQuantity += productList[0]->getQuantity();
 		}
 		else {
-			std::cout << tempName << productList[i-1]->getManufacturer() << productList[i-1]->stringMeasurementUnit() << tempQuantity << std::endl;
+			printLine(tempName, productList[i-1]->getManufacturer(), productList[i-1]->stringMeasurementUnit(), tempQuantity);
 			tempName = productList[i]->getName();
 			tempQuantity = productList[i]->getQuantity();
 		}
 	}
-	std::cout << tempName << productList[productList.size() - 1]->getManufacturer() << productList[productList.size() - 1]->stringMeasurementUnit() << tempQuantity << std::endl;
+	printLine(tempName, productList[productList.size()-1]->getManufacturer(), productList[productList.size() - 1]->stringMeasurementUnit(), tempQuantity);
 }
 
 bool Warehouse::add(Product* product)
@@ -63,14 +71,7 @@ bool Warehouse::add(Product* product)
 	int productIndex = findProduct(product);
 	if (productIndex >= 0 && (*productList[productIndex]) == *product)
 	{
-		int sectionId = productList[productIndex]->getSectionId();
-		int shelfId = productList[productIndex]->getShelfId();;
-		int numberId = productList[productIndex]->getNumberId();
-		Number num = sections[sectionId].getShelves()[shelfId].getNumbers()[numberId];
-		(*product).setSectionId(sectionId);
-		(*product).setShelfId(shelfId);
-		(*product).setNumberId(numberId);
-		return num.add(product);
+		return addDirectly(productList[productIndex]);
 	}
 
 	for (int i = 0; i < sections.size(); i++) {
@@ -167,6 +168,7 @@ void Warehouse::remove(std::string name, double quantity)
 	for (int j : removedProducts)
 	{
 		std::cout << "Product removed" << std::endl;
+		delete productList[j];
 		productList.erase(productList.begin() + j);
 	}
 }
@@ -192,6 +194,20 @@ void Warehouse::clean()
 	{
 		productList.erase(it);
 	}
+}
+
+bool Warehouse::addDirectly(Product* p)
+{
+	Product* newProduct = new Product(*p);
+	productList.push_back(newProduct);
+	int sectionId = p->getSectionId();
+	int shelfId = p->getShelfId();;
+	int numberId = p->getNumberId();
+	Number num = sections[sectionId].getShelves()[shelfId].getNumbers()[numberId];
+	(*p).setSectionId(sectionId);
+	(*p).setShelfId(shelfId);
+	(*p).setNumberId(numberId);
+	return num.add(newProduct);
 }
 
 void Warehouse::swap(Warehouse& other)
@@ -223,14 +239,13 @@ void Warehouse::printProductList(std::ostream& os) const
 	}
 }
 
-
-
 Warehouse::~Warehouse()
 {
 	for (Product* p : productList)
 	{
 		delete p;
 	}
+	std::cout << "This ran";
 }
 
 std::ostream& operator<<(std::ostream& os, const Warehouse& warehouse)
@@ -241,10 +256,11 @@ std::ostream& operator<<(std::ostream& os, const Warehouse& warehouse)
 
 std::istream& operator>>(std::istream& is, Warehouse& warehouse)
 {
-	while (is.eof())
+	while (!is.eof())
 	{
 		Product p;
 		is >> p;
+		warehouse.addDirectly(&p);
 	}
 	return is;
 }

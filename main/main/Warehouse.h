@@ -17,17 +17,21 @@ public:
 	void log() const;
 	void clean();
 
+	bool addDirectly(Product* p);
+
 	friend std::ostream& operator<<(std::ostream& os, const Warehouse& warehouse);
 	friend std::istream& operator>>(std::istream& is, Warehouse& warehouse);
 
 	void printProductList(std::ostream& os) const;
 
+
 	~Warehouse() override;
 private:
-	const int sectionAmount = 10;
+	const int sectionAmount = 1;
 	std::vector<Section> sections;
 	std::vector<Product*> productList;
 
+	void printLine(std::string name, std::string manufacturer, std::string measurementUnit, double quantity);
 	void swap(Warehouse& other);
 	int findProduct(Product* p);
 };

@@ -5,35 +5,29 @@ void Menu::open(std::string command)
 	isOpen = true;
 	std::vector<std::string> params = getParams(command, "open", 1);
 	filePath = params[0];
-	std::ifstream file(filePath);
-	if (file.is_open())
-	{
-		file >> warehouse;
-	}
-	else {
-		throw std::exception("File does not exist");
-	}
 
+	file.open(filePath);
+
+	file >> warehouse;
 	file.close();
 }
 
 void Menu::close()
 {
 	isOpen = false;
+	file = std::fstream();
+	Warehouse newWarehouse = Warehouse();
+	warehouse = newWarehouse;
 	//clean all loaded info
 }
 
 void Menu::save_as(std::string command)
 {
 	std::vector<std::string> params = getParams(command, "saveas", 1);
-	std::ofstream file(params[0]);
-	if (file.is_open())
-	{
-		file << warehouse;
-	}
-	else {
-		throw std::exception("File does not exist");
-	}
+
+	file.open(params[0]);
+
+	file << warehouse;
 
 	file.close();
 }
@@ -83,7 +77,7 @@ std::vector<std::string> Menu::getParams(std::string command, std::string operat
 	return params;
 }
 
-Menu::Menu() : isOpen(false), filePath(""), warehouse(Warehouse()) {}
+Menu::Menu() : isOpen(false), filePath(""), file(std::fstream()), warehouse(Warehouse()) {}
 
 void Menu::start()
 {
@@ -99,27 +93,27 @@ void Menu::start()
 			{
 				open(command);
 			}
+			else if (command == "exit")
+			{
+				exit();
+			}
 		}
 		else {
 			if (command == "close")
 			{
-				isOpen = false;
+				close();
 			}
 			else if (command == "save")
 			{
-				//save code
+				save();
 			}
 			else if (command.substr(0, 6) == "saveas")
 			{
-				//save as code
+				save_as(command);
 			}
 			else if (command == "help")
 			{
 				help();
-			}
-			else if (command == "exit")
-			{
-				exit();
 			}
 			else if (command.substr(0, 3) == "add")
 			{
@@ -148,7 +142,7 @@ void Menu::start()
 void Menu::add(std::string command)
 {
 	//add Milk|28/06/2025|22/06/2025|Pilos|Litres|2|Just milk
-			//add Apple|28/06/2025|22/06/2025|Pilos|Kilograms|1|Just an apple
+	//add Apple|28/06/2025|22/06/2025|Pilos|Kilograms|1|Just an apple
 	std::vector<std::string> params = getParams(command, "add", 7);
 
 	Product p(params[0], params[1], params[2], params[3], params[4], params[5], params[6]);

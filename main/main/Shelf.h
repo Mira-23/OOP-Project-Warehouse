@@ -13,7 +13,7 @@ public:
 	bool isEmpty() override;
 	~Shelf() override;
 private:
-	const int numberAmount = 10;
+	const int numberAmount = 1;
 	std::vector<Number> numbers;
 };
 

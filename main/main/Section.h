@@ -14,6 +14,6 @@ public:
 	~Section() override;
 private:
 	std::vector<Shelf> shelves;
-	const int shelfAmount = 50;
+	const int shelfAmount = 1;
 };
 
