@@ -18,7 +18,7 @@ public:
 	void log(std::string from, std::string to) const;
 	void clean();
 
-	bool addDirectly(Product* p);
+	bool addDirectly(Product* p) override;
 
 	friend std::ostream& operator<<(std::ostream& os, const Warehouse& warehouse);
 	friend std::istream& operator>>(std::istream& is, Warehouse& warehouse);

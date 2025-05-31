@@ -20,6 +20,15 @@ bool Section::add(Product* product)
 	return false; // section full
 }
 
+bool Section::addDirectly(Product* product)
+{
+	if (shelves[product->getShelfId()].addDirectly(product))
+	{
+		return true;
+	}
+	return false; // shelf full
+}
+
 std::vector<Shelf> Section::getShelves()
 {
 	return shelves;

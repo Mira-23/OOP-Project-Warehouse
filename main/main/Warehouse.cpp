@@ -211,14 +211,14 @@ void Warehouse::clean()
 bool Warehouse::addDirectly(Product* p)
 {
 	Product* newProduct = new Product(*p);
-	productList.push_back(newProduct);
 	int sectionId = p->getSectionId();
 	int shelfId = p->getShelfId();
 	int numberId = p->getNumberId();
 	newProduct->setSectionId(sectionId);
 	newProduct->setShelfId(shelfId);
 	newProduct->setNumberId(numberId);
-	return sections[sectionId].getShelves()[shelfId].getNumbers()[numberId].add(newProduct);
+	productList.push_back(newProduct);
+	return sections[sectionId].addDirectly(newProduct);
 }
 
 void Warehouse::swap(Warehouse& other)

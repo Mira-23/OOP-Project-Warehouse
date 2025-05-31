@@ -22,9 +22,7 @@ bool Number::add(Product* product)
 {
 	if (isEmpty())
 	{
-		products.push_back(product);
-		occupiedSpace += product->getQuantity();
-		return true;
+		return addDirectly(product);
 	}
 	else if (product != products[0])
 	{
@@ -62,6 +60,13 @@ void Number::removeProduct(Product* p)
 std::vector<Product*> Number::getProducts()
 {
 	return products;
+}
+
+bool Number::addDirectly(Product* product)
+{
+	products.push_back(product);
+	occupiedSpace += product->getQuantity();
+	return true;
 }
 
 void Number::swap(Number& other)

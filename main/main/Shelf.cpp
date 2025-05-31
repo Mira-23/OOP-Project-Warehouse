@@ -20,6 +20,15 @@ bool Shelf::add(Product* product)
 	return false; // shelf full
 }
 
+bool Shelf::addDirectly(Product* product)
+{
+	if (numbers[product->getNumberId()].addDirectly(product))
+	{
+		return true;
+	}
+	return false; // shelf full
+}
+
 std::vector<Number> Shelf::getNumbers()
 {
 	return numbers;

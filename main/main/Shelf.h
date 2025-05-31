@@ -9,6 +9,7 @@ class Shelf : public IStorageUnit
 public:
 	Shelf();
 	bool add(Product* p) override;
+	bool addDirectly(Product* p) override;
 	std::vector<Number> getNumbers();
 	~Shelf() override;
 private:
