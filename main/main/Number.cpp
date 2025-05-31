@@ -52,8 +52,6 @@ bool Number::add(Product* product)
 
 void Number::removeProduct(Product* p)
 {
-	bool a = *products[0] == *p;
-	std::cout << std::boolalpha << a;
 	products.erase(std::find_if(products.begin(), products.end(), [p](Product* prod) -> bool {return *prod == *p; }));
 }
 

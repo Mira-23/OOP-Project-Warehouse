@@ -91,6 +91,26 @@ void Menu::start()
 					exit();
 				}
 			}
+			else if (command.substr(0, 11) == "checklosses")
+			{
+				try {
+					check_losses(command);
+				}
+				catch (std::exception ex) {
+					std::cout << ex.what() << std::endl;
+					exit();
+				}
+			}
+			else if (command == "clean")
+			{
+				try {
+					clean();
+				}
+				catch (std::exception ex) {
+					std::cout << ex.what() << std::endl;
+					exit();
+				}
+			}
 			else if (command == "print")
 			{
 				try {
@@ -112,6 +132,10 @@ void Menu::start()
 
 		std::cout << "> ";
 		std::getline(std::cin, command);
+		if (command == "")
+		{
+			std::getline(std::cin, command);
+		}
 	}
 }
 
@@ -188,6 +212,9 @@ void Menu::help() noexcept
 		<< "add <name|exparation date|entry date|manifacturer|measurement unit|quantity|comment>	adds a product to the warehouse" << std::endl
 		<< "remove <name|quantity>		removes product from warehouse" << std::endl
 		<< "log <from|to>	prints logs from date to date" << std::endl
+		<< "	supported format: dd/mm/YYYY" << std::endl
+		<< "checklosses <product name|price|quantity|from|to>		checks the losses from expiring products" << std::endl
+		<< "	supported format: dd/mm/YYYY" << std::endl
 		<< "clean			removes all expired products from warehouse" << std::endl;
 }
 
@@ -196,31 +223,6 @@ void Menu::exit() noexcept
 {
 	std::cout << "Exiting the program..." << std::endl;
 	std::exit(0);
-}
-
-//
-std::vector<std::string> Menu::getParams(std::string command, std::string operation, int paramCount)
-{
-	std::vector<std::string> params;
-	std::istringstream ss;
-	try {
-		ss = std::istringstream(command.substr(operation.size() + 1)); // gets the parameters as pure strings, needs to be changed from a constant
-	}
-	catch (std::exception){
-		throw std::invalid_argument("Invalid command format. Check help for proper format");
-	}
-	std::string t;
-	char del = '|';
-
-	while (std::getline(ss, t, del))
-	{
-		params.push_back(t);
-	}
-	if (params.size() != paramCount)
-	{
-		throw std::invalid_argument("Wrong amount of parameters");
-	}
-	return params;
 }
 
 //
@@ -248,7 +250,8 @@ void Menu::remove(std::string command)
 	warehouse.remove(params[0], std::stoi(params[1]));
 }
 
-void Menu::print()
+//
+void Menu::print() noexcept
 {
 	warehouse.print();
 }
@@ -263,4 +266,37 @@ void Menu::log(std::string command)
 	std::vector<std::string> params = getParams(command, "log", 2);
 	//log 30/05/2025|30/05/2025
 	warehouse.log(params[0], params[1]);
+}
+
+void Menu::check_losses(std::string command)
+{
+	//product name|price|quantity|from|to
+	//checklosses Milk|2|1|28/05/2025|31/05/2025
+	std::vector<std::string> params = getParams(command, "checklosses", 5);
+	warehouse.check_losses(params[0], std::stod(params[1]), std::stod(params[2]), params[3], params[4]);
+}
+
+//
+std::vector<std::string> Menu::getParams(std::string command, std::string operation, int paramCount)
+{
+	std::vector<std::string> params;
+	std::istringstream ss;
+	try {
+		ss = std::istringstream(command.substr(operation.size() + 1)); // gets the parameters as pure strings, needs to be changed from a constant
+	}
+	catch (std::exception) {
+		throw std::invalid_argument("Invalid command format. Check help for proper format");
+	}
+	std::string t;
+	char del = '|';
+
+	while (std::getline(ss, t, del))
+	{
+		params.push_back(t);
+	}
+	if (params.size() != paramCount)
+	{
+		throw std::invalid_argument("Wrong amount of parameters");
+	}
+	return params;
 }

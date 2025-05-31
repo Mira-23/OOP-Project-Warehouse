@@ -27,9 +27,9 @@ Warehouse& Warehouse::operator=(Warehouse& other)
 	return *this;
 }
 
-void Warehouse::printLine(std::string name, std::string manufacturer, std::string measurementUnit, double quantity)
+void Warehouse::printLine(std::string name, std::string measurementUnit, double quantity)
 {
-	std::cout << name << " " << manufacturer << " " << measurementUnit << " " << quantity << " " << std::endl;
+	std::cout << name << " " << measurementUnit << " " << quantity << " " << std::endl;
 }
 
 void Warehouse::print()
@@ -39,16 +39,15 @@ void Warehouse::print()
 	std::string tempName = productList[0]->getName();
 	double tempQuantity = productList[0]->getQuantity();
 
-	//turn into a print function
 	if (productList.size() == 1) {
-		printLine(tempName, productList[0]->getManufacturer(), productList[0]->stringMeasurementUnit(), tempQuantity);
+		printLine(tempName, productList[0]->stringMeasurementUnit(), tempQuantity);
 		return;
 	}
-	//turn into sort function
+
 	std::sort(productList.begin(), productList.end(), [](Product* first, Product* other) {
 		return *first < *other;
 		});
-	// name|manufacturer|measurementUnit|quantity
+	// name|measurementUnit|quantity
 	
 	for (int i =1;i<productList.size();i++)
 	{
@@ -57,12 +56,12 @@ void Warehouse::print()
 			tempQuantity += productList[0]->getQuantity();
 		}
 		else {
-			printLine(tempName, productList[i-1]->getManufacturer(), productList[i-1]->stringMeasurementUnit(), tempQuantity);
+			printLine(tempName, productList[i-1]->stringMeasurementUnit(), tempQuantity);
 			tempName = productList[i]->getName();
 			tempQuantity = productList[i]->getQuantity();
 		}
 	}
-	printLine(tempName, productList[productList.size()-1]->getManufacturer(), productList[productList.size() - 1]->stringMeasurementUnit(), tempQuantity);
+	printLine(tempName, productList[productList.size() - 1]->stringMeasurementUnit(), tempQuantity);
 }
 
 bool Warehouse::add(Product* product)
@@ -117,7 +116,8 @@ void Warehouse::remove(std::string name, double quantity)
 
 	if (totalQuantity < quantity)
 	{
-		std::cout << "Amount needed is more than total - withdraw all anyway? (Y/N)" << std::endl;
+		std::cout << "> Amount needed is more than total - withdraw all anyway? (Y/N)" << std::endl;
+		std::cout << "> ";
 		std::string answer;
 		std::cin >> answer;
 
@@ -156,13 +156,12 @@ void Warehouse::remove(std::string name, double quantity)
 				return;
 			}
 			removedProducts.push_back(i);
-
-			quantity -= sum;
-			std::cout << "Product removed due to qunatity" << std::endl;
 		}
 		else {
-			productList[i]->reduceQuantityBy(quantity);
+			productList[i]->reduceQuantityBy(quantity-sum);
+			sum = quantity;
 			changelog.submitChange("change", productList[i]->productToString(),quantity);
+			std::cout << "> Product " << productList[i]->productToString() << "had" << " " << quantity << productList[i]->stringMeasurementUnit() << " " << " removed" << std::endl;
 		}
 		i++;
 	}
@@ -170,7 +169,7 @@ void Warehouse::remove(std::string name, double quantity)
 	//removes the removed products from the warehouse vector
 	for (int j : removedProducts)
 	{
-		std::cout << "Product removed" << std::endl;
+		std::cout << "> Product " << productList[j]->productToString() << " removed" << std::endl;
 		changelog.submitChange("remove", productList[j]->productToString());
 		delete productList[j];
 		productList.erase(productList.begin() + j);
@@ -186,7 +185,7 @@ void Warehouse::clean()
 {
 	//goes through the list and removes expiring products
 	std::vector<std::vector<Product*>::iterator> its;
-	for (std::vector<Product*>::iterator it = productList.begin(); it != productList.end();)
+	for (std::vector<Product*>::iterator it = productList.begin(); it != productList.end();it++)
 	{
 		if ((*it)->closeToExpiration())
 		{
@@ -201,11 +200,94 @@ void Warehouse::clean()
 	//this is done so that i can directly pass the iterator to the erase function, even if it doesn't look as good
 	for (std::vector<Product*>::iterator it : its)
 	{
-		productList.erase(it);
 		(*it)->print(std::cout);
 		changelog.submitChange("clean", (*it)->productToString());
-		delete *it;
+		delete* it;
+		productList.erase(it);
+		
 	}
+}
+
+void Warehouse::check_losses(std::string name, double price, double quantity, std::string from, std::string to)
+{
+	//goes through all products with the name, checks every product if it expires during the period, gets enough quantity
+	//and from that quantity calculates how much is lost 
+	//sorts the list so that the latest come up to the top, which is for the next code to iterate over it properly
+	std::sort(productList.begin(), productList.end(), [](Product* first, Product* other) {
+		return *first < *other;
+		});
+
+	//finds the index of the first product of the type that it's going to remove from
+	int i = 0;
+	while (i != productList.size() && (*productList[i]).getName() != name) { i++; }
+	if (i == productList.size())
+	{
+		std::cout << "Product does not exist in warehouse." << std::endl;
+		return;
+	}
+
+	struct tm fromDate;
+	fromDate.tm_hour = 0;
+	fromDate.tm_min = 0;
+	fromDate.tm_sec = 0;
+
+	struct tm toDate;
+	toDate.tm_hour = 0;
+	toDate.tm_min = 0;
+	toDate.tm_sec = 0;
+
+	std::istringstream ss1(from);
+	ss1 >> std::get_time(&fromDate, "%d/%m/%Y");
+
+	std::istringstream ss2(to);
+	ss2 >> std::get_time(&toDate, "%d/%m/%Y");
+
+	if (ss1.fail() || ss2.fail())
+	{
+		throw std::invalid_argument("Invalid time format, dd/mm/YYYY only.");
+	}
+
+	std::time_t fromTime = mktime(&fromDate);
+	std::time_t toTime = mktime(&toDate);
+	
+
+	double sum = 0;
+	double lostExpenses = 0;
+	while (i != productList.size() && ((*productList[i]).getName() == name && sum != quantity))
+	{
+
+		double change = productList[i]->getQuantity();
+		if (sum + productList[i]->getQuantity() <= quantity)
+		{
+			sum += productList[i]->getQuantity();
+		}
+		else {
+			change = quantity - sum;
+			sum = quantity;
+		}
+
+		struct tm expDate = productList[i]->getExpDate();
+		std::time_t expTime = mktime(&expDate);
+		if (expTime >= fromTime && expTime <= toTime)
+		{
+			lostExpenses += change * price;
+		}
+	}
+
+	
+	if (sum < quantity)
+	{
+		std::cout << "Amount not met, only " << sum << "amount of " << name << " in warehouse." << std::endl;
+		std::cout << "Still check losses? (Y/N)" << std::endl;
+		std::string answer;
+		std::cin >> answer;
+		if (answer == "N")
+		{
+			return;
+		}
+	}
+
+	std::cout << "Money lost: " << lostExpenses << std::endl;
 }
 
 bool Warehouse::addDirectly(Product* p)

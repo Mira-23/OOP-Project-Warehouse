@@ -43,6 +43,8 @@ public:
 	double getQuantity() const;
 	void reduceQuantityBy(double amount);
 
+	struct tm getExpDate() const;
+
 	bool operator==(const Product& other) const;
 	bool operator!=(const Product& other) const;
 	bool operator<(const Product& other) const;

@@ -17,6 +17,7 @@ public:
 	void remove(std::string name, double quantity);
 	void log(std::string from, std::string to) const;
 	void clean();
+	void check_losses(std::string name, double price, double quantity, std::string from, std::string to);
 
 	bool addDirectly(Product* p) override;
 
@@ -32,7 +33,7 @@ private:
 	std::vector<Product*> productList;
 	 ChangeLog changelog;
 
-	void printLine(std::string name, std::string manufacturer, std::string measurementUnit, double quantity);
+	void printLine(std::string name, std::string measurementUnit, double quantity);
 	void swap(Warehouse& other);
 	int findProduct(Product* p);
 };

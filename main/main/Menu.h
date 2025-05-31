@@ -13,9 +13,10 @@ public:
 private:
 	void add(std::string command);
 	void remove(std::string command);
-	void print();
+	void print() noexcept;
 	void clean();
 	void log(std::string command);
+	void check_losses(std::string command);
 
 	void open(std::string command);
 	void close() noexcept;

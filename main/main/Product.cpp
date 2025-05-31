@@ -80,6 +80,11 @@ double Product::getQuantity() const { return quantity; }
 
 void Product::reduceQuantityBy(double amount) { quantity -= amount; }
 
+tm Product::getExpDate() const
+{
+	return expirationDate;
+}
+
 std::string Product::getName() const { return name; }
 
 std::string Product::getManufacturer() const { return manufacturer; }
@@ -100,7 +105,7 @@ bool Product::closeToExpiration()
 	time_t t1 = std::time(0);
 	time_t t2 = mktime(&expirationDate);
 	double twoDays = 2 * 24 * 60 * 60;
-	bool check = difftime(t1, t2) <= twoDays;
+	bool check = (difftime(t1, t2) <= twoDays) || t1>t2;
 	return check;
 }
 
