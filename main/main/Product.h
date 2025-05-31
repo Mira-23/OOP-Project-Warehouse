@@ -51,6 +51,7 @@ public:
 
 	void print(std::ostream& os) const;
 	std::string productToString() const;
+	std::string productAsMessage() const;
 	std::vector<std::string> getProductParams(std::string line, int paramCount, char del);
 
 	friend std::ostream& operator<<(std::ostream& os, const Product& product);

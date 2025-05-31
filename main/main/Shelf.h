@@ -8,10 +8,10 @@ class Shelf : public IStorageUnit
 {
 public:
 	Shelf();
+	IStorageUnit* clone() override;
 	bool add(Product* p) override;
 	bool addDirectly(Product* p) override;
 	std::vector<Number> getNumbers();
-	~Shelf() override;
 private:
 	const int numberAmount = 10;
 	std::vector<Number> numbers;

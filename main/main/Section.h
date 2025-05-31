@@ -8,10 +8,10 @@ class Section : public IStorageUnit
 {
 public:
 	Section();
+	IStorageUnit* clone() override;
 	bool add(Product* p) override;
 	bool addDirectly(Product* p) override;
 	std::vector<Shelf> getShelves();
-	~Section() override;
 private:
 	std::vector<Shelf> shelves;
 	const int shelfAmount = 10;

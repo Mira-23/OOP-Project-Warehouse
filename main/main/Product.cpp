@@ -1,11 +1,25 @@
 #include "Product.h"
 #include <cmath>
 
-Product::Product() {}
+Product::Product()
+{
+	name = "";
+	expirationDate = struct tm();
+	enterDate = struct tm();
+	manufacturer = "";
+	quantity = 0;
+	measurementUnit = MeasurementUnit::Kilograms;
+	comment = "";
+
+	for (int i = 0; i < 3; i++)
+	{
+		location[i] = -1;
+	}
+}
 
 Product::Product(std::string name,
-	std::string expirationDate,
 	std::string enterDate,
+	std::string expirationDate,
 	std::string manufacturer,
 	std::string quantity,
 	std::string measurementUnit,
@@ -56,8 +70,8 @@ Product::Product(std::string name,
 	}
 
 	this->name = name;
-	this->expirationDate = exDate;
 	this->enterDate = enDate;
+	this->expirationDate = exDate;
 	this->manufacturer = manufacturer; 
 	this->quantity = quantityValue;
 	this->measurementUnit = un; 
@@ -105,8 +119,8 @@ bool Product::closeToExpiration()
 
 	time_t t1 = std::time(0);
 	time_t t2 = mktime(&expirationDate);
-	long diff = ((std::abs(t2-t1) / 60) / 60) / 24; //two days
-	bool check = (diff <= 2) || t1>t2;
+	long diff = ((std::abs(t2-t1) / 60) / 60) / 24;
+	bool check = (diff <= 2) || t1>t2; //expires in 2 days
 	return check;
 }
 
@@ -114,10 +128,7 @@ bool Product::operator==(const Product& other) const
 {
     return (name == other.name) &&
 		(manufacturer == other.manufacturer) &&
-		compareDate(enterDate,other.enterDate) &&
-		(location[0] == other.location[0]) &&
-		(location[1] == other.location[1]) &&
-		(location[2] == other.location[2]) &&
+		compareDate(expirationDate,other.expirationDate) &&
 		(quantity == other.quantity) &&
 		(measurementUnit == other.measurementUnit);
 }
@@ -189,13 +200,27 @@ std::string Product::productToString() const
 	measurementUnit == MeasurementUnit::Kilograms ? mUnit = "Kilograms" : mUnit = "Litres";
 	std::stringstream  ss;
 	ss << name << "|"
-		<< expirationDate.tm_mday << "/" << expirationDate.tm_mon + 1 << "/" << expirationDate.tm_year + 1900 << "|"
 		<< enterDate.tm_mday << "/" << enterDate.tm_mon + 1 << "/" << enterDate.tm_year + 1900 << "|"
+		<< expirationDate.tm_mday << "/" << expirationDate.tm_mon + 1 << "/" << expirationDate.tm_year + 1900 << "|"
 		<< manufacturer << "|"
 		<< location[0] << "/" << location[1] << "/" << location[2] << "|"
 		<< quantity << "|"
 		<< mUnit << "|"
-		<< comment << std::endl;
+		<< comment;
+	std::string result = ss.str();
+	return result;
+}
+
+std::string Product::productAsMessage() const
+{
+	std::string mUnit;
+	measurementUnit == MeasurementUnit::Kilograms ? mUnit = "Kilograms" : mUnit = "Litres";
+	std::stringstream  ss;
+	ss << "Product " << name<< " that entered on "
+		<< enterDate.tm_mday << "/" << enterDate.tm_mon + 1 << "/" << enterDate.tm_year + 1900
+		<< " and expires on " << expirationDate.tm_mday << "/" << expirationDate.tm_mon + 1 << "/" << expirationDate.tm_year + 1900
+		<< " from manufacturer " << manufacturer << " with location: SectionId: " << location[0] << ", ShelfId: " << location[1]
+		<< ", with NumberId: " << location[2] << " with quantity of " << quantity << " " << mUnit << " (" << comment << ")";
 	std::string result = ss.str();
 	return result;
 }
@@ -203,7 +228,7 @@ std::string Product::productToString() const
 std::vector<std::string> Product::getProductParams(std::string line, int paramCount, char del)
 {
 	std::vector<std::string> params;
-	std::istringstream ss(line); // gets the parameters as pure strings, needs to be changed from a constant
+	std::istringstream ss(line); // gets the parameters as pure strings
 	std::string t;
 
 	while (std::getline(ss, t, del))
@@ -224,13 +249,14 @@ std::vector<std::string> Product::getProductParams(std::string line, int paramCo
 std::ostream& operator<<(std::ostream& os, const Product& product)
 {
 	std::string prod = product.productToString();
-	os << prod;
+	os << prod << std::endl;;
 	return os;
 }
 
 std::istream& operator>>(std::istream& is, Product& product)
 {
-	//Milk|28/5/125|22/5/125|Pilos|-1/-1/-1|2|Litres|Just milk
+	//format
+	//Milk|22/5/125|28/5/125|Pilos|-1/-1/-1|2|Litres|Just milk
 	std::string line;
 	std::getline(is, line);
 	if (line.empty())

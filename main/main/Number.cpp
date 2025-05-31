@@ -2,21 +2,10 @@
 
 Number::Number() : occupiedSpace(0) {}
 
-//Number::Number(const Number& other) : occupiedSpace(other.occupiedSpace)
-//{
-//	for (Product* p : other.products)
-//	{
-//		products.push_back(new Product(*p));
-//	}
-//}
-//
-//Number& Number::operator=(Number& other)
-//{
-//	Number copy(other);
-//	swap(copy);
-//
-//	return *this;
-//}
+IStorageUnit* Number::clone()
+{
+	return new Number(*this);
+}
 
 bool Number::add(Product* product)
 {
@@ -38,17 +27,6 @@ bool Number::add(Product* product)
 		return false; // number full
 	}
 }
-
-//int Number::findProduct(Product* p)
-//{
-//	int i = -1;
-//	std::vector<Product*>::iterator it = std::find_if(products.begin(), products.end(), [p](Product* prod) -> bool {return *prod == *p; });
-//	if (it != products.end())
-//	{
-//		i = std::distance(products.begin(), it);;
-//	}
-//	return i;
-//}
 
 void Number::removeProduct(Product* p)
 {
@@ -78,11 +56,3 @@ bool Number::isEmpty()
 {
 	return products.size()==0;
 }
-
-//Number::~Number()
-//{
-//	for (Product* p : products)
-//	{
-//		delete p;
-//	}
-//}

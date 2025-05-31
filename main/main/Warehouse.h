@@ -10,6 +10,7 @@ class Warehouse : public IStorageUnit
 {
 public:
 	Warehouse();
+	IStorageUnit* clone() override;
 	Warehouse(const Warehouse& other);
 	Warehouse& operator=(Warehouse& other);
 	void print();

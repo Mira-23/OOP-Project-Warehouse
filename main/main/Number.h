@@ -7,6 +7,7 @@ class Number : public IStorageUnit
 {
 public:
 	Number();
+	IStorageUnit* clone() override;
 	//Number(const Number& other);
 	//Number& operator=(Number& other);
 	bool add(Product* p) override;
@@ -15,7 +16,6 @@ public:
 	bool addDirectly(Product* p) override;
 	//int findProduct(Product* p);
 	bool isEmpty();
-	//~Number() override;
 private:
 	void swap(Number& other);
 	std::vector<Product*> products;

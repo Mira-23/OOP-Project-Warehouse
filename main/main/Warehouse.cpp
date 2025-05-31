@@ -11,6 +11,11 @@ Warehouse::Warehouse() : changelog(ChangeLog())
 	}
 }
 
+IStorageUnit* Warehouse::clone()
+{
+	return new Warehouse(*this);
+}
+
 Warehouse::Warehouse(const Warehouse& other) : sections(other.sections)
 {
 	for (Product* p : other.productList)
@@ -29,18 +34,24 @@ Warehouse& Warehouse::operator=(Warehouse& other)
 
 void Warehouse::printLine(std::string name, std::string measurementUnit, double quantity)
 {
-	std::cout << name << " " << measurementUnit << " " << quantity << " " << std::endl;
+	
 }
 
 void Warehouse::print()
 {
 	if (productList.size() == 0) { return; }
 
+	for (Product* p : productList)
+	{
+		std::cout << p->productAsMessage() << std::endl;
+	}
+
 	std::string tempName = productList[0]->getName();
 	double tempQuantity = productList[0]->getQuantity();
+	std::string measurementUn = productList[0]->stringMeasurementUnit();
 
 	if (productList.size() == 1) {
-		printLine(tempName, productList[0]->stringMeasurementUnit(), tempQuantity);
+		std::cout << tempName << ": " << tempQuantity << " " << measurementUn << std::endl;
 		return;
 	}
 
@@ -51,17 +62,18 @@ void Warehouse::print()
 	
 	for (int i =1;i<productList.size();i++)
 	{
+		measurementUn = productList[i]->stringMeasurementUnit();
 		if (tempName == productList[i]->getName())
 		{
-			tempQuantity += productList[0]->getQuantity();
+			tempQuantity += productList[i]->getQuantity();
 		}
 		else {
-			printLine(tempName, productList[i-1]->stringMeasurementUnit(), tempQuantity);
+			std::cout << tempName << " " << tempQuantity << " " << measurementUn << std::endl;
 			tempName = productList[i]->getName();
 			tempQuantity = productList[i]->getQuantity();
 		}
 	}
-	printLine(tempName, productList[productList.size() - 1]->stringMeasurementUnit(), tempQuantity);
+	std::cout << tempName << ": " << tempQuantity << " " << measurementUn << std::endl;
 }
 
 bool Warehouse::add(Product* product)
@@ -70,7 +82,7 @@ bool Warehouse::add(Product* product)
 	int productIndex = findProduct(product);
 	if (productIndex >= 0 && (*productList[productIndex]) == *product)
 	{
-		changelog.submitChange("add", productList[productIndex]->productToString());
+		changelog.submitChange("add", productList[productIndex]->productAsMessage());
 		return addDirectly(productList[productIndex]);
 	}
 
@@ -81,7 +93,7 @@ bool Warehouse::add(Product* product)
 		if (sections[i].add(newProduct))
 		{
 			productList.push_back(newProduct);
-			changelog.submitChange("add", newProduct->productToString());
+			changelog.submitChange("add", newProduct->productAsMessage());
 			return true;
 		}
 	}
@@ -160,8 +172,8 @@ void Warehouse::remove(std::string name, double quantity)
 		else {
 			productList[i]->reduceQuantityBy(quantity-sum);
 			sum = quantity;
-			changelog.submitChange("change", productList[i]->productToString(),quantity);
-			std::cout << "Product " << productList[i]->productToString() << "had" << " " << quantity << productList[i]->stringMeasurementUnit() << " " << " removed" << std::endl;
+			changelog.submitChange("change", productList[i]->getName(),quantity);
+			std::cout << "Product " << productList[i]->getName() << " had " << quantity << " " << productList[i]->stringMeasurementUnit() << " removed" << std::endl;
 		}
 		i++;
 	}
@@ -169,8 +181,8 @@ void Warehouse::remove(std::string name, double quantity)
 	//removes the removed products from the warehouse vector
 	for (int j : removedProducts)
 	{
-		std::cout << "> Product " << productList[j]->productToString() << " removed" << std::endl;
-		changelog.submitChange("remove", productList[j]->productToString());
+		std::cout << "A batch of product " << productList[j]->getName() << " was removed" << std::endl;
+		changelog.submitChange("remove", productList[j]->getName());
 		delete productList[j];
 		productList.erase(productList.begin() + j);
 	}
@@ -201,7 +213,7 @@ void Warehouse::clean()
 	for (std::vector<Product*>::iterator it : its)
 	{
 		(*it)->print(std::cout);
-		changelog.submitChange("clean", (*it)->productToString());
+		changelog.submitChange("clean", (*it)->productAsMessage());
 		delete* it;
 		productList.erase(it);
 		

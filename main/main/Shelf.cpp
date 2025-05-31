@@ -8,6 +8,11 @@ Shelf::Shelf()
 	}
 }
 
+IStorageUnit* Shelf::clone()
+{
+	return new Shelf(*this);
+}
+
 bool Shelf::add(Product* product)
 {
 	for (int i = 0; i < numberAmount;i++) {
@@ -33,5 +38,3 @@ std::vector<Number> Shelf::getNumbers()
 {
 	return numbers;
 }
-
-Shelf::~Shelf() {}

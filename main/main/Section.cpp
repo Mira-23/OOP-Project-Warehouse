@@ -8,6 +8,11 @@ Section::Section()
 	}
 }
 
+IStorageUnit* Section::clone()
+{
+	return new Section(*this);
+}
+
 bool Section::add(Product* product)
 {
 	for (int i = 0; i < shelfAmount;i++) {
@@ -33,5 +38,3 @@ std::vector<Shelf> Section::getShelves()
 {
 	return shelves;
 }
-
-Section::~Section() {}

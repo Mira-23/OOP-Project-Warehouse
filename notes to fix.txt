@@ -1,9 +1,1 @@
-1. first print text: Please first open/create file with open <file>:
-2. open needs to print successful file open/create
-3. better help explanations
-4. move enterdate before exparation date
-5. when adding wrong do not exit the program
-6. print in a prettier manner AND add latest comment
-7. delete debug code
-8. if open is typed, say "file already opened"
-9. fix remove message + remove >
+10. add clone() for every storageunit
