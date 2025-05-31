@@ -161,7 +161,7 @@ void Warehouse::remove(std::string name, double quantity)
 			productList[i]->reduceQuantityBy(quantity-sum);
 			sum = quantity;
 			changelog.submitChange("change", productList[i]->productToString(),quantity);
-			std::cout << "> Product " << productList[i]->productToString() << "had" << " " << quantity << productList[i]->stringMeasurementUnit() << " " << " removed" << std::endl;
+			std::cout << "Product " << productList[i]->productToString() << "had" << " " << quantity << productList[i]->stringMeasurementUnit() << " " << " removed" << std::endl;
 		}
 		i++;
 	}
@@ -272,12 +272,13 @@ void Warehouse::check_losses(std::string name, double price, double quantity, st
 		{
 			lostExpenses += change * price;
 		}
+		i++;
 	}
 
 	
 	if (sum < quantity)
 	{
-		std::cout << "Amount not met, only " << sum << "amount of " << name << " in warehouse." << std::endl;
+		std::cout << "Amount not met, only " << sum << " amount of " << name << " in warehouse." << std::endl;
 		std::cout << "Still check losses? (Y/N)" << std::endl;
 		std::string answer;
 		std::cin >> answer;
@@ -328,7 +329,8 @@ void Warehouse::printProductList(std::ostream& os) const
 {
 	for (Product* p : productList)
 	{
-		os << *p;
+		Product pr = *p;
+		os << pr;
 	}
 }
 
@@ -338,7 +340,6 @@ Warehouse::~Warehouse()
 	{
 		delete p;
 	}
-	std::cout << "This ran" << std::endl;
 }
 
 std::ostream& operator<<(std::ostream& os, const Warehouse& warehouse)
@@ -349,10 +350,8 @@ std::ostream& operator<<(std::ostream& os, const Warehouse& warehouse)
 
 std::istream& operator>>(std::istream& is, Warehouse& warehouse)
 {
-	while (!is.eof())
-	{
-		Product p;
-		is >> p;
+	Product p;
+	while (is >> p) {
 		warehouse.addDirectly(&p);
 	}
 	return is;

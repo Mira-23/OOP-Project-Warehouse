@@ -68,7 +68,6 @@ void Menu::start()
 				}
 				catch (std::exception ex) {
 					std::cout << ex.what() << std::endl;
-					exit();
 				}
 			}
 			else if (command.substr(0, 6) == "remove")
@@ -178,9 +177,9 @@ void Menu::save_as(std::string command)
 {
 	std::vector<std::string> params = getParams(command, "saveas", 1);
 
-	std::ofstream file(params[0]);
+	std::fstream file;
 
-	file.open(params[0]);
+	file.open(params[0], std::ios::out | std::ios::trunc);
 
 	if (!file.is_open())
 	{
@@ -209,7 +208,7 @@ void Menu::help() noexcept
 		<< "help			prints this information" << std::endl
 		<< "exit			exists the program" << std::endl
 		<< "print           prints out information for the products in the warehouse" << std::endl
-		<< "add <name|exparation date|entry date|manifacturer|measurement unit|quantity|comment>	adds a product to the warehouse" << std::endl
+		<< "add <name|exparation date|entry date|manifacturer|quantity|measurement unit|comment>	adds a product to the warehouse" << std::endl
 		<< "remove <name|quantity>		removes product from warehouse" << std::endl
 		<< "log <from|to>	prints logs from date to date" << std::endl
 		<< "	supported format: dd/mm/YYYY" << std::endl

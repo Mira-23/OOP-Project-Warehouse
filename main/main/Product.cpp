@@ -1,4 +1,5 @@
 #include "Product.h"
+#include <cmath>
 
 Product::Product() {}
 
@@ -104,8 +105,8 @@ bool Product::closeToExpiration()
 
 	time_t t1 = std::time(0);
 	time_t t2 = mktime(&expirationDate);
-	double twoDays = 2 * 24 * 60 * 60;
-	bool check = (difftime(t1, t2) <= twoDays) || t1>t2;
+	long diff = ((std::abs(t2-t1) / 60) / 60) / 24; //two days
+	bool check = (diff <= 2) || t1>t2;
 	return check;
 }
 
@@ -179,7 +180,7 @@ bool Product::operator<(const Product& other) const
 
 void Product::print(std::ostream& os) const
 {
-	os << productToString();
+	os << productToString() << std::endl;
 }
 
 std::string Product::productToString() const
@@ -188,13 +189,13 @@ std::string Product::productToString() const
 	measurementUnit == MeasurementUnit::Kilograms ? mUnit = "Kilograms" : mUnit = "Litres";
 	std::stringstream  ss;
 	ss << name << "|"
-		<< expirationDate.tm_mday << "/" << expirationDate.tm_mon << "/" << expirationDate.tm_year + 1900 << "|"
-		<< enterDate.tm_mday << "/" << enterDate.tm_mon << "/" << enterDate.tm_year + 1900 << "|"
+		<< expirationDate.tm_mday << "/" << expirationDate.tm_mon + 1 << "/" << expirationDate.tm_year + 1900 << "|"
+		<< enterDate.tm_mday << "/" << enterDate.tm_mon + 1 << "/" << enterDate.tm_year + 1900 << "|"
 		<< manufacturer << "|"
 		<< location[0] << "/" << location[1] << "/" << location[2] << "|"
 		<< quantity << "|"
 		<< mUnit << "|"
-		<< comment;
+		<< comment << std::endl;
 	std::string result = ss.str();
 	return result;
 }
@@ -222,7 +223,8 @@ std::vector<std::string> Product::getProductParams(std::string line, int paramCo
 
 std::ostream& operator<<(std::ostream& os, const Product& product)
 {
-	product.print(os);
+	std::string prod = product.productToString();
+	os << prod;
 	return os;
 }
 
@@ -231,6 +233,11 @@ std::istream& operator>>(std::istream& is, Product& product)
 	//Milk|28/5/125|22/5/125|Pilos|-1/-1/-1|2|Litres|Just milk
 	std::string line;
 	std::getline(is, line);
+	if (line.empty())
+	{
+		is.setstate(std::ios::failbit);
+		return is;
+	}
 	std::vector<std::string> params = product.getProductParams(line, 8, '|');
 	product = Product(params[0],params[1],params[2],params[3],params[5],params[6],params[7]);
 	std::vector<std::string> indexParams = product.getProductParams(params[4], 3, '/');
