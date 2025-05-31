@@ -8,6 +8,9 @@
 #include <iomanip>
 #include <time.h>
 
+/// <summary>
+/// A seperate file made for easier
+/// </summary>
 class ChangeLog
 {
 public:

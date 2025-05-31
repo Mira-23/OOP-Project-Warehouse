@@ -1,5 +1,10 @@
 #include "ChangeLog.h"
 
+/// <summary>
+/// generates a message using the command and product parameters, and adds it to the log with a timestamp of the current time
+/// </summary>
+/// <param name="command"></param>
+/// <param name="product"></param>
 void ChangeLog::submitChange(std::string command, std::string product)
 {
 	std::string line = command + " product " + product;
@@ -17,6 +22,11 @@ void ChangeLog::submitChange(std::string command, std::string product)
 	datedMessages.insert({ currentTime, line });
 }
 
+/// <summary>
+/// generates a message using the command and product parameters, and adds it to the log with a timestamp of the current time
+/// </summary>
+/// <param name="command"></param>
+/// <param name="product"></param>
 void ChangeLog::submitChange(std::string command, std::string product, double quantity)
 {
 	std::string line = command + " product " + product + " by quantity: " + std::to_string(quantity);
@@ -35,6 +45,12 @@ void ChangeLog::submitChange(std::string command, std::string product, double qu
 	datedMessages.insert({ onlyDate, line });
 }
 
+/// <summary>
+/// prints every change from the log from/to the given dates by generating them as time_t and comparing them to the addition date of the change
+/// the dates only account for year/month/day, and not the exact hour, minute and second
+/// </summary>
+/// <param name="from"></param>
+/// <param name="to"></param>
 void ChangeLog::printLog(std::string from, std::string to) const
 {
 	struct tm fromDate;
