@@ -32,11 +32,6 @@ Warehouse& Warehouse::operator=(Warehouse& other)
 	return *this;
 }
 
-void Warehouse::printLine(std::string name, std::string measurementUnit, double quantity)
-{
-	
-}
-
 void Warehouse::print()
 {
 	if (productList.size() == 0) { return; }

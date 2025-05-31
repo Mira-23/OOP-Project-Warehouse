@@ -13,6 +13,7 @@ public:
 	IStorageUnit* clone() override;
 	Warehouse(const Warehouse& other);
 	Warehouse& operator=(Warehouse& other);
+
 	void print();
 	bool add(Product* p) override;
 	void remove(std::string name, double quantity);
@@ -32,9 +33,8 @@ private:
 	const int sectionAmount = 10;
 	std::vector<Section> sections;
 	std::vector<Product*> productList;
-	 ChangeLog changelog;
+	ChangeLog changelog;
 
-	void printLine(std::string name, std::string measurementUnit, double quantity);
 	void swap(Warehouse& other);
 	int findProduct(Product* p);
 };

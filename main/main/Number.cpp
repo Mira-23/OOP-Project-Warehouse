@@ -9,7 +9,7 @@ IStorageUnit* Number::clone()
 
 bool Number::add(Product* product)
 {
-	if (isEmpty())
+	if (products.size() == 0)
 	{
 		return addDirectly(product);
 	}
@@ -50,9 +50,4 @@ void Number::swap(Number& other)
 	using std::swap;
 	swap(products, other.products);
 	swap(occupiedSpace, other.occupiedSpace);
-}
-
-bool Number::isEmpty()
-{
-	return products.size()==0;
 }

@@ -1,2 +1,13 @@
-﻿  Menu.cpp
+﻿  ChangeLog.cpp
+  IStorageUnit.cpp
+  Menu.cpp
+  Number.cpp
+  Product.cpp
+C:\Users\mira\Desktop\C++ Exercises\OOP-Project-Warehouse\main\main\Product.cpp(122,12): warning C4244: 'initializing': conversion from '__int64' to 'long', possible loss of data
+  Section.cpp
+  Shelf.cpp
+  Warehouse.cpp
+C:\Users\mira\Desktop\C++ Exercises\OOP-Project-Warehouse\main\main\Warehouse.cpp(330,20): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+  main.cpp
+  Generating Code...
   main.vcxproj -> C:\Users\mira\Desktop\C++ Exercises\OOP-Project-Warehouse\main\x64\Debug\main.exe

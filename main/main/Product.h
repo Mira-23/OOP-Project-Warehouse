@@ -12,7 +12,6 @@ enum class MeasurementUnit
 	Litres
 };
 
-//
 class Product
 {
 public:
