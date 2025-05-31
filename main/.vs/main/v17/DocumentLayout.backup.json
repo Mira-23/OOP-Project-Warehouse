@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Product.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|solutionrelative:main\\Product.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Warehouse.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|solutionrelative:main\\Warehouse.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Product.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|solutionrelative:main\\Product.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{19341996-8600-48A7-8043-6CF885E85926}|main\\main.vcxproj|C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Menu.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -93,17 +93,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Warehouse.cpp",
               "DocumentMoniker": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Warehouse.cpp",
               "RelativeDocumentMoniker": "main\\Warehouse.cpp",
               "ToolTip": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Warehouse.cpp",
               "RelativeToolTip": "main\\Warehouse.cpp",
-              "ViewState": "AgIAAFUBAAAAAAAAAAAjwGEBAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAB4BAAAAAAAAAAAowEgBAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-05-27T15:35:10.357Z",
               "EditorCaption": ""
@@ -118,8 +118,7 @@
               "RelativeToolTip": "main\\ChangeLog.cpp",
               "ViewState": "AgIAACQAAAAAAAAAAABRwCcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-05-30T15:29:18.92Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-30T15:29:18.92Z"
             },
             {
               "$type": "Document",
@@ -131,8 +130,7 @@
               "RelativeToolTip": "main\\Section.cpp",
               "ViewState": "AgIAABYAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-05-27T15:35:10.415Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-27T15:35:10.415Z"
             },
             {
               "$type": "Document",
@@ -144,8 +142,7 @@
               "RelativeToolTip": "main\\Menu.cpp",
               "ViewState": "AgIAAK8AAAAAAAAAAAAjwI4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-05-30T07:12:51.095Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-30T07:12:51.095Z"
             },
             {
               "$type": "Document",
@@ -157,8 +154,7 @@
               "RelativeToolTip": "main\\Warehouse.h",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAABoAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-27T15:35:10.416Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-27T15:35:10.416Z"
             },
             {
               "$type": "Document",
@@ -170,8 +166,7 @@
               "RelativeToolTip": "main\\main.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-05-27T15:35:10.419Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-27T15:35:10.419Z"
             },
             {
               "$type": "Document",
@@ -183,12 +178,11 @@
               "RelativeToolTip": "main\\Shelf.cpp",
               "ViewState": "AgIAABYAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-05-27T15:35:10.321Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-27T15:35:10.321Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Product.cpp",
               "DocumentMoniker": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Product.cpp",
               "RelativeDocumentMoniker": "main\\Product.cpp",
@@ -196,8 +190,7 @@
               "RelativeToolTip": "main\\Product.cpp",
               "ViewState": "AgIAAOAAAAAAAAAAAAAjwO4AAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-05-27T15:35:10.42Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-27T15:35:10.42Z"
             },
             {
               "$type": "Document",
@@ -209,8 +202,7 @@
               "RelativeToolTip": "main\\Product.h",
               "ViewState": "AgIAACEAAAAAAAAAAAAAADUAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-27T15:35:10.422Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-27T15:35:10.422Z"
             },
             {
               "$type": "Document",
@@ -222,8 +214,7 @@
               "RelativeToolTip": "main\\IStorageUnit.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-05-27T15:35:10.421Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-27T15:35:10.421Z"
             },
             {
               "$type": "Document",
@@ -235,8 +226,7 @@
               "RelativeToolTip": "main\\Menu.h",
               "ViewState": "AgIAAAQAAAAAAAAAAABBwBIAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-30T06:25:08.157Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-30T06:25:08.157Z"
             },
             {
               "$type": "Document",
@@ -248,8 +238,7 @@
               "RelativeToolTip": "main\\Shelf.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-27T15:35:10.418Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-27T15:35:10.418Z"
             },
             {
               "$type": "Document",
@@ -261,8 +250,7 @@
               "RelativeToolTip": "main\\Number.cpp",
               "ViewState": "AgIAACgAAAAAAAAAAAAtwDUAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-05-27T15:35:10.423Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-27T15:35:10.423Z"
             },
             {
               "$type": "Document",
@@ -274,8 +262,7 @@
               "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\xmemory",
               "ViewState": "AgIAANIEAAAAAAAAAAAjwN8EAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-05-29T12:55:28.253Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-29T12:55:28.253Z"
             },
             {
               "$type": "Document",
@@ -287,8 +274,7 @@
               "RelativeToolTip": "main\\IStorageUnit.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-27T15:35:10.419Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-27T15:35:10.419Z"
             },
             {
               "$type": "Document",
@@ -300,8 +286,7 @@
               "RelativeToolTip": "main\\Number.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-27T15:35:10.307Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-27T15:35:10.307Z"
             },
             {
               "$type": "Document",
@@ -313,8 +298,7 @@
               "RelativeToolTip": "main\\Section.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-27T15:35:10.417Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-27T15:35:10.417Z"
             },
             {
               "$type": "Document",
@@ -326,8 +310,7 @@
               "RelativeToolTip": "main\\ChangeLog.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-30T15:12:16.625Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-30T15:12:16.625Z"
             },
             {
               "$type": "Document",
@@ -339,8 +322,7 @@
               "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\xstring",
               "ViewState": "AgIAAMEBAAAAAAAAAAAjwM0BAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-05-30T10:08:15.514Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-30T10:08:15.514Z"
             },
             {
               "$type": "Document",
@@ -352,8 +334,7 @@
               "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\utility",
               "ViewState": "AgIAAOMCAAAAAAAAAAAjwPACAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-05-30T13:42:35.074Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-30T13:42:35.074Z"
             },
             {
               "$type": "Document",
@@ -365,8 +346,7 @@
               "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\algorithm",
               "ViewState": "AgIAABwgAAAAAAAAAAAYwCogAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-05-29T18:25:46.056Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-29T18:25:46.056Z"
             },
             {
               "$type": "Document",
@@ -378,8 +358,7 @@
               "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\xutility",
               "ViewState": "AgIAADkZAAAAAAAAAAAtwEoZAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-05-28T05:58:49.19Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-28T05:58:49.19Z"
             }
           ]
         }
