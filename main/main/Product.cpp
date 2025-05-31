@@ -56,14 +56,14 @@ Product::Product(std::string name,
 	struct tm enDate = {};
 
 	std::istringstream ss1(expirationDate);
-	ss1 >> std::get_time(&exDate, "%d/%m/%Y");
+	ss1 >> std::get_time(&exDate, "%Y-%m-%d");
 	
 	if (ss1.fail() || !isDateValid(exDate)) {
 		throw std::invalid_argument("Invalid expiration date.");
 	}
 
 	std::istringstream ss2(enterDate);
-	ss2 >> std::get_time(&enDate, "%d/%m/%Y");
+	ss2 >> std::get_time(&enDate, "%Y-%m-%d");
 
 	if (ss2.fail() || !isDateValid(enDate)) {
 		throw std::invalid_argument("Invalid enter date.");
@@ -200,8 +200,8 @@ std::string Product::productToString() const
 	measurementUnit == MeasurementUnit::Kilograms ? mUnit = "Kilograms" : mUnit = "Litres";
 	std::stringstream  ss;
 	ss << name << "|"
-		<< enterDate.tm_mday << "/" << enterDate.tm_mon + 1 << "/" << enterDate.tm_year + 1900 << "|"
-		<< expirationDate.tm_mday << "/" << expirationDate.tm_mon + 1 << "/" << expirationDate.tm_year + 1900 << "|"
+		<< enterDate.tm_year + 1900 << "-" << enterDate.tm_mon + 1 << "-" << enterDate.tm_mday << "|"
+		<< expirationDate.tm_year + 1900 << "-" << expirationDate.tm_mon + 1 << "-" << expirationDate.tm_mday << "|"
 		<< manufacturer << "|"
 		<< location[0] << "/" << location[1] << "/" << location[2] << "|"
 		<< quantity << "|"
@@ -216,9 +216,9 @@ std::string Product::productAsMessage() const
 	std::string mUnit;
 	measurementUnit == MeasurementUnit::Kilograms ? mUnit = "Kilograms" : mUnit = "Litres";
 	std::stringstream  ss;
-	ss << "Product " << name<< " that entered on "
-		<< enterDate.tm_mday << "/" << enterDate.tm_mon + 1 << "/" << enterDate.tm_year + 1900
-		<< " and expires on " << expirationDate.tm_mday << "/" << expirationDate.tm_mon + 1 << "/" << expirationDate.tm_year + 1900
+	ss << "Product " << name
+		<< " that entered on " << enterDate.tm_year + 1900 << "-" << enterDate.tm_mon + 1 << "-" << enterDate.tm_mday
+		<< " and expires on " << expirationDate.tm_year + 1900 << "-" << expirationDate.tm_mon + 1 << "-" << expirationDate.tm_mday
 		<< " from manufacturer " << manufacturer << " with location: SectionId: " << location[0] << ", ShelfId: " << location[1]
 		<< ", with NumberId: " << location[2] << " with quantity of " << quantity << " " << mUnit << " (" << comment << ")";
 	std::string result = ss.str();
@@ -255,8 +255,6 @@ std::ostream& operator<<(std::ostream& os, const Product& product)
 
 std::istream& operator>>(std::istream& is, Product& product)
 {
-	//format
-	//Milk|22/5/125|28/5/125|Pilos|-1/-1/-1|2|Litres|Just milk
 	std::string line;
 	std::getline(is, line);
 	if (line.empty())

@@ -48,14 +48,14 @@ void ChangeLog::printLog(std::string from, std::string to) const
 	toDate.tm_sec = 0;
 
 	std::istringstream ss1(from);
-	ss1 >> std::get_time(&fromDate, "%d/%m/%Y");
+	ss1 >> std::get_time(&fromDate, "%Y-%m-%d");
 
 	std::istringstream ss2(to);
-	ss2 >> std::get_time(&toDate, "%d/%m/%Y");
+	ss2 >> std::get_time(&toDate, "%Y-%m-%d");
 
 	if (ss1.fail() || ss2.fail())
 	{
-		throw std::invalid_argument("Invalid time format, dd/mm/YYYY only.");
+		throw std::invalid_argument("Invalid time format,YYYY-mm-dd only.");
 	}
 
 	std::time_t fromTime = mktime(&fromDate);
@@ -69,7 +69,7 @@ void ChangeLog::printLog(std::string from, std::string to) const
 
 		if (m.first >= fromTime && m.first <= toTime)
 		{
-			std::cout << daymonthYear.tm_mday << "/" << daymonthYear.tm_mon + 1 << "/" << daymonthYear.tm_year + 1900 << " " << m.second << std::endl;
+			std::cout << daymonthYear.tm_year + 1900 << "-" << daymonthYear.tm_mon + 1 << "-" << daymonthYear.tm_mday << " " << m.second << std::endl;
 		}
 	}
 }

@@ -207,7 +207,7 @@ void Menu::save()
 void Menu::help() noexcept
 {
 	std::cout << "The following commands are supported : " << std::endl
-		<< "- (supported date format: dd/mm/YYYY)" << std::endl
+		<< "- (supported date format: YYYY-mm-dd)" << std::endl
 		<< "- (supported measurementUnits: Litres/Kilograms)" << std::endl
 		<< "- (all parameters must be seperated by |)" << std::endl
 		<< "open <file>  ->  opens <file>" << std::endl
@@ -219,13 +219,13 @@ void Menu::help() noexcept
 		<< "print  ->  prints out information for the products in the warehouse" << std::endl
 		<< "add <name|entry date|exparation date|manifacturer|quantity|measurement unit|comment>  " << std::endl
 		<< " -> adds a product to the warehouse" << std::endl
-		<< "- an example of the supported format: add Milk|22/06/2025|28/06/2025|Pilos|2|Litres|Just milk" << std::endl
+		<< "- an example of the supported format: add Milk|2025-06-22|2025-06-28|Pilos|2|Litres|Just milk" << std::endl
 		<< "remove <name|quantity>  ->  removes product from warehouse" << std::endl
 		<< "- an example of the supported format: remove Milk|1" << std::endl
 		<< "log <from|to>  ->  prints logs from date to date" << std::endl
-		<< "- an example of the supported format: log 29/05/2025|31/05/2025" << std::endl
+		<< "- an example of the supported format: log 2025-05-29|2025-05-31" << std::endl
 		<< "checklosses <product name|price|quantity|from|to>  ->  checks the losses from expiring products" << std::endl
-		<< "- an example of the supported format: checklosses Milk|3|2|29/05/2025|31/05/2025" << std::endl
+		<< "- an example of the supported format: checklosses Milk|3|2|2025-05-29|2025-05-31" << std::endl
 		<< "clean -> removes all expired products from warehouse" << std::endl;
 }
 
@@ -239,8 +239,8 @@ void Menu::exit() noexcept
 
 void Menu::add(std::string command)
 {
-	//add Milk|22/06/2025|28/06/2025|Pilos|2|Litres|Just milk
-	//add Apple|22/06/2025|28/06/2025|Pilos|1|Kilograms|Just an apple
+	//add Milk|2025-06-22|2025-06-28|Pilos|2|Litres|Just milk
+	//add Apple|2025-06-22|2025-06-28|Pilos|1|Kilograms|Just an apple
 	std::vector<std::string> params = getParams(command, "add", 7);
 
 	Product p(params[0], params[1], params[2], params[3], params[4], params[5], params[6]);
@@ -275,14 +275,14 @@ void Menu::clean()
 void Menu::log(std::string command)
 {
 	std::vector<std::string> params = getParams(command, "log", 2);
-	//log 30/05/2025|30/05/2025
+	//log 2025-05-29|2025-05-31
 	warehouse.log(params[0], params[1]);
 }
 
 void Menu::check_losses(std::string command)
 {
 	//product name|price|quantity|from|to
-	//checklosses Milk|2|1|28/05/2025|31/05/2025
+	//checklosses Milk|2|1|2025-05-29|2025-05-31
 	std::vector<std::string> params = getParams(command, "checklosses", 5);
 	warehouse.check_losses(params[0], std::stod(params[1]), std::stod(params[2]), params[3], params[4]);
 }

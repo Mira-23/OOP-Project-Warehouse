@@ -244,14 +244,14 @@ void Warehouse::check_losses(std::string name, double price, double quantity, st
 	toDate.tm_sec = 0;
 
 	std::istringstream ss1(from);
-	ss1 >> std::get_time(&fromDate, "%d/%m/%Y");
+	ss1 >> std::get_time(&fromDate, "%Y-%m-%d");
 
 	std::istringstream ss2(to);
-	ss2 >> std::get_time(&toDate, "%d/%m/%Y");
+	ss2 >> std::get_time(&toDate, "%Y-%m-%d");
 
 	if (ss1.fail() || ss2.fail())
 	{
-		throw std::invalid_argument("Invalid time format, dd/mm/YYYY only.");
+		throw std::invalid_argument("Invalid time format, YYYY-mm-dd only.");
 	}
 
 	std::time_t fromTime = mktime(&fromDate);

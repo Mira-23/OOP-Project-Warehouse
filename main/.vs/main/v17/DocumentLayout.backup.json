@@ -78,20 +78,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 7,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ChangeLog.h",
-              "DocumentMoniker": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\ChangeLog.h",
-              "RelativeDocumentMoniker": "main\\ChangeLog.h",
-              "ToolTip": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\ChangeLog.h",
-              "RelativeToolTip": "main\\ChangeLog.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA8AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-31T18:13:56.473Z"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 3,
@@ -178,18 +166,6 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Shelf.cpp",
-              "DocumentMoniker": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Shelf.cpp",
-              "RelativeDocumentMoniker": "main\\Shelf.cpp",
-              "ToolTip": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Shelf.cpp",
-              "RelativeToolTip": "main\\Shelf.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-05-31T15:19:53.53Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Warehouse.h",
               "DocumentMoniker": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Warehouse.h",
@@ -200,6 +176,30 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-05-31T15:15:13.546Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ChangeLog.h",
+              "DocumentMoniker": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\ChangeLog.h",
+              "RelativeDocumentMoniker": "main\\ChangeLog.h",
+              "ToolTip": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\ChangeLog.h",
+              "RelativeToolTip": "main\\ChangeLog.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-05-31T18:13:56.473Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Shelf.cpp",
+              "DocumentMoniker": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Shelf.cpp",
+              "RelativeDocumentMoniker": "main\\Shelf.cpp",
+              "ToolTip": "C:\\Users\\mira\\Desktop\\C\u002B\u002B Exercises\\OOP-Project-Warehouse\\main\\main\\Shelf.cpp",
+              "RelativeToolTip": "main\\Shelf.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-31T15:19:53.53Z"
             },
             {
               "$type": "Document",
