@@ -3,6 +3,10 @@
 #include <sstream>
 #include <functional>
 
+/// <summary>
+/// Warehouse constructor, fills the warehouse with a set amount of sections, and initializes the changelog object
+/// since the assignment does not mention how much there should be of each, i have decided to add 10 sections
+/// </summary>
 Warehouse::Warehouse() : changelog(ChangeLog())
 {
 	for (int i = 0; i < sectionAmount; i++)
@@ -11,11 +15,19 @@ Warehouse::Warehouse() : changelog(ChangeLog())
 	}
 }
 
+/// <summary>
+/// clone function so that the interface can be used correctly
+/// </summary>
+/// <returns></returns>
 IStorageUnit* Warehouse::clone()
 {
 	return new Warehouse(*this);
 }
 
+/// <summary>
+/// Copy constructor for proper management of the product pointers
+/// </summary>
+/// <param name="other"></param>
 Warehouse::Warehouse(const Warehouse& other) : sections(other.sections)
 {
 	for (Product* p : other.productList)
@@ -24,6 +36,11 @@ Warehouse::Warehouse(const Warehouse& other) : sections(other.sections)
 	}
 }
 
+/// <summary>
+/// operator= for proper management of the product pointers
+/// made by utilizing the copy and swap method
+/// </summary>
+/// <param name="other"></param>
 Warehouse& Warehouse::operator=(Warehouse& other)
 {
 	Warehouse copy(other);
@@ -32,6 +49,9 @@ Warehouse& Warehouse::operator=(Warehouse& other)
 	return *this;
 }
 
+/// <summary>
+/// prints the entire product list, and then prints out every type of product with how much quantity of it is available
+/// </summary>
 void Warehouse::print()
 {
 	if (productList.size() == 0) { return; }
@@ -71,6 +91,12 @@ void Warehouse::print()
 	std::cout << tempName << ": " << tempQuantity << " " << measurementUn << std::endl;
 }
 
+/// <summary>
+/// add function that automatically adds a product to the warehouse unless it's full
+/// logs the addition to the changelog
+/// </summary>
+/// <param name="product"></param>
+/// <returns></returns>
 bool Warehouse::add(Product* product)
 {
 	//if product is already in database, add it to the number unless it is full
@@ -95,32 +121,48 @@ bool Warehouse::add(Product* product)
 	return false; // warehouse full
 }
 
-//is there an opposite of noexcept for a function? this needs it
+/// <summary>
+/// sorts the product list (so that the product that is expiring the soonest comes up first), finds the 
+/// logs the change/removal of a quantity/product in the changelog
+/// </summary>
+/// <param name="name"></param>
+/// <param name="quantity"></param>
 void Warehouse::remove(std::string name, double quantity)
 {
-	//sorts the list so that the latest come up to the top, which is for the next code to iterate over it properly
+	/// <summary>
+	/// sorts the list so that the latest come up to the top, which is for the next code to iterate over it properly
+	/// </summary>
 	std::sort(productList.begin(), productList.end(), [](Product* first, Product* other) {
 		return *first < *other;
 		});
 
-	//finds the index of the first product of the type that it's going to remove from
-	int i = 0;
-	while (i != productList.size() && (*productList[i]).getName() != name) { i++; }
-	if (i == productList.size())
+	/// <summary>
+	/// finds the placement of the first product of the type that it's going to remove from
+	/// </summary>
+	std::vector<Product*>::iterator it = std::find_if(productList.begin(), productList.end(), [name](Product* p)
+		{
+			return p->getName() == name;
+		});
+	if (it == productList.end())
 	{
 		std::cout << "Product does not exist in warehouse." << std::endl;
 		return;
 	}
 
-	//checks whether the total quantity of all the products that are removed is less than the amount requested
+	/// <summary>
+	/// checks whether the total quantity of all the products that are removed is less than the amount requested
+	/// </summary>
 	double totalQuantity = 0;
-	int j = i;
-	while (j != productList.size() && (productList[i]->getName() == name))
+	std::vector<Product*>::iterator jt = it;
+	while (jt != productList.end() && ((*it)->getName() == name))
 	{
-		totalQuantity += productList[i]->getQuantity();
-		j++;
+		totalQuantity += (*jt)->getQuantity();
+		jt++;
 	}
 
+	/// <summary>
+	/// if the total quantity of all the products that are removed is less than the amount requested prompts the user whether they still want to extract everyting
+	/// </summary>
 	if (totalQuantity < quantity)
 	{
 		std::cout << "> Amount needed is more than total - withdraw all anyway? (Y/N)" << std::endl;
@@ -137,60 +179,75 @@ void Warehouse::remove(std::string name, double quantity)
 		}
 	}
 
-	//makes a vector for the indexes of the removed product types (from warehouse) so that they can be removed from the vector later
-	std::vector<int> removedProducts;
+	/// <summary>
+	/// makes a vector for the placements of the removed product types (from warehouse) so that they can be removed from the vector later
+	/// </summary>
+	std::vector<std::vector<Product*>::iterator> removedProducts;
 	double sum = 0;
 
+	/// <summary>
 	//if the quantity is more than one product holds - remove the soonest expiring one and continue removing until the quantity is full
 	//if it isnt, directly removes the needed quantity from the first product
 	//this continues until either the end or the product type changes
-	while (i != productList.size() && ((*productList[i]).getName() == name && sum != quantity))
+	/// </summary>
+	while (it != productList.end() && ((*it)->getName() == name && sum != quantity))
 	{
-		if (sum + productList[i]->getQuantity() <= quantity)
+		if (sum + (*it)->getQuantity() <= quantity)
 		{
-			sum += productList[i]->getQuantity();
+			sum += (*it)->getQuantity();
 
-			int sectionId = productList[i]->getSectionId();
-			int shelfId = productList[i]->getShelfId();
-			int numberId = productList[i]->getNumberId();
-			Number num = sections[sectionId].getShelves()[shelfId].getNumbers()[numberId];
+			int sectionId = (*it)->getSectionId();
+			int shelfId = (*it)->getShelfId();
+			int numberId = (*it)->getNumberId();
 			try {
-				sections[sectionId].getShelves()[shelfId].getNumbers()[numberId].removeProduct(productList[i]);
+				sections[sectionId].getShelves()[shelfId].getNumbers()[numberId].removeProduct((*it));
 			}
 			catch (...)
 			{
 				std::cout << "Product could not be erased";
 				return;
 			}
-			removedProducts.push_back(i);
+			removedProducts.push_back(it);
 		}
 		else {
-			productList[i]->reduceQuantityBy(quantity-sum);
+			(*it)->reduceQuantityBy(quantity-sum);
 			sum = quantity;
-			changelog.submitChange("change", productList[i]->getName(),quantity);
-			std::cout << "Product " << productList[i]->getName() << " had " << quantity << " " << productList[i]->stringMeasurementUnit() << " removed" << std::endl;
+			changelog.submitChange("change", (*it)->getName(),quantity);
+			std::cout << "Product " << (*it)->getName() << " had " << quantity << " " << (*it)->stringMeasurementUnit() << " removed" << std::endl;
 		}
-		i++;
+		it++;
 	}
 
-	//removes the removed products from the warehouse vector
-	for (int j : removedProducts)
+	/// <summary>
+	/// removes the removed products from the warehouse vector
+	/// </summary>
+	for (std::vector<Product*>::iterator rit : removedProducts)
 	{
-		std::cout << "A batch of product " << productList[j]->getName() << " was removed" << std::endl;
-		changelog.submitChange("remove", productList[j]->getName());
-		delete productList[j];
-		productList.erase(productList.begin() + j);
+		std::cout << "A batch of product " << (*rit)->getName() << " was removed" << std::endl;
+		changelog.submitChange("remove", (*rit)->getName());
+		delete (*rit);
+		productList.erase(rit);
 	}
 }
 
+/// <summary>
+/// prints all of the loaded log messages from date to date
+/// </summary>
+/// <param name="from"></param>
+/// <param name="to"></param>
 void Warehouse::log(std::string from, std::string to) const
 {
 	changelog.printLog(from,to);
 }
 
+/// <summary>
+/// goes through the product list and removes expiring products from their location, and then from the productList
+/// this also deletes the pointers of the removed products
+/// logs any cleaned product in the changelog
+/// </summary>
 void Warehouse::clean()
 {
-	//goes through the list and removes expiring products
+	
 	std::vector<std::vector<Product*>::iterator> its;
 	for (std::vector<Product*>::iterator it = productList.begin(); it != productList.end();it++)
 	{
@@ -204,7 +261,12 @@ void Warehouse::clean()
 		}
 	}
 
-	//this is done so that i can directly pass the iterator to the erase function, even if it doesn't look as good
+	if (its.empty())
+	{
+		std::cout << "No expired products." << std::endl;
+		return;
+	}
+
 	for (std::vector<Product*>::iterator it : its)
 	{
 		(*it)->print(std::cout);
@@ -215,24 +277,39 @@ void Warehouse::clean()
 	}
 }
 
+/// <summary>
+/// goes through all products with the name, checks every product if it expires during the period, gets enough quantity
+/// and from that quantity calculates how much is lost 
+/// it follows a similar logic to remove, where if the quantity isnt met it prompts the user whether it should check for the available one
+/// </summary>
+/// <param name="name"></param>
+/// <param name="price"></param>
+/// <param name="quantity"></param>
+/// <param name="from"></param>
+/// <param name="to"></param>
 void Warehouse::check_losses(std::string name, double price, double quantity, std::string from, std::string to)
 {
-	//goes through all products with the name, checks every product if it expires during the period, gets enough quantity
-	//and from that quantity calculates how much is lost 
-	//sorts the list so that the latest come up to the top, which is for the next code to iterate over it properly
+	
+	// sorts the list so that the latest come up to the top, which is for the next code to iterate over it properly
+	
 	std::sort(productList.begin(), productList.end(), [](Product* first, Product* other) {
 		return *first < *other;
 		});
 
-	//finds the index of the first product of the type that it's going to remove from
-	int i = 0;
-	while (i != productList.size() && (*productList[i]).getName() != name) { i++; }
-	if (i == productList.size())
+	//finds the placement of the first product of the type that it's going to check from
+	std::vector<Product*>::iterator it = std::find_if(productList.begin(), productList.end(), [name](Product* p)
+		{
+			return p->getName() == name;
+		});
+	if (it == productList.end())
 	{
 		std::cout << "Product does not exist in warehouse." << std::endl;
 		return;
 	}
 
+	/// <summary>
+	/// gets the dates ad transforms them into a time type that can be compared
+	/// </summary>
 	struct tm fromDate;
 	fromDate.tm_hour = 0;
 	fromDate.tm_min = 0;
@@ -260,26 +337,26 @@ void Warehouse::check_losses(std::string name, double price, double quantity, st
 
 	double sum = 0;
 	double lostExpenses = 0;
-	while (i != productList.size() && ((*productList[i]).getName() == name && sum != quantity))
+	while (it != productList.end() && ((*it)->getName() == name && sum != quantity))
 	{
 
-		double change = productList[i]->getQuantity();
-		if (sum + productList[i]->getQuantity() <= quantity)
+		double change = (*it)->getQuantity();
+		if (sum + (*it)->getQuantity() <= quantity)
 		{
-			sum += productList[i]->getQuantity();
+			sum += (*it)->getQuantity();
 		}
 		else {
 			change = quantity - sum;
 			sum = quantity;
 		}
 
-		struct tm expDate = productList[i]->getExpDate();
+		struct tm expDate = (*it)->getExpDate();
 		std::time_t expTime = mktime(&expDate);
 		if (expTime >= fromTime && expTime <= toTime)
 		{
 			lostExpenses += change * price;
 		}
-		i++;
+		it++;
 	}
 
 	
@@ -298,6 +375,11 @@ void Warehouse::check_losses(std::string name, double price, double quantity, st
 	std::cout << "Money lost: " << lostExpenses << std::endl;
 }
 
+/// <summary>
+/// add function that adds a product to the warehouse depending on the products location, unless it's full
+/// </summary>
+/// <param name="product"></param>
+/// <returns></returns>
 bool Warehouse::addDirectly(Product* p)
 {
 	Product* newProduct = new Product(*p);
@@ -311,6 +393,10 @@ bool Warehouse::addDirectly(Product* p)
 	return sections[sectionId].addDirectly(newProduct);
 }
 
+/// <summary>
+/// general swap method for warehouse using the standard swap function
+/// </summary>
+/// <param name="other"></param>
 void Warehouse::swap(Warehouse& other)
 {
 	using std::swap;
@@ -318,8 +404,11 @@ void Warehouse::swap(Warehouse& other)
 	swap(productList, other.productList);
 }
 
-//returns the index of the product if found, if not returns -1
-//this is achieved by using find and a lambda which turns the pointers to products who have a defined == operator
+/// <summary>
+/// returns the index of the product if found, if not returns -1
+/// this is achieved by using std::find and a lambda which turns the pointers to products who have a defined == operator
+/// </summary>
+/// /// <param name="product"></param>
 int Warehouse::findProduct(Product* p)
 {
 	int i = -1;
@@ -327,11 +416,15 @@ int Warehouse::findProduct(Product* p)
 		std::find_if(productList.begin(), productList.end(), [p](Product* prod) -> bool {return *prod == *p; });
 	if (it != productList.end())
 	{
-		i = std::distance(productList.begin(), it);;
+		i = std::distance(productList.begin(), it);
 	}
 	return i;
 }
 
+/// <summary>
+/// prints every product in the product list using the << operator of Product
+/// </summary>
+/// <param name="os"></param>
 void Warehouse::printProductList(std::ostream& os) const
 {
 	for (Product* p : productList)
@@ -341,6 +434,9 @@ void Warehouse::printProductList(std::ostream& os) const
 	}
 }
 
+/// <summary>
+/// destructor for warehouse to properly get rid of the pointers in the product list
+/// </summary>
 Warehouse::~Warehouse()
 {
 	for (Product* p : productList)
@@ -349,12 +445,24 @@ Warehouse::~Warehouse()
 	}
 }
 
+/// <summary>
+/// prints every product in the product list
+/// </summary>
+/// <param name="os"></param>
+/// <param name="warehouse"></param>
+/// <returns></returns>
 std::ostream& operator<<(std::ostream& os, const Warehouse& warehouse)
 {
 	warehouse.printProductList(os);
 	return os;
 }
 
+/// <summary>
+/// reads every product in the given istream
+/// </summary>
+/// <param name="is"></param>
+/// <param name="warehouse"></param>
+/// <returns></returns>
 std::istream& operator>>(std::istream& is, Warehouse& warehouse)
 {
 	Product p;

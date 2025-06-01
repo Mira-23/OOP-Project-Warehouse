@@ -5,6 +5,9 @@
 #include "Warehouse.h"
 #include "Product.h"
 
+/// <summary>
+/// A class that handles the interactive logic of the program
+/// </summary>
 class Menu
 {
 public:

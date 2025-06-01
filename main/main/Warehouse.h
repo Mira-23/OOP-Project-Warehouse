@@ -4,8 +4,9 @@
 #include "ChangeLog.h"
 #include <vector>
 
-
-//Main logic - holds the operations of the storage system
+/// <summary>
+/// Main logic - holds the operations of the storage system (add, print, remove, log, clean, check losses and etc.)
+/// </summary>
 class Warehouse : public IStorageUnit
 {
 public:

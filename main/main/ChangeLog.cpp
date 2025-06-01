@@ -48,6 +48,7 @@ void ChangeLog::submitChange(std::string command, std::string product, double qu
 /// <summary>
 /// prints every change from the log from/to the given dates by generating them as time_t and comparing them to the addition date of the change
 /// the dates only account for year/month/day, and not the exact hour, minute and second
+/// done with the help of stringstream
 /// </summary>
 /// <param name="from"></param>
 /// <param name="to"></param>

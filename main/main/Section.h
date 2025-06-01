@@ -3,7 +3,9 @@
 #include "IStorageUnit.h"
 #include <vector>
 
-//Biggest storage unit - contains shelves
+/// <summary>
+/// Biggest storage unit - contains shelves
+/// </summary>
 class Section : public IStorageUnit
 {
 public:

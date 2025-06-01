@@ -6,12 +6,18 @@
 #include <sstream> //editing strings
 #include <iomanip> //get_time
 
+/// <summary>
+/// Enum class for handling the types of measurement units
+/// </summary>
 enum class MeasurementUnit
 {
 	Kilograms,
 	Litres
 };
 
+/// <summary>
+/// Stores information and logic for products added to the warehouse
+/// </summary>
 class Product
 {
 public:

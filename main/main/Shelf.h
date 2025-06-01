@@ -3,7 +3,9 @@
 #include "IStorageUnit.h"
 #include <vector>
 
-//Medium storage unit - stores numbers
+/// <summary>
+/// Medium storage unit - stores numbers
+/// </summary>
 class Shelf : public IStorageUnit
 {
 public:

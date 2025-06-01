@@ -2,7 +2,9 @@
 #include "IStorageUnit.h"
 #include <vector>
 
-//Smallest storage unit - direct storage of products
+/// <summary>
+/// Smallest storage unit - direct storage of products
+/// </summary>
 class Number : public IStorageUnit
 {
 public:
@@ -16,8 +18,6 @@ public:
 
 	std::vector<Product*> getProducts();
 private:
-	void swap(Number& other);
-
 	std::vector<Product*> products;
 	double occupiedSpace;
 	const double capacity = 100;

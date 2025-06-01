@@ -1,6 +1,9 @@
 #include "Product.h"
 #include <cmath>
 
+/// <summary>
+/// basic default constructor for product that sets the default/empty values for each member
+/// </summary>
 Product::Product()
 {
 	name = "";
@@ -17,6 +20,17 @@ Product::Product()
 	}
 }
 
+/// <summary>
+/// constructor for product that accepts the parameters as string, converts them, checks them for validity and creates the product if everything is accounted for
+/// done with the help of stringstream
+/// </summary>
+/// <param name="name"></param>
+/// <param name="enterDate"></param>
+/// <param name="expirationDate"></param>
+/// <param name="manufacturer"></param>
+/// <param name="quantity"></param>
+/// <param name="measurementUnit"></param>
+/// <param name="comment"></param>
 Product::Product(std::string name,
 	std::string enterDate,
 	std::string expirationDate,
@@ -83,27 +97,82 @@ Product::Product(std::string name,
 	}
 }
 
+/// <summary>
+/// setter for numberId
+/// </summary>
+/// <param name="id"></param>
 void Product::setNumberId(int id) { location[2] = id; }
+/// <summary>
+/// setter for shelfId
+/// </summary>
+/// <param name="id"></param>
 void Product::setShelfId(int id) { location[1] = id; }
+/// <summary>
+/// setter for sectionId
+/// </summary>
+/// <param name="id"></param>
 void Product::setSectionId(int id) { location[0] = id; }
 
+/// <summary>
+/// getter for numberId
+/// </summary>
+/// <returns></returns>
 int Product::getNumberId() const { return location[2]; }
+/// <summary>
+/// getter for shelfId
+/// </summary>
+/// <param name="id"></param>
 int Product::getShelfId() const { return location[1]; }
+/// <summary>
+/// getter for sectionId
+/// </summary>
+/// <param name="id"></param>
 int Product::getSectionId() const { return location[0]; }
 
+/// <summary>
+/// getter for the quantity
+/// </summary>
+/// <param name="id"></param>
 double Product::getQuantity() const { return quantity; }
 
-void Product::reduceQuantityBy(double amount) { quantity -= amount; }
+/// <summary>
+/// function that reduces the quantity of the product given the amount
+/// </summary>
+/// <param name="amount"></param>
+void Product::reduceQuantityBy(double amount)
+{
+	if (quantity < amount)
+	{
+		amount = quantity;
+	}
+	quantity -= amount;
+}
 
+/// <summary>
+/// getter for the expirationDate
+/// </summary>
+/// <param name="id"></param>
 tm Product::getExpDate() const
 {
 	return expirationDate;
 }
 
+/// <summary>
+/// getter for the name
+/// </summary>
+/// <param name="id"></param>
 std::string Product::getName() const { return name; }
 
+/// <summary>
+/// getter for the manufacturer
+/// </summary>
+/// <param name="id"></param>
 std::string Product::getManufacturer() const { return manufacturer; }
 
+/// <summary>
+/// function that converts the measurement unit to string
+/// </summary>
+/// <returns></returns>
 std::string Product::stringMeasurementUnit() const
 {
 	std::string result;
@@ -111,6 +180,10 @@ std::string Product::stringMeasurementUnit() const
 	return result;
 }
 
+/// <summary>
+/// checks whether the product's exparation date is 2 days before the current date, or after the current date (meaning its expired)
+/// </summary>
+/// <returns></returns>
 bool Product::closeToExpiration()
 {
 	expirationDate.tm_hour = 0;
@@ -124,20 +197,35 @@ bool Product::closeToExpiration()
 	return check;
 }
 
+/// <summary>
+/// compares whether two products are equal based on their name, manufacturer, expiration date and measurement unit
+/// </summary>
+/// <param name="other"></param>
+/// <returns></returns>
 bool Product::operator==(const Product& other) const
 {
     return (name == other.name) &&
 		(manufacturer == other.manufacturer) &&
 		compareDate(expirationDate,other.expirationDate) &&
-		(quantity == other.quantity) &&
 		(measurementUnit == other.measurementUnit);
 }
 
+/// <summary>
+/// opposite of operator==
+/// </summary>
+/// <param name="other"></param>
+/// <returns></returns>
 bool Product::operator!=(const Product& other) const
 {
 	return !(*this == other);
 }
 
+/// <summary>
+/// compares whether the year, month and day of two dates are equal
+/// </summary>
+/// <param name="first"></param>
+/// <param name="other"></param>
+/// <returns></returns>
 bool Product::compareDate(const tm& first, const tm& other) const
 {
 	return (first.tm_year == other.tm_year) &&
@@ -145,6 +233,11 @@ bool Product::compareDate(const tm& first, const tm& other) const
 		(first.tm_mday == other.tm_mday);
 }
 
+/// <summary>
+/// checks whether a given date is valid
+/// </summary>
+/// <param name="date"></param>
+/// <returns></returns>
 bool Product::isDateValid(const tm& date) const
 {
 	struct tm copy = date;
@@ -161,7 +254,9 @@ bool Product::isDateValid(const tm& date) const
 	return compareDate(copy, date);
 }
 
-//this lets functions sort by name -> exp date -> quantity
+/// <summary>
+/// this lets functions sort by name -> exp date -> quantity
+/// </summary>
 bool Product::operator<(const Product& other) const
 {
 	if (name != other.name)
@@ -189,11 +284,20 @@ bool Product::operator<(const Product& other) const
 	return quantity < other.quantity;
 }
 
+/// <summary>
+/// prints base information about the product
+/// </summary>
+/// <param name="os"></param>
 void Product::print(std::ostream& os) const
 {
 	os << productToString() << std::endl;
 }
 
+/// <summary>
+/// turns the product into its base information (used for writing into files)
+/// done with the help of stringstream
+/// </summary>
+/// <returns></returns>
 std::string Product::productToString() const
 {
 	std::string mUnit;
@@ -211,6 +315,11 @@ std::string Product::productToString() const
 	return result;
 }
 
+/// <summary>
+/// a prettier way of converting the information about the product as a string
+/// done with the help of stringstream
+/// </summary>
+/// <returns></returns>
 std::string Product::productAsMessage() const
 {
 	std::string mUnit;
@@ -225,6 +334,14 @@ std::string Product::productAsMessage() const
 	return result;
 }
 
+/// <summary>
+/// a helper function to convert a given line into parameters for the creation of a product
+/// done with the help of stringstream
+/// </summary>
+/// <param name="line"></param>
+/// <param name="paramCount"></param>
+/// <param name="del"></param>
+/// <returns></returns>
 std::vector<std::string> Product::getProductParams(std::string line, int paramCount, char del)
 {
 	std::vector<std::string> params;
@@ -246,6 +363,12 @@ std::vector<std::string> Product::getProductParams(std::string line, int paramCo
 	return params;
 }
 
+/// <summary>
+/// writes a product using the print function
+/// </summary>
+/// <param name="os"></param>
+/// <param name="product"></param>
+/// <returns></returns>
 std::ostream& operator<<(std::ostream& os, const Product& product)
 {
 	std::string prod = product.productToString();
@@ -253,6 +376,12 @@ std::ostream& operator<<(std::ostream& os, const Product& product)
 	return os;
 }
 
+/// <summary>
+/// reads a product from the given istream
+/// </summary>
+/// <param name="is"></param>
+/// <param name="product"></param>
+/// <returns></returns>
 std::istream& operator>>(std::istream& is, Product& product)
 {
 	std::string line;

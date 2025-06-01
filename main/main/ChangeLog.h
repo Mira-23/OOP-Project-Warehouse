@@ -9,7 +9,7 @@
 #include <time.h>
 
 /// <summary>
-/// A seperate file made for easier
+/// A seperate class made for easier implementation of logging changes
 /// </summary>
 class ChangeLog
 {
