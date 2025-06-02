@@ -23,11 +23,11 @@ class Product
 public:
 	Product();
 	Product(std::string name,
-		std::string expirationDate,
 		std::string enterDate,
+		std::string expirationDate,
 		std::string manufacturer,
-		std::string measurementUnit,
 		std::string quantity,
+		std::string measurementUnit,
 		std::string comment);
 
 	bool closeToExpiration();
@@ -48,7 +48,10 @@ public:
 	double getQuantity() const;
 	void reduceQuantityBy(double amount);
 
+	struct tm getEntDate() const;
 	struct tm getExpDate() const;
+
+	std::string getComment() const;
 
 	bool operator==(const Product& other) const;
 	bool operator!=(const Product& other) const;
@@ -57,7 +60,6 @@ public:
 	void print(std::ostream& os) const;
 	std::string productToString() const;
 	std::string productAsMessage() const;
-	std::vector<std::string> getProductParams(std::string line, int paramCount, char del);
 
 	friend std::ostream& operator<<(std::ostream& os, const Product& product);
 	friend std::istream& operator>>(std::istream& is, Product& product);
@@ -70,6 +72,8 @@ private:
 	MeasurementUnit measurementUnit;
 	double quantity;
 	std::string comment;
+
+	std::vector<std::string> getProductParams(std::string line, int paramCount, char del);
 
 	bool compareDate(const tm& first, const struct tm& other) const;
 	bool isDateValid(const struct tm& other) const;

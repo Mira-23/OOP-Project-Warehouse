@@ -48,21 +48,25 @@ Product::Product(std::string name,
 	{
 		un = MeasurementUnit::Litres;
 	}
-	else {
+	else
+	{
 		throw std::invalid_argument("Invalid/Unsupported measurement unit");
 	}
 
-	if (name.empty()) {
+	if (name.empty())
+	{
 		throw std::invalid_argument("Product name cannot be empty.");
 	}
 
-	if (manufacturer.empty()) {
+	if (manufacturer.empty())
+	{
 		throw std::invalid_argument("Manufacturer name cannot be empty.");
 	}
 
 	double quantityValue = std::stod(quantity); // this throws invalid argument by itself if it fails, so it's redundant to check
 
-	if (quantityValue <= 0) {
+	if (quantityValue <= 0)
+	{
 		throw std::invalid_argument("Quantity must be greater than 0.");
 	}
 
@@ -79,7 +83,8 @@ Product::Product(std::string name,
 	std::istringstream ss2(enterDate);
 	ss2 >> std::get_time(&enDate, "%Y-%m-%d");
 
-	if (ss2.fail() || !isDateValid(enDate)) {
+	if (ss2.fail() || !isDateValid(enDate))
+	{
 		throw std::invalid_argument("Invalid enter date.");
 	}
 
@@ -101,17 +106,38 @@ Product::Product(std::string name,
 /// setter for numberId
 /// </summary>
 /// <param name="id"></param>
-void Product::setNumberId(int id) { location[2] = id; }
+void Product::setNumberId(int id)
+{
+	if (id < 0 || id>10)
+	{
+		throw std::invalid_argument("Invalid number Id.");
+	}
+	location[2] = id;
+}
 /// <summary>
 /// setter for shelfId
 /// </summary>
 /// <param name="id"></param>
-void Product::setShelfId(int id) { location[1] = id; }
+void Product::setShelfId(int id)
+{
+	if (id < 0 || id>10)
+	{
+		throw std::invalid_argument("Invalid shelf Id.");
+	}
+	location[1] = id;
+}
 /// <summary>
 /// setter for sectionId
 /// </summary>
 /// <param name="id"></param>
-void Product::setSectionId(int id) { location[0] = id; }
+void Product::setSectionId(int id)
+{
+	if (id < 0 || id>10)
+	{
+		throw std::invalid_argument("Invalid section Id.");
+	}
+	location[0] = id;
+}
 
 /// <summary>
 /// getter for numberId
@@ -148,6 +174,11 @@ void Product::reduceQuantityBy(double amount)
 	quantity -= amount;
 }
 
+tm Product::getEntDate() const
+{
+	return enterDate;
+}
+
 /// <summary>
 /// getter for the expirationDate
 /// </summary>
@@ -155,6 +186,11 @@ void Product::reduceQuantityBy(double amount)
 tm Product::getExpDate() const
 {
 	return expirationDate;
+}
+
+std::string Product::getComment() const
+{
+	return comment;
 }
 
 /// <summary>
@@ -235,6 +271,7 @@ bool Product::compareDate(const tm& first, const tm& other) const
 
 /// <summary>
 /// checks whether a given date is valid
+/// (used for validation in the constructor
 /// </summary>
 /// <param name="date"></param>
 /// <returns></returns>
@@ -277,7 +314,8 @@ bool Product::operator<(const Product& other) const
 	time_t t1 = mktime(&thisDate);
 	time_t t2 = mktime(&otherDate);
 
-	if (t1 != t2) {
+	if (t1 != t2)
+	{
 		return t1 < t2;
 	}
 
@@ -378,6 +416,7 @@ std::ostream& operator<<(std::ostream& os, const Product& product)
 
 /// <summary>
 /// reads a product from the given istream
+/// also filters empty lines
 /// </summary>
 /// <param name="is"></param>
 /// <param name="product"></param>

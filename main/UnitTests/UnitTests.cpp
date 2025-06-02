@@ -1,0 +1,417 @@
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "..\UnitTests\doctest.h"
+#include "..\main\Product.cpp"
+#include <iostream>
+#include <sstream>
+
+TEST_SUITE("ProductTests") {
+    TEST_CASE("Empty constructor") {
+        std::string name = "";
+        struct tm enDate = struct tm();
+        struct tm exDate = struct tm();
+        std::string manufacturer = "";
+        double quantity = 0.0;
+        std::string measurementUnit = "Kilograms";
+        std::string comment = "";
+
+        Product p;
+
+        std::string productName = p.getName();
+        struct tm productEnDate = p.getEntDate();
+        struct tm productExpDate = p.getEntDate();
+        std::string productManufacturer = p.getManufacturer();
+        double productQuantity = p.getQuantity();
+        std::string productMeasurementUnit = p.stringMeasurementUnit();
+        std::string productComment = p.getComment();
+
+        CHECK_EQ(name, productName);
+        CHECK_EQ(enDate.tm_year, productEnDate.tm_year);
+        CHECK_EQ(exDate.tm_year, productExpDate.tm_year);
+        CHECK_EQ(manufacturer, productManufacturer);
+        CHECK(quantity == productQuantity);
+        CHECK_EQ(measurementUnit, productMeasurementUnit);
+        CHECK_EQ(comment, productComment);
+    }
+
+    TEST_CASE("String constructor") {
+            std::string name = "Milk";
+            std::string enDate = "2025-1-1";
+            std::string exDate = "2025-1-10";
+            std::string manufacturer = "Pilos";
+            std::string quantity = "2.000000";
+            std::string measurementUnit = "Litres";
+            std::string comment = "Just milk";
+
+            SUBCASE("Invalid name")
+            {
+                CHECK_THROWS(Product("", enDate, exDate, manufacturer, quantity, measurementUnit, comment));
+            }
+            SUBCASE("Invalid enter date")
+            {
+                CHECK_THROWS(Product(name, "", exDate, manufacturer, quantity, measurementUnit, comment));
+            }
+            SUBCASE("Invalid expiration date")
+            {
+                CHECK_THROWS(Product(name, enDate, "", manufacturer, quantity, measurementUnit, comment));
+            }
+            SUBCASE("Invalid manufacturer")
+            {
+                CHECK_THROWS(Product(name, enDate, exDate, "", quantity, measurementUnit, comment));
+            }
+            SUBCASE("Invalid quantity")
+            {
+                CHECK_THROWS(Product(name, enDate, exDate, manufacturer, "", measurementUnit, comment));
+            }
+            SUBCASE("Invalid measurement unit")
+            {
+                CHECK_THROWS(Product(name, enDate, exDate, manufacturer, quantity, "", comment));
+            }
+            SUBCASE("Proper initialization")
+            {
+                Product p(name, enDate, exDate, manufacturer, quantity, measurementUnit, comment);
+
+                std::string productName = p.getName();
+
+                std::stringstream ss1;
+                ss1 << p.getEntDate().tm_year + 1900 << "-" << p.getEntDate().tm_mon + 1 << "-" << p.getEntDate().tm_mday;
+                std::string productEnDate = ss1.str();
+
+                std::stringstream ss2;
+                ss2 << p.getExpDate().tm_year + 1900 << "-" << p.getExpDate().tm_mon + 1 << "-" << p.getExpDate().tm_mday;
+                std::string productExpDate = ss2.str();
+
+                std::string productManufacturer = p.getManufacturer();
+                std::string productQuantity = std::to_string(p.getQuantity());
+                std::string productMeasurementUnit = p.stringMeasurementUnit();
+                std::string productComment = p.getComment();
+
+                CHECK_EQ(name, productName);
+                CHECK_EQ(enDate, productEnDate);
+                CHECK_EQ(exDate, productExpDate);
+                CHECK_EQ(manufacturer, productManufacturer);
+                CHECK_EQ(quantity, productQuantity);
+                CHECK_EQ(measurementUnit, productMeasurementUnit);
+                CHECK_EQ(comment, productComment);
+            }
+    }
+
+    TEST_CASE("Name getter") {
+        std::string name = "Milk";
+        std::string enDate = "2025-1-01";
+        std::string exDate = "2025-1-10";
+        std::string manufacturer = "Pilos";
+        std::string quantity = "2.000000";
+        std::string measurementUnit = "Litres";
+        std::string comment = "Just milk";
+
+        Product p(name, enDate, exDate, manufacturer, quantity, measurementUnit, comment);
+
+        std::string productName = p.getName();
+        CHECK_EQ(name, productName);
+    }
+
+    TEST_CASE("Enter date getter") {
+        std::string name = "Milk";
+        std::string enDate = "2025-1-1";
+        std::string exDate = "2025-1-10";
+        std::string manufacturer = "Pilos";
+        std::string quantity = "2.000000";
+        std::string measurementUnit = "Litres";
+        std::string comment = "Just milk";
+
+        Product p(name, enDate, exDate, manufacturer, quantity, measurementUnit, comment);
+
+        std::stringstream ss1;
+        ss1 << p.getEntDate().tm_year +1900<< "-" << p.getEntDate().tm_mon +1 << "-" << p.getEntDate().tm_mday;
+        std::string productEnDate = ss1.str();
+        CHECK_EQ(enDate, productEnDate);
+    }
+
+    TEST_CASE("Expiration date getter") {
+        std::string name = "Milk";
+        std::string enDate = "2025-1-1";
+        std::string exDate = "2025-1-10";
+        std::string manufacturer = "Pilos";
+        std::string quantity = "2.000000";
+        std::string measurementUnit = "Litres";
+        std::string comment = "Just milk";
+
+        Product p(name, enDate, exDate, manufacturer, quantity, measurementUnit, comment);
+
+        std::stringstream ss1;
+        ss1 << p.getExpDate().tm_year +1900 << "-" << p.getExpDate().tm_mon + 1 << "-" << p.getExpDate().tm_mday;
+        std::string productExpDate = ss1.str();
+        CHECK_EQ(exDate, productExpDate);
+    }
+
+    TEST_CASE("Manufacturer getter") {
+        std::string name = "Milk";
+        std::string enDate = "2025-1-01";
+        std::string exDate = "2025-1-10";
+        std::string manufacturer = "Pilos";
+        std::string quantity = "2.000000";
+        std::string measurementUnit = "Litres";
+        std::string comment = "Just milk";
+
+        Product p(name, enDate, exDate, manufacturer, quantity, measurementUnit, comment);
+
+        std::string productManufacturer = p.getManufacturer();
+        CHECK_EQ(manufacturer, productManufacturer);
+    }
+
+    TEST_CASE("Quantity getter") {
+        std::string name = "Milk";
+        std::string enDate = "2025-1-01";
+        std::string exDate = "2025-1-10";
+        std::string manufacturer = "Pilos";
+        std::string quantity = "2.000000";
+        std::string measurementUnit = "Litres";
+        std::string comment = "Just milk";
+
+        Product p(name, enDate, exDate, manufacturer, quantity, measurementUnit, comment);
+
+        double productQuantity = p.getQuantity();
+        CHECK_EQ(2.0, productQuantity);
+    }
+
+    TEST_CASE("Measurement unit as string (like a getter)") {
+        std::string name = "Milk";
+        std::string enDate = "2025-1-01";
+        std::string exDate = "2025-1-10";
+        std::string manufacturer = "Pilos";
+        std::string quantity = "2.000000";
+        std::string measurementUnit = "Litres";
+        std::string comment = "Just milk";
+
+        Product p(name, enDate, exDate, manufacturer, quantity, measurementUnit, comment);
+
+        std::string productMeasurementUnit = p.stringMeasurementUnit();
+        CHECK_EQ(measurementUnit, productMeasurementUnit);
+    }
+
+    TEST_CASE("Comment getter") {
+        std::string name = "Milk";
+        std::string enDate = "2025-1-01";
+        std::string exDate = "2025-1-10";
+        std::string manufacturer = "Pilos";
+        std::string quantity = "2.000000";
+        std::string measurementUnit = "Litres";
+        std::string comment = "Just milk";
+
+        Product p(name, enDate, exDate, manufacturer, quantity, measurementUnit, comment);
+
+        std::string productComment = p.getComment();
+        CHECK_EQ(comment, productComment);
+    }
+
+    TEST_CASE("NumberId setter & getter") {
+        Product p;
+
+        SUBCASE("Throws error if lower than 0 or more than the available numbers (10)")
+        {
+            CHECK_THROWS(p.setNumberId(-1));
+            CHECK_THROWS(p.setNumberId(11));
+        }
+        SUBCASE("Should return 0")
+        {
+            p.setNumberId(0);
+            CHECK_EQ(0, p.getNumberId());
+        }
+    }
+
+    TEST_CASE("ShelfId setter & getter") {
+        Product p;
+
+        SUBCASE("Throws error if lower than 0 or more than the available shelves (10)")
+        {
+            CHECK_THROWS(p.setShelfId(-1));
+            CHECK_THROWS(p.setShelfId(11));
+        }
+        SUBCASE("Should return 0")
+        {
+            p.setShelfId(0);
+            CHECK_EQ(0, p.getShelfId());
+        }
+    }
+
+    TEST_CASE("SectionId setter & getter") {
+        Product p;
+
+        SUBCASE("Throws error if lower than 0 or more than the available sections (10)")
+        {
+            CHECK_THROWS(p.setSectionId(-1));
+            CHECK_THROWS(p.setSectionId(11));
+        }
+        SUBCASE("Should return 0")
+        {
+            p.setSectionId(0);
+            CHECK_EQ(0, p.getSectionId());
+        }
+    }
+
+    TEST_CASE("Close to expiration") {
+        std::string name = "Milk";
+        std::string enDate = "2024-1-01";
+        std::string exDate = "2026-1-10";
+        std::string manufacturer = "Pilos";
+        std::string quantity = "2.000000";
+        std::string measurementUnit = "Litres";
+        std::string comment = "Just milk";
+
+        Product p1(name, enDate, enDate, manufacturer, quantity, measurementUnit, comment);
+        Product p2(name, exDate, exDate, manufacturer, quantity, measurementUnit, comment);
+
+        SUBCASE("Is expired")
+        {
+            CHECK(p1.closeToExpiration());
+        }
+        SUBCASE("Isn't expired")
+        {
+            CHECK(!p2.closeToExpiration());
+        }
+    }
+
+    TEST_CASE("Reduce quantity by")
+    {
+        std::string name = "Milk";
+        std::string enDate = "2024-1-01";
+        std::string exDate = "2026-1-10";
+        std::string manufacturer = "Pilos";
+        std::string quantity = "2.000000";
+        std::string measurementUnit = "Litres";
+        std::string comment = "Just milk";
+
+        Product p(name, enDate, exDate, manufacturer, quantity, measurementUnit, comment);
+
+        SUBCASE("Removes some quantity")
+        {
+            p.reduceQuantityBy(1);
+            CHECK_EQ(1, p.getQuantity());
+        }
+        SUBCASE("Removes all quantity (amount needed is more than total)")
+        {
+            p.reduceQuantityBy(3);
+            CHECK_EQ(0, p.getQuantity());
+        }
+    }
+
+    TEST_CASE("Operator == & !=")
+    {
+        std::string name = "Milk";
+        std::string enDate = "2024-1-01";
+        std::string exDate = "2026-1-10";
+        std::string manufacturer = "Pilos";
+        std::string quantity = "2.000000";
+        std::string measurementUnit = "Litres";
+        std::string comment = "Just milk";
+
+        Product p1(name, enDate, exDate, manufacturer, quantity, measurementUnit, comment);
+        Product p2;
+        Product p3;
+
+        SUBCASE("The two are equal")
+        {
+            CHECK(p2==p3);
+            CHECK(!(p2 != p3));
+        }
+        SUBCASE("The two are different")
+        {
+            CHECK(!(p1 == p2));
+            CHECK(p1 != p2);
+        }
+    }
+
+    TEST_CASE("Operator <")
+    {
+        std::string name1 = "Apple";
+        std::string name2 = "Milk";
+        std::string enDate = "2024-1-01";
+        std::string exDate1 = "2026-1-10";
+        std::string exDate2 = "2026-1-12";
+        std::string manufacturer = "Pilos";
+        std::string quantity1 = "2.000000";
+        std::string quantity2 = "3.000000";
+        std::string measurementUnit = "Litres";
+        std::string comment = "Just milk";
+
+        Product p1(name1, enDate, exDate1, manufacturer, quantity1, measurementUnit, comment);
+        Product p2(name1, enDate, exDate1, manufacturer, quantity2, measurementUnit, comment);
+        Product p3(name1, enDate, exDate2, manufacturer, quantity2, measurementUnit, comment);
+        Product p4(name2, enDate, exDate1, manufacturer, quantity2, measurementUnit, comment);
+
+        SUBCASE("Products with different names")
+        {
+            CHECK(p1 < p4);
+        }
+        SUBCASE("Same products (name and exp. date) with different quantities")
+        {
+            CHECK(p1 < p2);
+        }
+        SUBCASE("Same products (name, quantity doesnt matter) with different exp. dates")
+        {
+            CHECK(p1 < p3);
+        }
+    }
+
+    TEST_CASE("Product to string")
+    {
+        std::string name = "Milk";
+        std::string enDate = "2024-1-01";
+        std::string exDate = "2026-1-10";
+        std::string manufacturer = "Pilos";
+        std::string quantity = "2.000000";
+        std::string measurementUnit = "Litres";
+        std::string comment = "Just milk";
+
+        Product p1(name, enDate, exDate, manufacturer, quantity, measurementUnit, comment);
+        std::string expectedOutput = "Milk|2024-1-1|2026-1-10|Pilos|-1/-1/-1|2|Litres|Just milk";
+
+        std::string productString = p1.productToString();
+
+        CHECK_EQ(expectedOutput, productString);
+    }
+
+    TEST_CASE("Product as a message")
+    {
+        std::string name = "Milk";
+        std::string enDate = "2024-1-01";
+        std::string exDate = "2026-1-10";
+        std::string manufacturer = "Pilos";
+        std::string quantity = "2.000000";
+        std::string measurementUnit = "Litres";
+        std::string comment = "Just milk";
+
+        Product p1(name, enDate, exDate, manufacturer, quantity, measurementUnit, comment);
+        std::string expectedOutput = "Product Milk that entered on 2024-1-1 and expires on 2026-1-10 from manufacturer Pilos with location: SectionId: -1, ShelfId: -1, with NumberId: -1 with quantity of 2 Litres (Just milk)";
+
+        std::string productMessage = p1.productAsMessage();
+
+        CHECK_EQ(expectedOutput, productMessage);
+    }
+
+    TEST_CASE("Operator <<")
+    {
+        Product p;
+        std::ostringstream ss;
+
+        ss << p;
+        std::string expectedOutput = "|1900-1-0|1900-1-0||-1/-1/-1|0|Kilograms|\n";
+
+        CHECK_EQ(expectedOutput, ss.str());
+    }
+
+    TEST_CASE("Operator >>")
+    {
+        Product p;
+        std::istringstream ss("Milk|2024-1-1|2026-1-10|Pilos|0/0/0|2|Litres|Just milk");
+
+        ss >> p;
+
+        CHECK_EQ(ss.str(), p.productToString());
+    }
+}
+
+TEST_SUITE("WarehouseTests")
+{
+
+}
