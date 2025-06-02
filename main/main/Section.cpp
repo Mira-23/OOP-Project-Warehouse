@@ -16,7 +16,7 @@ Section::Section()
 /// clone function so that the interface can be used correctly
 /// </summary>
 /// <returns></returns>
-IStorageUnit* Section::clone()
+StorageUnit* Section::clone()
 {
 	return new Section(*this);
 }

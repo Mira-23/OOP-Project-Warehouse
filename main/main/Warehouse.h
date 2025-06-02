@@ -1,21 +1,21 @@
 #pragma once
 #include "Section.h"
-#include "IStorageUnit.h"
+#include "StorageUnit.h"
 #include "ChangeLog.h"
 #include <vector>
 
 /// <summary>
 /// Main logic - holds the operations of the storage system (add, print, remove, log, clean, check losses and etc.)
 /// </summary>
-class Warehouse : public IStorageUnit
+class Warehouse : public StorageUnit
 {
 public:
 	Warehouse();
-	IStorageUnit* clone() override;
+	StorageUnit* clone() override;
 	Warehouse(const Warehouse& other);
 	Warehouse& operator=(Warehouse& other);
 
-	void print();
+	void print(std::ostream& os);
 	bool add(Product* p) override;
 	void remove(std::string name, double quantity);
 	void log(std::string from, std::string to) const;

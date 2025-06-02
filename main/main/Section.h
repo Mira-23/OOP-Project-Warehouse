@@ -1,16 +1,16 @@
 #pragma once
 #include "Shelf.h"
-#include "IStorageUnit.h"
+#include "StorageUnit.h"
 #include <vector>
 
 /// <summary>
 /// Biggest storage unit - contains shelves
 /// </summary>
-class Section : public IStorageUnit
+class Section : public StorageUnit
 {
 public:
 	Section();
-	IStorageUnit* clone() override;
+	StorageUnit* clone() override;
 
 	bool add(Product* p) override;
 	bool addDirectly(Product* p) override;

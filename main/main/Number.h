@@ -1,15 +1,15 @@
 #pragma once
-#include "IStorageUnit.h"
+#include "StorageUnit.h"
 #include <vector>
 
 /// <summary>
 /// Smallest storage unit - direct storage of products
 /// </summary>
-class Number : public IStorageUnit
+class Number : public StorageUnit
 {
 public:
 	Number();
-	IStorageUnit* clone() override;
+	StorageUnit* clone() override;
 
 	bool add(Product* p) override;
 	bool addDirectly(Product* p) override;

@@ -16,7 +16,7 @@ Shelf::Shelf()
 /// clone function so that the interface can be used correctly
 /// </summary>
 /// <returns></returns>
-IStorageUnit* Shelf::clone()
+StorageUnit* Shelf::clone()
 {
 	return new Shelf(*this);
 }

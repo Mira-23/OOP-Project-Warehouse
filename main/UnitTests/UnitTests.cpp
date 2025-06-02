@@ -1,6 +1,12 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "..\UnitTests\doctest.h"
 #include "..\main\Product.cpp"
+#include "..\main\StorageUnit.cpp"
+#include "..\main\Warehouse.cpp"
+#include "..\main\Section.cpp"
+#include "..\main\Shelf.cpp"
+#include "..\main\Number.cpp"
+#include "..\main\ChangeLog.cpp"
 #include <iostream>
 #include <sstream>
 
@@ -413,5 +419,69 @@ TEST_SUITE("ProductTests") {
 
 TEST_SUITE("WarehouseTests")
 {
+    TEST_CASE("Clone function") {
+        Warehouse w;
+        CHECK_NOTHROW(StorageUnit * iw = w.clone(); delete iw;);
+    }
+    TEST_CASE("Print") {
+        Warehouse w;
 
+        std::string name = "Milk";
+        std::string enDate = "2025-1-01";
+        std::string exDate = "2025-1-10";
+        std::string manufacturer = "Pilos";
+        std::string quantity = "2.000000";
+        std::string measurementUnit = "Litres";
+        std::string comment = "Just milk";
+
+        Product p(name, enDate, exDate, manufacturer, quantity, measurementUnit, comment);
+
+        std::string expectedOutput = "Product Milk that entered on 2025-1-1 and expires on 2025-1-10 from manufacturer Pilos with location: SectionId: 0, ShelfId: 0, with NumberId: 0 with quantity of 2 Litres (Just milk)\nMilk: 2 Litres\n";
+
+        std::ostringstream ss;
+
+        w.add(&p);
+        w.print(ss);
+
+        CHECK_EQ(expectedOutput, ss.str());
+    }
+    TEST_CASE("Print product list") {
+        Warehouse w;
+
+        std::string name = "Milk";
+        std::string enDate = "2025-1-01";
+        std::string exDate = "2025-1-10";
+        std::string manufacturer = "Pilos";
+        std::string quantity = "2.000000";
+        std::string measurementUnit = "Litres";
+        std::string comment = "Just milk";
+
+        Product p(name, enDate, exDate, manufacturer, quantity, measurementUnit, comment);
+        
+        std::string expectedOutput = "Milk|2025-1-1|2025-1-10|Pilos|0/0/0|2|Litres|Just milk\n";
+
+        std::ostringstream ss;
+
+        w.add(&p);
+        w.printProductList(ss);
+
+        CHECK_EQ(expectedOutput, ss.str());
+    }
+
+    /*
+    Warehouse(const Warehouse & other);
+    Warehouse& operator=(Warehouse & other);
+
+    bool add(Product * p) override;
+    void remove(std::string name, double quantity);
+    void log(std::string from, std::string to) const;
+    void clean();
+    void check_losses(std::string name, double price, double quantity, std::string from, std::string to);
+
+    bool addDirectly(Product * p) override;
+
+    friend std::ostream& operator<<(std::ostream & os, const Warehouse & warehouse);
+    friend std::istream& operator>>(std::istream & is, Warehouse & warehouse);
+
+    ~Warehouse() override;*/
 }

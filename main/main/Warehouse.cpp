@@ -19,7 +19,7 @@ Warehouse::Warehouse() : changelog(ChangeLog())
 /// clone function so that the interface can be used correctly
 /// </summary>
 /// <returns></returns>
-IStorageUnit* Warehouse::clone()
+StorageUnit* Warehouse::clone()
 {
 	return new Warehouse(*this);
 }
@@ -52,13 +52,13 @@ Warehouse& Warehouse::operator=(Warehouse& other)
 /// <summary>
 /// prints the entire product list, and then prints out every type of product with how much quantity of it is available
 /// </summary>
-void Warehouse::print()
+void Warehouse::print(std::ostream& os)
 {
 	if (productList.size() == 0) { return; }
 
 	for (Product* p : productList)
 	{
-		std::cout << p->productAsMessage() << std::endl;
+		os << p->productAsMessage() << std::endl;
 	}
 
 	std::string tempName = productList[0]->getName();
@@ -66,7 +66,7 @@ void Warehouse::print()
 	std::string measurementUn = productList[0]->stringMeasurementUnit();
 
 	if (productList.size() == 1) {
-		std::cout << tempName << ": " << tempQuantity << " " << measurementUn << std::endl;
+		os << tempName << ": " << tempQuantity << " " << measurementUn << std::endl;
 		return;
 	}
 

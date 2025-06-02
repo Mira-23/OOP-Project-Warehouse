@@ -6,7 +6,7 @@ Number::Number() : occupiedSpace(0) {}
 /// clone function so that the interface can be used correctly
 /// </summary>
 /// <returns></returns>
-IStorageUnit* Number::clone()
+StorageUnit* Number::clone()
 {
 	return new Number(*this);
 }

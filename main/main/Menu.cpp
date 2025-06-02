@@ -348,7 +348,7 @@ void Menu::remove(std::string command)
 /// </summary>
 void Menu::print() noexcept
 {
-	warehouse.print();
+	warehouse.print(std::cout);
 }
 
 /// <summary>

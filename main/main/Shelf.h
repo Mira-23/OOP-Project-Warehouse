@@ -1,16 +1,16 @@
 #pragma once
 #include "Number.h"
-#include "IStorageUnit.h"
+#include "StorageUnit.h"
 #include <vector>
 
 /// <summary>
 /// Medium storage unit - stores numbers
 /// </summary>
-class Shelf : public IStorageUnit
+class Shelf : public StorageUnit
 {
 public:
 	Shelf();
-	IStorageUnit* clone() override;
+	StorageUnit* clone() override;
 
 	bool add(Product* p) override;
 	bool addDirectly(Product* p) override;
