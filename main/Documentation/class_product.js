@@ -1,0 +1,28 @@
+var class_product =
+[
+    [ "Product", "class_product.html#a847c1d85e67ce387166a597579a55135", null ],
+    [ "Product", "class_product.html#a92acb0928f4d635178cec56fed5c1492", null ],
+    [ "closeToExpiration", "class_product.html#a756966852bde886d3817c770ef6f93d2", null ],
+    [ "getComment", "class_product.html#a5ed558e76e6dcaaf3967cdfd1a1f8549", null ],
+    [ "getEntDate", "class_product.html#a297f110dadde0205ae3735061746abda", null ],
+    [ "getExpDate", "class_product.html#a65e2f1b9d29d3bc43dd55a00fb42b056", null ],
+    [ "getManufacturer", "class_product.html#a2f5aeb9d25fcbbcf0f6125351850d4ff", null ],
+    [ "getName", "class_product.html#a9cbd896ca6b2d95088be8ad8c3b11e3b", null ],
+    [ "getNumberId", "class_product.html#a428cb8d885ada0701acbc46d14b2e3ee", null ],
+    [ "getQuantity", "class_product.html#afee44aafca02b8fc1504b852866c9767", null ],
+    [ "getSectionId", "class_product.html#a292b7ebfcbbe4defa192bbc6ee36ea7a", null ],
+    [ "getShelfId", "class_product.html#ac5f36ff42595b9cc5a419339650be7bb", null ],
+    [ "operator!=", "class_product.html#a9378c870f366eef3abed512f2c54d6a3", null ],
+    [ "operator<", "class_product.html#ae8b34a6f22b44d2dd0fee59c198bd314", null ],
+    [ "operator==", "class_product.html#afe1b30b56c3f166297ed9799b1c06d68", null ],
+    [ "print", "class_product.html#a1f3cd9f598617c537a8a8eb4b5d2a4fa", null ],
+    [ "productAsMessage", "class_product.html#affe7c032fd43b5977c16c869cf7407b3", null ],
+    [ "productToString", "class_product.html#aa7aa39aa5cc92f2a9bb1b089b5cffbe4", null ],
+    [ "reduceQuantityBy", "class_product.html#a9893d7612c6aab693a9559d6599205e6", null ],
+    [ "setNumberId", "class_product.html#a3823c2a408310ec1e941ab4e0e29bda7", null ],
+    [ "setSectionId", "class_product.html#a2e56c2b24ea67cb104624ce57461cdfb", null ],
+    [ "setShelfId", "class_product.html#a669a0b66538b9f9a97e5f4a7796d61f6", null ],
+    [ "stringMeasurementUnit", "class_product.html#a74d2ed6166fc848d172a3493d80bd802", null ],
+    [ "operator<<", "class_product.html#a480eb0498f6882d38233479848aaa8f3", null ],
+    [ "operator>>", "class_product.html#acef3dbf9e6e01d944aae2bdbf635922e", null ]
+];
