@@ -457,6 +457,35 @@ TEST_SUITE("WarehouseTests")
             CHECK(w.getSections()[0].getShelves()[0].getNumbers()[1].getProducts().size() == 1);
         }
     }
+    TEST_CASE("Add directly")
+    {
+        std::string name = "Milk";
+        std::string enDate = "2024-1-01";
+        std::string exDate = "2026-1-10";
+        std::string manufacturer = "Pilos";
+        std::string quantity = "2.000000";
+        std::string measurementUnit = "Litres";
+        std::string comment = "Just milk";
+
+        Product p(name, enDate, exDate, manufacturer, quantity, measurementUnit, comment);
+
+        p.setSectionId(0);
+        p.setShelfId(0);
+        p.setNumberId(0);
+
+        Warehouse w;
+        std::string expectedOutput = "Milk|2024-1-1|2026-1-10|Pilos|0/0/0|2|Litres|Just milk\n";
+
+        bool didAdd = w.addDirectly(&p);
+
+        CHECK(didAdd);
+
+        std::ostringstream ss;
+
+        w.printProductList(ss);
+
+        CHECK_EQ(expectedOutput, ss.str());
+    }
     TEST_CASE("Print") {
         Warehouse w;
 
@@ -542,36 +571,7 @@ TEST_SUITE("WarehouseTests")
         std::ostringstream ss;
         ss << w;
         CHECK_EQ(expectedOutput, ss.str());
-    }
-    TEST_CASE("Add directly")
-    {
-        std::string name = "Milk";
-        std::string enDate = "2024-1-01";
-        std::string exDate = "2026-1-10";
-        std::string manufacturer = "Pilos";
-        std::string quantity = "2.000000";
-        std::string measurementUnit = "Litres";
-        std::string comment = "Just milk";
-
-        Product p(name, enDate, exDate, manufacturer, quantity, measurementUnit, comment);
-
-        p.setSectionId(0);
-        p.setShelfId(0);
-        p.setNumberId(0);
-
-        Warehouse w;
-        std::string expectedOutput = "Milk|2024-1-1|2026-1-10|Pilos|0/0/0|2|Litres|Just milk\n";
-
-        bool didAdd = w.addDirectly(&p);
-
-        CHECK(didAdd);
-
-        std::ostringstream ss;
-
-        w.printProductList(ss);
-
-        CHECK_EQ(expectedOutput, ss.str());
-    }
+    }  
     TEST_CASE("Log")
     {
         Product p;
@@ -655,5 +655,359 @@ TEST_SUITE("WarehouseTests")
         w.check_losses(name, 3, 2, "2024-1-1", "2027-1-01",ss);
         std::string actualOutput = ss.str();
         CHECK_EQ(expectedOutput, actualOutput);
+    }
+    TEST_CASE("sections getter")
+    {
+        Warehouse w;
+        std::vector<Section> s;
+        Section s1;
+        s.push_back(s1);
+        s.push_back(s1);
+        s.push_back(s1);
+        s.push_back(s1);
+        s.push_back(s1);
+        s.push_back(s1);
+        s.push_back(s1);
+        s.push_back(s1);
+        s.push_back(s1);
+        s.push_back(s1);
+
+        CHECK_EQ(w.getSections().size(), s.size());
+    }
+}
+
+TEST_SUITE("NumberTests")
+{
+    TEST_CASE("Clone function") {
+        Number n;
+        CHECK_NOTHROW(StorageUnit * iw = n.clone(); delete iw;);
+    }
+    TEST_CASE("Add")
+    {
+        Number n;
+
+        std::string name = "Milk";
+        std::string enDate = "2025-1-1";
+        std::string exDate1 = "2025-1-10";
+        std::string exDate2 = "2026-1-10";
+        std::string manufacturer = "Pilos";
+        std::string quantity = "2.000000";
+        std::string measurementUnit = "Litres";
+        std::string comment = "Just milk";
+
+        Product p1(name, enDate, exDate1, manufacturer, quantity, measurementUnit, comment);
+        Product p2(name, enDate, exDate2, manufacturer, quantity, measurementUnit, comment);
+        SUBCASE("general add")
+        {
+            n.add(&p1);
+            CHECK_EQ(&p1,n.getProducts()[0]);
+        }
+        SUBCASE("add with the same type of product")
+        {
+            n.add(&p1);
+            n.add(&p1);
+            CHECK(n.getProducts().size() == 2);
+        }
+        SUBCASE("add on a full number")
+        {
+            n.add(&p1);
+            CHECK(!n.add(&p2));
+        }
+    }
+    TEST_CASE("Add directly")
+    {
+        std::string name = "Milk";
+        std::string enDate = "2024-1-01";
+        std::string exDate = "2026-1-10";
+        std::string manufacturer = "Pilos";
+        std::string quantity = "2.000000";
+        std::string measurementUnit = "Litres";
+        std::string comment = "Just milk";
+
+        Product p(name, enDate, exDate, manufacturer, quantity, measurementUnit, comment);
+
+        p.setSectionId(0);
+        p.setShelfId(0);
+        p.setNumberId(0);
+
+        Number n;
+        std::string expectedOutput = "Milk|2024-1-1|2026-1-10|Pilos|0/0/0|2|Litres|Just milk\n";
+
+        bool didAdd = n.addDirectly(&p);
+
+        CHECK(didAdd);
+
+        std::ostringstream ss;
+
+        n.getProducts()[0]->print(ss);
+
+        CHECK_EQ(expectedOutput, ss.str());
+    }
+    TEST_CASE("Remove product")
+    {
+        std::string name = "Milk";
+        std::string enDate = "2024-1-01";
+        std::string exDate = "2026-1-10";
+        std::string manufacturer = "Pilos";
+        std::string quantity = "2.000000";
+        std::string measurementUnit = "Litres";
+        std::string comment = "Just milk";
+
+        Product p(name, enDate, exDate, manufacturer, quantity, measurementUnit, comment);
+        Product p1("name", enDate, exDate, manufacturer, quantity, measurementUnit, comment);
+        Number n;
+        n.add(&p);
+        
+        SUBCASE("proper remove")
+        {
+            n.removeProduct(&p);
+            bool isEmpty = n.getProducts().size() == 0;
+            CHECK(isEmpty);
+        }
+        SUBCASE("improper remove")
+        {
+            n.removeProduct(&p1);
+            bool isEmpty = n.getProducts().size() == 0;
+            CHECK(!isEmpty);
+        }  
+    }
+    TEST_CASE("Products getter")
+    {
+        Number n;
+
+        std::string name = "Milk";
+        std::string enDate = "2024-1-01";
+        std::string exDate = "2026-1-10";
+        std::string manufacturer = "Pilos";
+        std::string quantity = "2.000000";
+        std::string measurementUnit = "Litres";
+        std::string comment = "Just milk";
+
+        Product p(name, enDate, exDate, manufacturer, quantity, measurementUnit, comment);
+        n.add(&p);
+
+        CHECK_EQ(*(n.getProducts()[0]),p);
+    }
+}
+
+TEST_SUITE("ShelfTests")
+{
+    TEST_CASE("Clone function") {
+        Shelf s;
+        CHECK_NOTHROW(StorageUnit * iw = s.clone(); delete iw;);
+    }
+    TEST_CASE("Add")
+    {
+        Shelf s;
+
+        std::string name = "Milk";
+        std::string enDate = "2025-1-1";
+        std::string exDate1 = "2025-1-10";
+        std::string exDate2 = "2026-1-10";
+        std::string manufacturer = "Pilos";
+        std::string quantity = "2.000000";
+        std::string measurementUnit = "Litres";
+        std::string comment = "Just milk";
+
+        Product p1(name, enDate, exDate1, manufacturer, quantity, measurementUnit, comment);
+        Product p2("name", enDate, exDate2, manufacturer, quantity, measurementUnit, comment);
+        SUBCASE("general add")
+        {
+            s.add(&p1);
+            CHECK_EQ(&p1, s.getNumbers()[0].getProducts()[0]);
+        }
+        SUBCASE("add with the same type of product")
+        {
+            s.add(&p1);
+            s.add(&p1);
+            CHECK(s.getNumbers()[0].getProducts().size() == 2);
+        }
+        SUBCASE("add on a full number")
+        {
+            s.add(&p1);
+            s.add(&p2);
+            CHECK(s.getNumbers()[0].getProducts().size() == 1);
+            CHECK(s.getNumbers()[1].getProducts().size() == 1);
+        }
+    }
+    TEST_CASE("Add directly")
+    {
+        std::string name = "Milk";
+        std::string enDate = "2024-1-01";
+        std::string exDate = "2026-1-10";
+        std::string manufacturer = "Pilos";
+        std::string quantity = "2.000000";
+        std::string measurementUnit = "Litres";
+        std::string comment = "Just milk";
+
+        Product p(name, enDate, exDate, manufacturer, quantity, measurementUnit, comment);
+
+        p.setSectionId(0);
+        p.setShelfId(0);
+        p.setNumberId(0);
+
+        Shelf s;
+        std::string expectedOutput = "Milk|2024-1-1|2026-1-10|Pilos|0/0/0|2|Litres|Just milk\n";
+
+        bool didAdd = s.addDirectly(&p);
+
+        CHECK(didAdd);
+
+        std::ostringstream ss;
+
+        s.getNumbers()[0].getProducts()[0]->print(ss);
+
+        CHECK_EQ(expectedOutput, ss.str());
+    }
+    TEST_CASE("Numbers getter")
+    {
+        Shelf s;
+        std::vector<Number> ns;
+        Number n;
+        ns.push_back(n);
+        ns.push_back(n);
+        ns.push_back(n);
+        ns.push_back(n);
+        ns.push_back(n);
+        ns.push_back(n);
+        ns.push_back(n);
+        ns.push_back(n);
+        ns.push_back(n);
+        ns.push_back(n);
+
+        CHECK_EQ(s.getNumbers().size(), ns.size());
+    }
+}
+
+TEST_SUITE("SectionTests")
+{
+    TEST_CASE("Clone function") {
+        Section s;
+        CHECK_NOTHROW(StorageUnit * iw = s.clone(); delete iw;);
+    }
+    TEST_CASE("Add")
+    {
+        Section s;
+
+        std::string name = "Milk";
+        std::string enDate = "2025-1-1";
+        std::string exDate1 = "2025-1-10";
+        std::string exDate2 = "2026-1-10";
+        std::string manufacturer = "Pilos";
+        std::string quantity = "2.000000";
+        std::string measurementUnit = "Litres";
+        std::string comment = "Just milk";
+
+        Product p1(name, enDate, exDate1, manufacturer, quantity, measurementUnit, comment);
+        Product p2("name", enDate, exDate2, manufacturer, quantity, measurementUnit, comment);
+        SUBCASE("general add")
+        {
+            s.add(&p1);
+            CHECK_EQ(&p1, s.getShelves()[0].getNumbers()[0].getProducts()[0]);
+        }
+        SUBCASE("add with the same type of product")
+        {
+            s.add(&p1);
+            s.add(&p1);
+            CHECK(s.getShelves()[0].getNumbers()[0].getProducts().size() == 2);
+        }
+        SUBCASE("add on a full number")
+        {
+            s.add(&p1);
+            s.add(&p2);
+            CHECK(s.getShelves()[0].getNumbers()[0].getProducts().size() == 1);
+            CHECK(s.getShelves()[0].getNumbers()[1].getProducts().size() == 1);
+        }
+    }
+    TEST_CASE("Add directly")
+    {
+        std::string name = "Milk";
+        std::string enDate = "2024-1-01";
+        std::string exDate = "2026-1-10";
+        std::string manufacturer = "Pilos";
+        std::string quantity = "2.000000";
+        std::string measurementUnit = "Litres";
+        std::string comment = "Just milk";
+
+        Product p(name, enDate, exDate, manufacturer, quantity, measurementUnit, comment);
+
+        p.setSectionId(0);
+        p.setShelfId(0);
+        p.setNumberId(0);
+
+        Section s;
+        std::string expectedOutput = "Milk|2024-1-1|2026-1-10|Pilos|0/0/0|2|Litres|Just milk\n";
+
+        bool didAdd = s.addDirectly(&p);
+
+        CHECK(didAdd);
+
+        std::ostringstream ss;
+
+        s.getShelves()[0].getNumbers()[0].getProducts()[0]->print(ss);
+
+        CHECK_EQ(expectedOutput, ss.str());
+    }
+    TEST_CASE("Shelves getter")
+    {
+        Section s;
+        std::vector<Shelf> shs;
+        Shelf sh;
+        shs.push_back(sh);
+        shs.push_back(sh);
+        shs.push_back(sh);
+        shs.push_back(sh);
+        shs.push_back(sh);
+        shs.push_back(sh);
+        shs.push_back(sh);
+        shs.push_back(sh);
+        shs.push_back(sh);
+        shs.push_back(sh);
+
+        CHECK_EQ(s.getShelves().size(), shs.size());
+    }
+}
+
+TEST_SUITE("ChangeLogTests")
+{
+    TEST_CASE("Submit change")
+    {
+        ChangeLog log;
+        SUBCASE("no quantity")
+        {
+            log.submitChange("name", "Product");
+            std::ostringstream ss;
+            log.printLog("2024-1-1", "2026-1-1", ss);
+            std::string expectedOutput = "2025-6-3 name product Product\n";
+            CHECK_EQ(expectedOutput, ss.str());
+        }
+        SUBCASE("with quantity")
+        {
+            log.submitChange("name", "Product",3);
+            std::ostringstream ss;
+            log.printLog("2024-1-1", "2026-1-1", ss);
+            std::string expectedOutput = "2025-6-3 name product Product by quantity: 3.000000\n";
+            CHECK_EQ(expectedOutput, ss.str());
+        }
+    }
+    TEST_CASE("Print log")
+    {
+        ChangeLog log;
+        SUBCASE("Prints within dates")
+        {
+            log.submitChange("name", "Product");
+            std::ostringstream ss;
+            log.printLog("2024-1-1", "2026-1-1", ss);
+            std::string expectedOutput = "2025-6-3 name product Product\n";
+            CHECK_EQ(expectedOutput, ss.str());
+        }
+        SUBCASE("Does not print (all logs outside of date range)")
+        {
+            log.submitChange("name", "Product", 3);
+            std::ostringstream ss;
+            log.printLog("2026-1-1", "2026-1-1", ss);
+            std::string expectedOutput = "";
+            CHECK_EQ(expectedOutput, ss.str());
+        }
     }
 }
