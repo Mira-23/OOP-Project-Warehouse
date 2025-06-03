@@ -7,6 +7,7 @@
 #include "..\main\Shelf.cpp"
 #include "..\main\Number.cpp"
 #include "..\main\ChangeLog.cpp"
+#include "..\main\Menu.hpp"
 #include <iostream>
 #include <sstream>
 
@@ -612,13 +613,13 @@ TEST_SUITE("WarehouseTests")
 
         SUBCASE("quantity needed is less than present - should only change the quantity of the product")
         {
-            w.remove("Milk",1);
+            w.remove("Milk",1,std::cout);
             double changedQuantity = w.getSections()[0].getShelves()[0].getNumbers()[0].getProducts()[0]->getQuantity();
             CHECK_EQ(1.0, changedQuantity);
         }
         SUBCASE("quantity needed is equal to present - should remove the product")
         {
-            w.remove("Milk", 2);
+            w.remove("Milk", 2,std::cout);
             Number num = w.getSections()[0].getShelves()[0].getNumbers()[0];
             bool isEmpty = num.getProducts().size() == 0;
             CHECK(isEmpty);
@@ -630,7 +631,7 @@ TEST_SUITE("WarehouseTests")
         Warehouse w;
 
         w.add(&p);
-        w.clean();
+        w.clean(std::cout);
 
         CHECK(w.getSections()[0].getShelves()[0].getNumbers()[0].getProducts().size() == 0);
     }
@@ -1009,5 +1010,35 @@ TEST_SUITE("ChangeLogTests")
             std::string expectedOutput = "";
             CHECK_EQ(expectedOutput, ss.str());
         }
+    }
+}
+
+TEST_SUITE("MenuTests")
+{
+    std::stringstream ss;
+    Menu<std::stringstream> menu;
+    TEST_CASE("add")
+    {
+        CHECK_THROWS(menu.add("a",ss));
+    }
+    TEST_CASE("remove")
+    {
+        CHECK_THROWS(menu.remove("a", ss));
+    }
+    TEST_CASE("log")
+    {
+        CHECK_THROWS(menu.log("a", ss));
+    }
+    TEST_CASE("check_losses")
+    {
+        CHECK_THROWS(menu.check_losses("a", ss));
+    }
+    TEST_CASE("open")
+    {
+        CHECK_THROWS(menu.open("a",ss));
+    }
+    TEST_CASE("saveas")
+    {
+        CHECK_THROWS(menu.save_as("a", ss));
     }
 }
