@@ -8,5 +8,6 @@
 int main()
 {
 	Menu<std::ostream> menu;
-	menu.start(std::cout);
+	menu.setOutPut(std::cout);
+	menu.start();
 }

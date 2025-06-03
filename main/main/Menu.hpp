@@ -13,26 +13,29 @@ class Menu
 {
 public:
 	Menu();
-	void start(T& os);
-	void add(std::string command, T& os);
-	void remove(std::string command, T& os);
-	void print(T& os) noexcept;
-	void clean(T& os);
-	void log(std::string command, T& os);
-	void check_losses(std::string command, T& os);
+	void start();
+	void add(std::string command);
+	void remove(std::string command);
+	void print() noexcept;
+	void clean();
+	void log(std::string command);
+	void check_losses(std::string command);
 
-	void open(std::string command, T& os);
-	void close(T& os) noexcept;
-	void save_as(std::string command, T& os);
-	void save(T& os);
-	void help(T& os) noexcept;
-	void exit(T& os) noexcept;
+	void open(std::string command);
+	void close() noexcept;
+	void save_as(std::string command);
+	void save();
+	void help() noexcept;
+	void exit() noexcept;
+
+	void setOutPut(T& os);
 private:
 	std::vector<std::string> getParams(std::string command, std::string operation, int paramCount);
 
 	bool isOpen;
 	std::string filePath;
 	Warehouse warehouse;
+	T& os;
 };
 
 
@@ -47,7 +50,7 @@ Menu<T>::Menu() : isOpen(false), filePath(""), warehouse(Warehouse()) {}
 /// main logic for the menu - this is the "user interface" of the program
 /// </summary>
 template <typename T>
-void Menu<T>::start(T& os)
+void Menu<T>::start()
 {
 	/// <summary>
 	/// it prints os a guiding message to help the user use the menu
@@ -245,7 +248,7 @@ void Menu<T>::start(T& os)
 /// </summary>
 /// <param name="command"></param>
 template <typename T>
-void Menu<T>::open(std::string command, T& os)
+void Menu<T>::open(std::string command)
 {
 	isOpen = true;
 	std::vector<std::string> params = getParams(command, "open", 1);
@@ -274,7 +277,7 @@ void Menu<T>::open(std::string command, T& os)
 /// resets the information stored in the class
 /// </summary>
 template <typename T>
-void Menu<T>::close(T& os) noexcept
+void Menu<T>::close() noexcept
 {
 	isOpen = false;
 	filePath = "";
@@ -289,7 +292,7 @@ void Menu<T>::close(T& os) noexcept
 /// </summary>
 /// <param name="command"></param>
 template <typename T>
-void Menu<T>::save_as(std::string command, T& os)
+void Menu<T>::save_as(std::string command)
 {
 	std::vector<std::string> params = getParams(command, "saveas", 1);
 
@@ -313,7 +316,7 @@ void Menu<T>::save_as(std::string command, T& os)
 /// saves the program to the already opened file using save_as
 /// </summary>
 template <typename T>
-void Menu<T>::save(T& os)
+void Menu<T>::save()
 {
 	save_as("saveas " + filePath, os);
 }
@@ -322,7 +325,7 @@ void Menu<T>::save(T& os)
 /// prints out all of the supported commands
 /// </summary>
 template <typename T>
-void Menu<T>::help(T& os) noexcept
+void Menu<T>::help() noexcept
 {
 	os << "The following commands are supported : " << std::endl
 		<< "- (supported date format: YYYY-mm-dd)" << std::endl
@@ -351,7 +354,7 @@ void Menu<T>::help(T& os) noexcept
 /// exists the program
 /// </summary>
 template <typename T>
-void Menu<T>::exit(T& os) noexcept
+void Menu<T>::exit() noexcept
 {
 	os << "Exiting the program..." << std::endl;
 	std::exit(0);
@@ -362,7 +365,7 @@ void Menu<T>::exit(T& os) noexcept
 /// </summary>
 /// <param name="command"></param>
 template <typename T>
-void Menu<T>::add(std::string command, T& os)
+void Menu<T>::add(std::string command)
 {
 	//add Milk|2025-06-22|2025-06-28|Pilos|2|Litres|Just milk
 	//add Apple|2025-06-22|2025-06-28|Pilos|1|Kilograms|Just an apple
@@ -383,7 +386,7 @@ void Menu<T>::add(std::string command, T& os)
 /// </summary>
 /// <param name="command"></param>
 template <typename T>
-void Menu<T>::remove(std::string command, T& os)
+void Menu<T>::remove(std::string command)
 {
 	//remove Milk|1
 	std::vector<std::string> params = getParams(command, "remove", 2);
@@ -394,7 +397,7 @@ void Menu<T>::remove(std::string command, T& os)
 /// invokes the print function of the warehouse
 /// </summary>
 template <typename T>
-void Menu<T>::print(T& os) noexcept
+void Menu<T>::print() noexcept
 {
 	warehouse.print(os);
 }
@@ -403,7 +406,7 @@ void Menu<T>::print(T& os) noexcept
 /// invokes the clean function of the warehouse
 /// </summary>
 template <typename T>
-void Menu<T>::clean(T& os)
+void Menu<T>::clean()
 {
 	warehouse.clean(os);
 }
@@ -413,7 +416,7 @@ void Menu<T>::clean(T& os)
 /// </summary>
 /// <param name="command"></param>
 template <typename T>
-void Menu<T>::log(std::string command, T& os)
+void Menu<T>::log(std::string command)
 {
 	std::vector<std::string> params = getParams(command, "log", 2);
 	//log 2025-05-29|2025-05-31
@@ -425,12 +428,18 @@ void Menu<T>::log(std::string command, T& os)
 /// </summary>
 /// <param name="command"></param>
 template <typename T>
-void Menu<T>::check_losses(std::string command, T& os)
+void Menu<T>::check_losses(std::string command)
 {
 	//product name|price|quantity|from|to
 	//checklosses Milk|2|1|2025-05-29|2025-05-31
 	std::vector<std::string> params = getParams(command, "checklosses", 5);
 	warehouse.check_losses(params[0], std::stod(params[1]), std::stod(params[2]), params[3], params[4], os);
+}
+
+template<typename T>
+void Menu<T>::setOutPut(T& os)
+{
+	this->os = os;
 }
 
 /// <summary>
