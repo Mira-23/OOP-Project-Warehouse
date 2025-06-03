@@ -16,7 +16,7 @@ public:
 
 	void removeProduct(Product* p);
 
-	std::vector<Product*> getProducts();
+	std::vector<Product*>& getProducts();
 private:
 	std::vector<Product*> products;
 	double occupiedSpace;

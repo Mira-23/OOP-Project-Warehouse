@@ -56,7 +56,7 @@ bool Section::addDirectly(Product* product)
 /// getter for the shelves of the section
 /// </summary>
 /// <returns></returns>
-std::vector<Shelf> Section::getShelves()
+std::vector<Shelf>& Section::getShelves()
 {
 	return shelves;
 }

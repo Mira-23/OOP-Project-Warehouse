@@ -15,7 +15,7 @@ public:
 	bool add(Product* p) override;
 	bool addDirectly(Product* p) override;
 
-	std::vector<Number> getNumbers();
+	std::vector<Number>& getNumbers();
 private:
 	const int numberAmount = 10;
 	std::vector<Number> numbers;

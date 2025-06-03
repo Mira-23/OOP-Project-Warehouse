@@ -15,7 +15,7 @@ public:
 	bool add(Product* p) override;
 	bool addDirectly(Product* p) override;
 
-	std::vector<Shelf> getShelves();
+	std::vector<Shelf>& getShelves();
 private:
 	std::vector<Shelf> shelves;
 	const int shelfAmount = 10;

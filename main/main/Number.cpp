@@ -44,12 +44,13 @@ bool Number::add(Product* product)
 /// <param name="p"></param>
 void Number::removeProduct(Product* p)
 {
-	std::vector<Product*>::iterator it = std::find_if(products.begin(), products.end(), [p](Product* prod) -> bool {return *prod == *p; });
+	std::vector<Product*>::iterator it = std::find(products.begin(), products.end(), p);
 	if (it == products.end())
 	{
 		std::cout << "Product does not exist" << std::endl;
 		return;
 	}
+	occupiedSpace -= (*it)->getQuantity();
 	products.erase(it);
 }
 
@@ -57,7 +58,7 @@ void Number::removeProduct(Product* p)
 /// getter for the products in the number
 /// </summary>
 /// <returns></returns>
-std::vector<Product*> Number::getProducts()
+std::vector<Product*>& Number::getProducts()
 {
 	return products;
 }

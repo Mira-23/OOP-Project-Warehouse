@@ -367,7 +367,7 @@ void Menu::log(std::string command)
 {
 	std::vector<std::string> params = getParams(command, "log", 2);
 	//log 2025-05-29|2025-05-31
-	warehouse.log(params[0], params[1]);
+	warehouse.log(params[0], params[1], std::cout);
 }
 
 /// <summary>
@@ -379,7 +379,7 @@ void Menu::check_losses(std::string command)
 	//product name|price|quantity|from|to
 	//checklosses Milk|2|1|2025-05-29|2025-05-31
 	std::vector<std::string> params = getParams(command, "checklosses", 5);
-	warehouse.check_losses(params[0], std::stod(params[1]), std::stod(params[2]), params[3], params[4]);
+	warehouse.check_losses(params[0], std::stod(params[1]), std::stod(params[2]), params[3], params[4], std::cout);
 }
 
 /// <summary>

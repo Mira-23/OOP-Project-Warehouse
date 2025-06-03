@@ -2,7 +2,7 @@
 C:\Users\mira\Desktop\C++ Exercises\OOP-Project-Warehouse\main\main\Product.cpp(231,12): warning C4244: 'initializing': conversion from '__int64' to 'long', possible loss of data
   (compiling source file 'UnitTests.cpp')
   
-C:\Users\mira\Desktop\C++ Exercises\OOP-Project-Warehouse\main\main\Warehouse.cpp(419,20): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\mira\Desktop\C++ Exercises\OOP-Project-Warehouse\main\main\Warehouse.cpp(412,20): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
   (compiling source file 'UnitTests.cpp')
   
   UnitTests.vcxproj -> C:\Users\mira\Desktop\C++ Exercises\OOP-Project-Warehouse\main\x64\Debug\UnitTests.exe

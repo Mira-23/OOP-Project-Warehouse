@@ -18,9 +18,9 @@ public:
 	void print(std::ostream& os);
 	bool add(Product* p) override;
 	void remove(std::string name, double quantity);
-	void log(std::string from, std::string to) const;
+	void log(std::string from, std::string to, std::ostream& os) const;
 	void clean();
-	void check_losses(std::string name, double price, double quantity, std::string from, std::string to);
+	void check_losses(std::string name, double price, double quantity, std::string from, std::string to, std::ostream& os);
 
 	bool addDirectly(Product* p) override;
 
@@ -28,6 +28,8 @@ public:
 	friend std::istream& operator>>(std::istream& is, Warehouse& warehouse);
 
 	void printProductList(std::ostream& os) const;
+
+	std::vector<Section>& getSections();
 
 	~Warehouse() override;
 private:

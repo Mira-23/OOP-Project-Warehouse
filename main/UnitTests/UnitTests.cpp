@@ -423,6 +423,40 @@ TEST_SUITE("WarehouseTests")
         Warehouse w;
         CHECK_NOTHROW(StorageUnit * iw = w.clone(); delete iw;);
     }
+    TEST_CASE("Add")
+    {
+        Warehouse w;
+
+        std::string name = "Milk";
+        std::string enDate = "2025-1-1";
+        std::string exDate1 = "2025-1-10";
+        std::string exDate2 = "2026-1-10";
+        std::string manufacturer = "Pilos";
+        std::string quantity = "2.000000";
+        std::string measurementUnit = "Litres";
+        std::string comment = "Just milk";
+
+        Product p1(name, enDate, exDate1, manufacturer, quantity, measurementUnit, comment);
+        Product p2(name, enDate, exDate2, manufacturer, quantity, measurementUnit, comment);
+        SUBCASE("general add")
+        {
+            w.add(&p1);
+            CHECK(w.getSections()[0].getShelves()[0].getNumbers()[0].getProducts().size() == 1);
+        }
+        SUBCASE("add with the same type of product")
+        {
+            w.add(&p1);
+            w.add(&p1);
+            CHECK(w.getSections()[0].getShelves()[0].getNumbers()[0].getProducts().size() == 2);
+        }
+        SUBCASE("add on a full number")
+        {
+            w.add(&p1);
+            w.add(&p2);
+            CHECK(w.getSections()[0].getShelves()[0].getNumbers()[0].getProducts().size() == 1);
+            CHECK(w.getSections()[0].getShelves()[0].getNumbers()[1].getProducts().size() == 1);
+        }
+    }
     TEST_CASE("Print") {
         Warehouse w;
 
@@ -467,21 +501,159 @@ TEST_SUITE("WarehouseTests")
 
         CHECK_EQ(expectedOutput, ss.str());
     }
+    TEST_CASE("Copy constructor")
+    {
+        Warehouse w;
+        Product p;
+        w.add(&p);
+        Warehouse wa(w);
+        std::string expectedOutput = "|1900-1-0|1900-1-0||0/0/0|0|Kilograms|\n";
+        std::ostringstream ss;
+        ss << wa;
+        CHECK_EQ(expectedOutput, ss.str());
+    }
+    TEST_CASE("Operator =")
+    {
+        Warehouse w;
+        Product p;
+        w.add(&p);
+        Warehouse wa = w;
+        std::string expectedOutput = "|1900-1-0|1900-1-0||0/0/0|0|Kilograms|\n";
+        std::ostringstream ss;
+        ss << wa;
+        CHECK_EQ(expectedOutput, ss.str());
+    }
+    TEST_CASE("Operator >>")
+    {
+        Warehouse w;
+        std::string expectedOutput = "Milk|2024-1-1|2026-1-10|Pilos|0/0/0|2|Litres|Just milk\n";
+        std::istringstream ss1(expectedOutput);
+        ss1 >> w;
+        std::ostringstream ss2;
+        ss2 << w;
+        CHECK_EQ(expectedOutput, ss2.str());
+    }
+    TEST_CASE("Operator <<")
+    {
+        Warehouse w;
+        Product p;
+        w.add(&p);
+        std::string expectedOutput = "|1900-1-0|1900-1-0||0/0/0|0|Kilograms|\n";
+        std::ostringstream ss;
+        ss << w;
+        CHECK_EQ(expectedOutput, ss.str());
+    }
+    TEST_CASE("Add directly")
+    {
+        std::string name = "Milk";
+        std::string enDate = "2024-1-01";
+        std::string exDate = "2026-1-10";
+        std::string manufacturer = "Pilos";
+        std::string quantity = "2.000000";
+        std::string measurementUnit = "Litres";
+        std::string comment = "Just milk";
 
-    /*
-    Warehouse(const Warehouse & other);
-    Warehouse& operator=(Warehouse & other);
+        Product p(name, enDate, exDate, manufacturer, quantity, measurementUnit, comment);
 
-    bool add(Product * p) override;
-    void remove(std::string name, double quantity);
-    void log(std::string from, std::string to) const;
-    void clean();
-    void check_losses(std::string name, double price, double quantity, std::string from, std::string to);
+        p.setSectionId(0);
+        p.setShelfId(0);
+        p.setNumberId(0);
 
-    bool addDirectly(Product * p) override;
+        Warehouse w;
+        std::string expectedOutput = "Milk|2024-1-1|2026-1-10|Pilos|0/0/0|2|Litres|Just milk\n";
 
-    friend std::ostream& operator<<(std::ostream & os, const Warehouse & warehouse);
-    friend std::istream& operator>>(std::istream & is, Warehouse & warehouse);
+        bool didAdd = w.addDirectly(&p);
 
-    ~Warehouse() override;*/
+        CHECK(didAdd);
+
+        std::ostringstream ss;
+
+        w.printProductList(ss);
+
+        CHECK_EQ(expectedOutput, ss.str());
+    }
+    TEST_CASE("Log")
+    {
+        Product p;
+        Warehouse w;
+        
+        std::time_t now = std::time(0);
+        struct tm time;
+        localtime_s(&time, &now);
+
+        std::stringstream ss1;
+
+        ss1 << time.tm_year + 1900 << "-" << time.tm_mon + 1 << "-" << time.tm_mday;
+
+        SUBCASE("log addition")
+        {
+            w.add(&p);
+            std::string expectedOutput = ss1.str() + " add product Product  that entered on 1900-1-0 and expires on 1900-1-0 from manufacturer  with location: SectionId: 0, ShelfId: 0, with NumberId: 0 with quantity of 0 Kilograms ()\n";
+
+            std::ostringstream ss2;
+
+            w.log("2024-1-1", "2026-1-1", ss2);
+            CHECK_EQ(expectedOutput, ss2.str());
+        }
+    }
+    TEST_CASE("Remove")
+    {
+        std::string name = "Milk";
+        std::string enDate = "2024-1-01";
+        std::string exDate = "2026-1-10";
+        std::string manufacturer = "Pilos";
+        std::string quantity = "2.000000";
+        std::string measurementUnit = "Litres";
+        std::string comment = "Just milk";
+
+        Product p(name, enDate, exDate, manufacturer, quantity, measurementUnit, comment);
+        Warehouse w;
+        w.add(&p);
+
+        SUBCASE("quantity needed is less than present - should only change the quantity of the product")
+        {
+            w.remove("Milk",1);
+            double changedQuantity = w.getSections()[0].getShelves()[0].getNumbers()[0].getProducts()[0]->getQuantity();
+            CHECK_EQ(1.0, changedQuantity);
+        }
+        SUBCASE("quantity needed is equal to present - should remove the product")
+        {
+            w.remove("Milk", 2);
+            Number num = w.getSections()[0].getShelves()[0].getNumbers()[0];
+            bool isEmpty = num.getProducts().size() == 0;
+            CHECK(isEmpty);
+        }
+    }
+    TEST_CASE("Clean")
+    {
+        Product p;
+        Warehouse w;
+
+        w.add(&p);
+        w.clean();
+
+        CHECK(w.getSections()[0].getShelves()[0].getNumbers()[0].getProducts().size() == 0);
+    }
+    TEST_CASE("Check losses")
+    {
+        std::string name = "Milk";
+        std::string enDate = "2024-1-1";
+        std::string exDate = "2026-1-10";
+        std::string manufacturer = "Pilos";
+        std::string quantity = "2.000000";
+        std::string measurementUnit = "Litres";
+        std::string comment = "Just milk";
+
+        Product p(name, enDate, exDate, manufacturer, quantity, measurementUnit, comment);
+        Warehouse w;
+
+        std::string expectedOutput = "Money lost: 6\n";
+        std::ostringstream ss;
+
+        w.add(&p);
+        w.check_losses(name, 3, 2, "2024-1-1", "2027-1-01", std::cout);
+        w.check_losses(name, 3, 2, "2024-1-1", "2027-1-01",ss);
+        std::string actualOutput = ss.str();
+        CHECK_EQ(expectedOutput, actualOutput);
+    }
 }

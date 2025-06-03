@@ -20,6 +20,7 @@ void ChangeLog::submitChange(std::string command, std::string product)
 	std::time_t onlyDate = mktime(&daymonthYear);
 
 	datedMessages.insert({ currentTime, line });
+	
 }
 
 /// <summary>
@@ -52,7 +53,7 @@ void ChangeLog::submitChange(std::string command, std::string product, double qu
 /// </summary>
 /// <param name="from"></param>
 /// <param name="to"></param>
-void ChangeLog::printLog(std::string from, std::string to) const
+void ChangeLog::printLog(std::string from, std::string to, std::ostream& os) const
 {
 	struct tm fromDate;
 	fromDate.tm_hour = 0;
@@ -86,7 +87,7 @@ void ChangeLog::printLog(std::string from, std::string to) const
 
 		if (m.first >= fromTime && m.first <= toTime)
 		{
-			std::cout << daymonthYear.tm_year + 1900 << "-" << daymonthYear.tm_mon + 1 << "-" << daymonthYear.tm_mday << " " << m.second << std::endl;
+			os << daymonthYear.tm_year + 1900 << "-" << daymonthYear.tm_mon + 1 << "-" << daymonthYear.tm_mday << " " << m.second << std::endl;
 		}
 	}
 }

@@ -182,7 +182,6 @@ void Warehouse::remove(std::string name, double quantity)
 	/// <summary>
 	/// makes a vector for the placements of the removed product types (from warehouse) so that they can be removed from the vector later
 	/// </summary>
-	std::vector<std::vector<Product*>::iterator> removedProducts;
 	double sum = 0;
 
 	/// <summary>
@@ -207,26 +206,19 @@ void Warehouse::remove(std::string name, double quantity)
 				std::cout << "Product could not be erased";
 				return;
 			}
-			removedProducts.push_back(it);
+			std::cout << "A batch of product " << (*it)->getName() << " was removed" << std::endl;
+			changelog.submitChange("remove", (*it)->getName());
+			delete (*it);
+			it = productList.erase(it);
 		}
 		else {
 			(*it)->reduceQuantityBy(quantity-sum);
 			sum = quantity;
 			changelog.submitChange("change", (*it)->getName(),quantity);
 			std::cout << "Product " << (*it)->getName() << " had " << quantity << " " << (*it)->stringMeasurementUnit() << " removed" << std::endl;
+			it++;
 		}
-		it++;
-	}
-
-	/// <summary>
-	/// removes the removed products from the warehouse vector
-	/// </summary>
-	for (std::vector<Product*>::iterator rit : removedProducts)
-	{
-		std::cout << "A batch of product " << (*rit)->getName() << " was removed" << std::endl;
-		changelog.submitChange("remove", (*rit)->getName());
-		delete (*rit);
-		productList.erase(rit);
+		
 	}
 }
 
@@ -235,9 +227,9 @@ void Warehouse::remove(std::string name, double quantity)
 /// </summary>
 /// <param name="from"></param>
 /// <param name="to"></param>
-void Warehouse::log(std::string from, std::string to) const
+void Warehouse::log(std::string from, std::string to, std::ostream& os) const
 {
-	changelog.printLog(from,to);
+	changelog.printLog(from,to, os);
 }
 
 /// <summary>
@@ -247,9 +239,9 @@ void Warehouse::log(std::string from, std::string to) const
 /// </summary>
 void Warehouse::clean()
 {
-	
-	std::vector<std::vector<Product*>::iterator> its;
-	for (std::vector<Product*>::iterator it = productList.begin(); it != productList.end();it++)
+	int count = 0;
+	std::vector<Product*>::iterator it = productList.begin();
+	while (it != productList.end())
 	{
 		if ((*it)->closeToExpiration())
 		{
@@ -257,23 +249,24 @@ void Warehouse::clean()
 			int shelfId = (*it)->getShelfId();
 			int numberId = (*it)->getNumberId();
 			sections[sectionId].getShelves()[shelfId].getNumbers()[numberId].removeProduct((*it));
-			its.push_back(it);
+			count++;
+			std::cout << "Cleaned ";
+			(*it)->print(std::cout);
+			changelog.submitChange("clean", (*it)->productAsMessage());
+			delete* it;
+
+			it = productList.erase(it);
 		}
+		else {
+			it++;
+		}
+
 	}
 
-	if (its.empty())
+	if (count == 0)
 	{
 		std::cout << "No expired products." << std::endl;
 		return;
-	}
-
-	for (std::vector<Product*>::iterator it : its)
-	{
-		(*it)->print(std::cout);
-		changelog.submitChange("clean", (*it)->productAsMessage());
-		delete* it;
-		productList.erase(it);
-		
 	}
 }
 
@@ -287,7 +280,7 @@ void Warehouse::clean()
 /// <param name="quantity"></param>
 /// <param name="from"></param>
 /// <param name="to"></param>
-void Warehouse::check_losses(std::string name, double price, double quantity, std::string from, std::string to)
+void Warehouse::check_losses(std::string name, double price, double quantity, std::string from, std::string to, std::ostream& os)
 {
 	
 	// sorts the list so that the latest come up to the top, which is for the next code to iterate over it properly
@@ -372,7 +365,7 @@ void Warehouse::check_losses(std::string name, double price, double quantity, st
 		}
 	}
 
-	std::cout << "Money lost: " << lostExpenses << std::endl;
+	os << "Money lost: " << lostExpenses << std::endl;
 }
 
 /// <summary>
@@ -432,6 +425,11 @@ void Warehouse::printProductList(std::ostream& os) const
 		Product pr = *p;
 		os << pr;
 	}
+}
+
+std::vector<Section>& Warehouse::getSections()
+{
+	return sections;
 }
 
 /// <summary>

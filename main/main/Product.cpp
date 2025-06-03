@@ -229,7 +229,7 @@ bool Product::closeToExpiration()
 	time_t t1 = std::time(0);
 	time_t t2 = mktime(&expirationDate);
 	long diff = ((std::abs(t2-t1) / 60) / 60) / 24;
-	bool check = (diff <= 2) || t1>t2; //expires in 2 days
+	bool check = (diff <= 2) || t1 > t2 || (expirationDate.tm_year + 1900) < 2025; //expires in 2 days
 	return check;
 }
 

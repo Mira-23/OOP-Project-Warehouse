@@ -56,7 +56,7 @@ bool Shelf::addDirectly(Product* product)
 /// getter for the products of the shelf
 /// </summary>
 /// <returns></returns>
-std::vector<Number> Shelf::getNumbers()
+std::vector<Number>& Shelf::getNumbers()
 {
 	return numbers;
 }

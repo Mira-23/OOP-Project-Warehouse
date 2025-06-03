@@ -17,7 +17,7 @@ public:
 	void submitChange(std::string command, std::string target);
 	void submitChange(std::string command, std::string target, double quantity);
 
-	void printLog(std::string from, std::string to) const;
+	void printLog(std::string from, std::string to, std::ostream& os) const;
 private:
 	std::map<std::time_t, std::string> datedMessages;
 };
