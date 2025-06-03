@@ -17,9 +17,9 @@ public:
 
 	void print(std::ostream& os);
 	bool add(Product* p) override;
-	void remove(std::string name, double quantity);
+	void remove(std::string name, double quantity, std::ostream& os);
 	void log(std::string from, std::string to, std::ostream& os) const;
-	void clean();
+	void clean(std::ostream& os);
 	void check_losses(std::string name, double price, double quantity, std::string from, std::string to, std::ostream& os);
 
 	bool addDirectly(Product* p) override;

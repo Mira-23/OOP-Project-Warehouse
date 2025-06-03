@@ -32,9 +32,6 @@
     <ClCompile Include="StorageUnit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ChangeLog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -58,10 +55,10 @@
     <ClInclude Include="StorageUnit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Menu.h">
+    <ClInclude Include="ChangeLog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ChangeLog.h">
+    <ClInclude Include="Menu.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

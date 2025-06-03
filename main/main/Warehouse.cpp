@@ -127,7 +127,7 @@ bool Warehouse::add(Product* product)
 /// </summary>
 /// <param name="name"></param>
 /// <param name="quantity"></param>
-void Warehouse::remove(std::string name, double quantity)
+void Warehouse::remove(std::string name, double quantity, std::ostream& os)
 {
 	/// <summary>
 	/// sorts the list so that the latest come up to the top, which is for the next code to iterate over it properly
@@ -145,7 +145,7 @@ void Warehouse::remove(std::string name, double quantity)
 		});
 	if (it == productList.end())
 	{
-		std::cout << "Product does not exist in warehouse." << std::endl;
+		os << "Product does not exist in warehouse." << std::endl;
 		return;
 	}
 
@@ -203,10 +203,10 @@ void Warehouse::remove(std::string name, double quantity)
 			}
 			catch (...)
 			{
-				std::cout << "Product could not be erased";
+				os << "Product could not be erased";
 				return;
 			}
-			std::cout << "A batch of product " << (*it)->getName() << " was removed" << std::endl;
+			os << "A batch of product " << (*it)->getName() << " was removed" << std::endl;
 			changelog.submitChange("remove", (*it)->getName());
 			delete (*it);
 			it = productList.erase(it);
@@ -237,7 +237,7 @@ void Warehouse::log(std::string from, std::string to, std::ostream& os) const
 /// this also deletes the pointers of the removed products
 /// logs any cleaned product in the changelog
 /// </summary>
-void Warehouse::clean()
+void Warehouse::clean(std::ostream& os)
 {
 	int count = 0;
 	std::vector<Product*>::iterator it = productList.begin();
@@ -250,8 +250,8 @@ void Warehouse::clean()
 			int numberId = (*it)->getNumberId();
 			sections[sectionId].getShelves()[shelfId].getNumbers()[numberId].removeProduct((*it));
 			count++;
-			std::cout << "Cleaned ";
-			(*it)->print(std::cout);
+			os << "Cleaned ";
+			(*it)->print(os);
 			changelog.submitChange("clean", (*it)->productAsMessage());
 			delete* it;
 

@@ -130,7 +130,6 @@
   <ItemGroup>
     <ClCompile Include="ChangeLog.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Number.cpp" />
     <ClCompile Include="Product.cpp" />
     <ClCompile Include="Section.cpp" />
@@ -140,7 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChangeLog.h" />
-    <ClInclude Include="Menu.h" />
+    <ClInclude Include="Menu.hpp" />
     <ClInclude Include="Number.h" />
     <ClInclude Include="Product.h" />
     <ClInclude Include="Section.h" />

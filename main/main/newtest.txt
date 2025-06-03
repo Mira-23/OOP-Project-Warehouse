@@ -1,0 +1,6 @@
+Milk|2025-6-22|2025-6-28|Pilos|0/0/0|2|Litres|Just milk
+Not Soap|2005-1-1|2031-10-10|SoapOOC|0/0/1|4|Kilograms|Its soap
+Not Soap|2007-4-4|2031-10-10|SoapOOC|0/0/2|9|Kilograms|Its soap
+Not Soap|2007-4-4|2031-10-10|SoapOOC|0/0/3|9|Kilograms|Its soap
+Not Soap|2007-4-4|2031-11-3|SoapOOC|0/0/5|9|Kilograms|Its soap
+Not Soap|2007-4-4|2031-12-12|SoapOOC|0/0/4|9|Kilograms|Its soap
